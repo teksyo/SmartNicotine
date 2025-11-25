@@ -24,6 +24,26 @@ export function HeroSection({
     <section className="relative h-[90vh] max-h-[920px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-green-50 to-blue-50 dark:from-blue-950/20 dark:via-green-950/20 dark:to-blue-950/20">
       {/* Subtle Medical Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(34,197,94,0.1),transparent_50%)]"></div>
+      
+      {/* Decorative Line Patterns */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Diagonal lines from top-left */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-20 left-10 w-40 h-1 bg-gradient-to-r from-blue-400/50 to-transparent rotate-45 dark:from-blue-300/40"></div>
+          <div className="absolute top-32 left-20 w-32 h-1 bg-gradient-to-r from-green-400/50 to-transparent rotate-45 dark:from-green-300/40"></div>
+          <div className="absolute top-44 left-5 w-28 h-0.5 bg-gradient-to-r from-blue-300/40 to-transparent rotate-45 dark:from-blue-300/30"></div>
+        </div>
+        
+        {/* Diagonal lines from top-right */}
+        <div className="absolute top-0 right-0 w-full h-full">
+          <div className="absolute top-16 right-12 w-36 h-1 bg-gradient-to-l from-green-400/50 to-transparent -rotate-45 dark:from-green-300/40"></div>
+          <div className="absolute top-28 right-24 w-28 h-1 bg-gradient-to-l from-blue-400/50 to-transparent -rotate-45 dark:from-blue-300/40"></div>
+          <div className="absolute top-40 right-8 w-24 h-0.5 bg-gradient-to-l from-green-300/40 to-transparent -rotate-45 dark:from-green-300/30"></div>
+        </div>
+        
+        {/* Additional geometric elements */}
+        <div className="absolute top-3/4 right-1/3 w-8 h-8 bg-gradient-to-br from-blue-400/30 to-green-400/30 rounded-full dark:from-blue-300/20 dark:to-green-300/20"></div>
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-10">
