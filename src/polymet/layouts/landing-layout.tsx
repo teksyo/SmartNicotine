@@ -27,10 +27,25 @@ export function LandingLayout({ children }: LandingLayoutProps) {
               </div>
             </div>
 
-            {/* Trust Badge */}
-            <div className="hidden sm:flex items-center gap-2 text-sm">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            {/* Navigation Menu */}
+            <nav className="flex items-center gap-6">
+              <a 
+                href="/" 
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Home
+              </a>
+              <a 
+                href="/chat" 
+                className="text-sm font-medium bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-green-700 transition-all"
+              >
+                Chat
+              </a>
+            </nav>
 
+            {/* Trust Badge */}
+            <div className="hidden lg:flex items-center gap-2 text-sm">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-muted-foreground">
                 Registered UK Charity
               </span>

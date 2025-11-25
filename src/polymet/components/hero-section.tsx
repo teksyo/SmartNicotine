@@ -21,9 +21,9 @@ export function HeroSection({
   onCtaClick,
 }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-blue-50/30 to-background dark:from-background dark:via-blue-950/10 dark:to-background">
+    <section className="relative h-[90vh] max-h-[920px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-green-50 to-blue-50 dark:from-blue-950/20 dark:via-green-950/20 dark:to-blue-950/20">
       {/* Subtle Medical Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.03),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(34,197,94,0.1),transparent_50%)]"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-10">
@@ -35,12 +35,15 @@ export function HeroSection({
                   {headline}
                 </span>
               </h1>
-              <p className="text-2xl sm:text-3xl font-semibold text-foreground">
+              <p className="text-2xl sm:text-4xl font-semibold text-foreground">
                 {subheadline}
               </p>
             </div>
-            <p className="text-base sm:text-lg text-muted-foreground font-medium">
-              {guide}
+            <p className="text-base sm:text-2xl text-muted-foreground font-medium">
+              Guided by <span className="relative inline-block">
+                <span className="text-foreground font-semibold">David Haye</span>
+                <span className="absolute bottom-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-600 to-green-600 rounded-full opacity-80"></span>
+              </span>
             </p>
           </div>
 

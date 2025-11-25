@@ -20,7 +20,7 @@ export const davidHayeData = {
     "Smart Nicotine was born from that belief. This isn't about judgment or quick fixes. It's about giving you the tools, knowledge, and support to break free—permanently. And it's completely free, because everyone deserves a fighting chance.",
   ],
 
-  imageUrl: "https://github.com/yusufhilmi.png",
+  imageUrl: "https://thesportingclub.co/wp-content/uploads/2023/03/david_haye-1-jpg.webp",
 };
 
 export const programPhases = [
