@@ -101,10 +101,10 @@ export function HeroSection({
             ))}
           </div>
 
-          {/* Trust Badge */}
+          {/* Trust Badge 
           <p className="text-sm text-muted-foreground">
             100% Free • No Credit Card Required • Science-Backed
-          </p>
+          </p>*/}
         </div>
       </div>
     </section>
