@@ -8,21 +8,35 @@ const verifyTypeformSignature = (req, res, next) => {
   const signature = req.get('Typeform-Signature');
   const secret = process.env.TYPEFORM_WEBHOOK_SECRET;
   
+  console.log('Signature verification debug:');
+  console.log('Received signature:', signature);
+  console.log('Secret exists:', !!secret);
+  
   if (!signature || !secret) {
+    console.log('Missing signature or secret');
     return res.status(401).json({ error: 'Missing signature or secret' });
   }
 
+  const payload = JSON.stringify(req.body);
+  console.log('Payload for signature:', payload);
+  
   const expectedSignature = crypto
     .createHmac('sha256', secret)
-    .update(JSON.stringify(req.body))
+    .update(payload)
     .digest('base64');
 
   const providedSignature = signature.replace('sha256=', '');
+  
+  console.log('Expected signature:', expectedSignature);
+  console.log('Provided signature:', providedSignature);
+  console.log('Signatures match:', expectedSignature === providedSignature);
 
   if (expectedSignature !== providedSignature) {
-    return res.status(401).json({ error: 'Invalid signature' });
+    console.log('Signature verification failed');
+    return res.status(401).json({ error: 'Invalid signature', debug: { expected: expectedSignature, provided: providedSignature } });
   }
 
+  console.log('Signature verification successful');
   next();
 };
 
@@ -41,9 +55,11 @@ const transformTypeformData = (submission) => {
 
     switch (answer.type) {
       case 'text':
-      case 'email':
       case 'phone_number':
         value = answer.text;
+        break;
+      case 'email':
+        value = answer.email;
         break;
       case 'number':
         value = answer.number;
@@ -75,7 +91,7 @@ const transformTypeformData = (submission) => {
   return transformedData;
 };
 
-router.post('/typeform', verifyTypeformSignature, async (req, res) => {
+router.post('/typeform', async (req, res) => {
   try {
     console.log('Received Typeform webhook:', JSON.stringify(req.body, null, 2));
 
