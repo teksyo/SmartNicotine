@@ -40,55 +40,68 @@ const verifyTypeformSignature = (req, res, next) => {
   next();
 };
 
-const transformTypeformData = (submission) => {
-  const answers = submission.answers || [];
-  const transformedData = {
-    form_id: submission.form_id,
-    response_id: submission.token,
-    submitted_at: submission.submitted_at,
-    answers: {}
+const transformTypeformData = (formResponse) => {
+  const { form_id, token, submitted_at, definition, answers } = formResponse;
+  
+  // Create a mapping of field refs/ids to titles
+  const fieldMapping = {};
+  if (definition && definition.fields) {
+    definition.fields.forEach(field => {
+      const key = field.ref || field.id;
+      fieldMapping[key] = field.title;
+    });
+  }
+
+  const transformedAnswers = {};
+  
+  if (answers) {
+    answers.forEach(answer => {
+      const fieldRef = answer.field?.ref || answer.field?.id;
+      const questionTitle = fieldMapping[fieldRef] || `Question ${fieldRef}`;
+      let value = null;
+
+      switch (answer.type) {
+        case 'text':
+        case 'phone_number':
+          value = answer.text;
+          break;
+        case 'email':
+          value = answer.email;
+          break;
+        case 'number':
+          value = answer.number;
+          break;
+        case 'boolean':
+          value = answer.boolean;
+          break;
+        case 'choice':
+          value = answer.choice?.label;
+          break;
+        case 'choices':
+          value = answer.choices?.labels?.join(', ');
+          break;
+        case 'date':
+          value = answer.date;
+          break;
+        case 'url':
+          value = answer.url;
+          break;
+        default:
+          value = JSON.stringify(answer);
+      }
+
+      if (questionTitle && value !== null) {
+        transformedAnswers[questionTitle] = value;
+      }
+    });
+  }
+
+  return {
+    form_id,
+    response_id: token,
+    submitted_at,
+    answers: transformedAnswers
   };
-
-  answers.forEach(answer => {
-    const fieldRef = answer.field?.ref || answer.field?.id;
-    let value = null;
-
-    switch (answer.type) {
-      case 'text':
-      case 'phone_number':
-        value = answer.text;
-        break;
-      case 'email':
-        value = answer.email;
-        break;
-      case 'number':
-        value = answer.number;
-        break;
-      case 'boolean':
-        value = answer.boolean;
-        break;
-      case 'choice':
-        value = answer.choice?.label;
-        break;
-      case 'choices':
-        value = answer.choices?.labels?.join(', ');
-        break;
-      case 'date':
-        value = answer.date;
-        break;
-      case 'url':
-        value = answer.url;
-        break;
-      default:
-        value = JSON.stringify(answer);
-    }
-
-    if (fieldRef) {
-      transformedData.answers[fieldRef] = value;
-    }
-  });
-
-  return transformedData;
 };
 
 router.post('/typeform', async (req, res) => {
