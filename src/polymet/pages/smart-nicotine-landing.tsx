@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { HeroSection } from "@/polymet/components/hero-section";
 import { DavidHayeSection } from "@/polymet/components/david-haye-section";
 import { ProgramPhasesSection } from "@/polymet/components/program-phases-section";
@@ -18,9 +19,10 @@ import {
 } from "@/polymet/data/smart-nicotine-data";
 
 export function SmartNicotineLanding() {
+  const navigate = useNavigate();
+  
   const handleCtaClick = () => {
-    // Scroll to CTA section or handle form submission
-    console.log("CTA clicked - Join waiting list");
+    navigate("/assessment");
   };
 
   return (
