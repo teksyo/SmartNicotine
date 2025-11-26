@@ -53,6 +53,7 @@ const transformTypeformData = (formResponse) => {
   }
 
   const transformedAnswers = {};
+  let extractedEmail = null;
   
   if (answers) {
     answers.forEach(answer => {
@@ -67,6 +68,10 @@ const transformTypeformData = (formResponse) => {
           break;
         case 'email':
           value = answer.email;
+          // Extract email for separate column
+          if (answer.email && questionTitle.toLowerCase().includes('email')) {
+            extractedEmail = answer.email.toLowerCase().trim();
+          }
           break;
         case 'number':
           value = answer.number;
@@ -100,6 +105,7 @@ const transformTypeformData = (formResponse) => {
     form_id,
     response_id: token,
     submitted_at,
+    email: extractedEmail,
     answers: transformedAnswers
   };
 };

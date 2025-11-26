@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LandingLayout } from "@/polymet/layouts/landing-layout";
 import { SmartNicotineLanding } from "@/polymet/pages/smart-nicotine-landing";
 import { AssessmentPage } from "@/polymet/pages/assessment";
+import ChatPage from "@/components/ChatPage";
 
 export default function SmartNicotineApp() {
   return (
@@ -22,6 +23,10 @@ export default function SmartNicotineApp() {
               <AssessmentPage />
             </LandingLayout>
           }
+        />
+        <Route
+          path="/chat"
+          element={<ChatPage />}
         />
       </Routes>
     </Router>
