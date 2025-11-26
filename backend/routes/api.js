@@ -8,13 +8,98 @@ router.get('/health', (req, res) => {
 
 router.get('/test-db', async (req, res) => {
   try {
-    const { data, error } = await supabase.from('test').select('*').limit(1);
-    if (error) {
-      return res.status(400).json({ error: error.message });
-    }
-    res.json({ message: 'Database connection successful', data });
+    // Test basic connection
+    const { data: testData, error: testError } = await supabase.from('typeform_submissions').select('count').limit(1);
+    
+    // Test if we can read any records at all
+    const { data, error } = await supabase
+      .from('typeform_submissions')
+      .select('id, email')
+      .limit(3);
+      
+    res.json({ 
+      message: 'Database test results',
+      canConnect: !testError,
+      connectionError: testError?.message || null,
+      recordCount: data?.length || 0,
+      queryError: error?.message || null,
+      sampleRecords: data || []
+    });
   } catch (err) {
-    res.status(500).json({ error: 'Database connection failed', details: err.message });
+    res.status(500).json({ error: 'Database test failed', details: err.message });
+  }
+});
+
+router.get('/debug/test-email', async (req, res) => {
+  try {
+    const testEmail = 'johnsmith@mail.com';
+    
+    console.log('🧪 Testing different query variations...');
+    
+    // Test 1: Exact match
+    const test1 = await supabase
+      .from('typeform_submissions')
+      .select('*')
+      .eq('email', testEmail)
+      .limit(1);
+    
+    // Test 2: Case insensitive match
+    const test2 = await supabase
+      .from('typeform_submissions')
+      .select('*')
+      .ilike('email', testEmail)
+      .limit(1);
+      
+    // Test 3: Get all records to see what emails exist
+    const test3 = await supabase
+      .from('typeform_submissions')
+      .select('email, id')
+      .limit(10);
+
+    res.json({
+      testEmail,
+      exactMatch: { count: test1.data?.length || 0, error: test1.error?.message },
+      caseInsensitive: { count: test2.data?.length || 0, error: test2.error?.message },
+      allEmails: test3.data?.map(r => r.email) || [],
+      rawData: test1.data?.[0] || 'none'
+    });
+
+  } catch (err) {
+    console.error('Test error:', err);
+    res.status(500).json({ error: 'Test failed', details: err.message });
+  }
+});
+
+router.get('/debug/users', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('typeform_submissions')
+      .select('id, email, response_id, answers')
+      .order('created_at', { ascending: false })
+      .limit(5);
+
+    if (error) {
+      console.error('Supabase query error:', error);
+      return res.status(500).json({ error: 'Database query failed', details: error.message });
+    }
+
+    // Extract emails from both sources
+    const enrichedData = data?.map(record => ({
+      id: record.id,
+      emailColumn: record.email,
+      emailFromAnswers: record.answers?.['Email address'],
+      responseId: record.response_id,
+      allAnswers: Object.keys(record.answers || {})
+    })) || [];
+
+    res.json({
+      count: data?.length || 0,
+      users: enrichedData
+    });
+
+  } catch (err) {
+    console.error('API error:', err);
+    res.status(500).json({ error: 'Internal server error', details: err.message });
   }
 });
 
@@ -23,25 +108,43 @@ router.get('/user', async (req, res) => {
     const { email } = req.query;
     
     if (!email) {
+      console.log("No Email");
       return res.status(400).json({ error: 'Email parameter is required' });
     }
 
+    console.log(`🔍 Searching for email: "${email}"`);
+    console.log(`🔍 Normalized email: "${email.toLowerCase().trim()}"`);
+
     // First try to search by the dedicated email column (faster)
+    console.log("📧 Trying email column search...");
     let { data, error } = await supabase
       .from('typeform_submissions')
       .select('*')
-      .eq('email', email.toLowerCase().trim())
+      .eq('email', email)
       .order('created_at', { ascending: false })
       .limit(1);
 
+    console.log("📊 Email column search result:", {
+      dataLength: data?.length || 0,
+      error: error?.message || 'none',
+      firstRecord: data?.[0] || 'none'
+    });
+
     // If not found, fallback to searching in JSON answers (for backward compatibility)
     if ((!data || data.length === 0) && !error) {
+      console.log("📧 Trying JSON answers search...");
       const fallbackResult = await supabase
         .from('typeform_submissions')
         .select('*')
         .ilike('answers->>Email address', email)
         .order('created_at', { ascending: false })
         .limit(1);
+      
+      console.log("📊 JSON search result:", {
+        dataLength: fallbackResult.data?.length || 0,
+        error: fallbackResult.error?.message || 'none',
+        firstRecord: fallbackResult.data?.[0] || 'none'
+      });
       
       data = fallbackResult.data;
       error = fallbackResult.error;

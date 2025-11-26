@@ -55,10 +55,6 @@ const ChatPage = () => {
         // Initialize agent session with user profile
         await startAgentSession(profile);
         
-        // Add welcome message
-        addAgentMessage(
-          `Hello! I'm your Smart Nicotine AI Guide, speaking with David Haye's voice. I've reviewed your assessment and I'm here to help you on your journey to quit smoking. How are you feeling today?`
-        );
       } else if (response.status === 404) {
         setError("We couldn't find your assessment. Enter your email again below.");
         setUserProfile(null);
@@ -89,31 +85,51 @@ const ChatPage = () => {
   // Initialize ElevenLabs agent session
   const startAgentSession = async (profile: any) => {
     try {
-      // Placeholder for ElevenLabs agent initialization
-      // In real implementation, this would:
-      // 1. Initialize ElevenLabs conversational agent
-      // 2. Set up David Haye voice model
-      // 3. Pass user profile as session variables
+      console.log('🚀 Starting ElevenLabs agent session with profile:', profile);
       
-      console.log('Starting agent session with profile:', profile);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const response = await fetch(`${apiUrl}/api/chat/start`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: profile.email
+        })
+      });
       
-      // Mock session object
+      if (!response.ok) {
+        throw new Error(`Failed to start chat session: ${response.status}`);
+      }
+      
+      const sessionData = await response.json();
+      console.log('✅ Chat session started:', sessionData);
+      
       const session = {
-        agentId: 'david-haye-voice-agent',
-        voiceId: 'david-haye-voice-id',
-        sessionVars: {
-          cigarettesPerDay: profile.answers?.['On average, how many cigarettes do you smoke per day?'],
-          quitAttempts: profile.answers?.['How many times have you seriously tried to quit smoking?'],
-          motivation: profile.answers?.['What is your main motivation for wanting to quit smoking?'],
-          smokingDuration: profile.answers?.['How long have you smoked cigarettes?'],
-          preferredBrand: profile.answers?.['What is your preferred cigarette brand?']
-        }
+        sessionId: sessionData.sessionId,
+        agentId: sessionData.agentId,
+        conversationId: sessionData.conversationId,
+        voiceId: sessionData.voiceId,
+        status: sessionData.status,
+        initialMessage: sessionData.initialMessage
       };
       
       setAgentSession(session);
       
+      // Add initial message to chat
+      if (sessionData.initialMessage) {
+        const initialMessage = {
+          id: Date.now(),
+          type: 'agent',
+          text: sessionData.initialMessage,
+          timestamp: new Date(),
+          audioUrl: sessionData.audioUrl || null
+        };
+        setMessages([initialMessage]);
+      }
+      
     } catch (err) {
-      console.error('Error starting agent session:', err);
+      console.error('❌ Error starting agent session:', err);
       setError('Failed to initialize AI guide. Please refresh and try again.');
     }
   };
@@ -159,36 +175,41 @@ const ChatPage = () => {
   // Generate TTS audio using ElevenLabs
   const generateTTS = async (text: string) => {
     try {
-      // Placeholder for ElevenLabs TTS API call
-      // In real implementation, this would:
-      // 1. Call ElevenLabs TTS API with David Haye voice
-      // 2. Return audio blob URL
-      
-      console.log('Generating TTS for:', text);
-      
-      // Mock implementation - returns null for now
-      // Replace with actual ElevenLabs API call
-      /*
-      const response = await fetch('/api/tts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text,
-          voiceId: agentSession?.voiceId,
-        }),
-      });
-      
-      if (response.ok) {
-        const audioBlob = await response.blob();
-        return URL.createObjectURL(audioBlob);
+      // Check if we have an audio URL from the last ElevenLabs response
+      const audioUrl = (window as any).lastAudioUrl;
+      if (audioUrl) {
+        console.log('🔊 Using ElevenLabs audio URL:', audioUrl);
+        // Clear the stored URL
+        (window as any).lastAudioUrl = null;
+        return audioUrl;
       }
-      */
       
+      // Fallback: Generate TTS using standalone API if needed
+      if (agentSession?.voiceId) {
+        console.log('🎤 Generating standalone TTS for:', text);
+        
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const response = await fetch(`${apiUrl}/api/chat/tts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            text,
+            voiceId: agentSession.voiceId,
+          }),
+        });
+        
+        if (response.ok) {
+          const audioBlob = await response.blob();
+          return URL.createObjectURL(audioBlob);
+        }
+      }
+      
+      console.log('⚠️ No audio available for this message');
       return null;
     } catch (err) {
-      console.error('TTS generation error:', err);
+      console.error('❌ TTS generation error:', err);
       return null;
     }
   };
@@ -227,28 +248,50 @@ const ChatPage = () => {
   // Get response from ElevenLabs agent
   const getAgentResponse = async (userInput: string) => {
     try {
-      // Placeholder for ElevenLabs conversational agent API
-      // In real implementation, this would:
-      // 1. Send user input to ElevenLabs agent
-      // 2. Include session context and user profile
-      // 3. Return agent's text response
+      if (!agentSession?.sessionId) {
+        throw new Error('No active chat session');
+      }
+
+      console.log('💬 Sending message to ElevenLabs:', userInput);
       
-      console.log('Getting agent response for:', userInput);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const response = await fetch(`${apiUrl}/api/chat/message`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sessionId: agentSession.sessionId,
+          message: userInput
+        })
+      });
       
-      // Mock responses based on common smoking cessation topics
-      const mockResponses = [
-        "I understand how challenging this journey can be. Based on your assessment, you've been smoking for quite some time. What's your biggest concern about quitting right now?",
-        "That's a great question. From my experience and what I know about your smoking habits, I'd recommend starting with small, manageable changes. What time of day do you usually smoke the most?",
-        "You're taking a brave step by being here. Remember, every champion faces setbacks - it's how you bounce back that defines you. What's worked for you in previous quit attempts?",
-        "I hear you. The physical and mental aspects of quitting can feel overwhelming. Let's focus on one thing you can control today. What's one smoking trigger you'd like to tackle first?"
-      ];
+      if (!response.ok) {
+        throw new Error(`Failed to send message: ${response.status}`);
+      }
       
-      // Return a random mock response (replace with actual API call)
-      return mockResponses[Math.floor(Math.random() * mockResponses.length)];
+      const responseData = await response.json();
+      console.log('🤖 Received ElevenLabs response:', responseData);
+      
+      // If there's an audio URL, we'll handle it in addAgentMessage
+      if (responseData.audioUrl) {
+        // Store audio URL for later use
+        (window as any).lastAudioUrl = responseData.audioUrl;
+      }
+      
+      return responseData.response || "I understand. Let me help you with that.";
       
     } catch (err) {
-      console.error('Agent response error:', err);
-      throw err;
+      console.error('❌ Agent response error:', err);
+      
+      // Fallback to encouraging message
+      const fallbackResponses = [
+        "I'm here to support you on this journey. What's on your mind about quitting smoking?",
+        "Every step forward is progress. Tell me what you're thinking about right now.",
+        "I understand this is challenging. What would be most helpful to discuss today?"
+      ];
+      
+      return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
     }
   };
 
