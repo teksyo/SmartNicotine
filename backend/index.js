@@ -5,6 +5,8 @@ require('dotenv').config();
 const apiRoutes = require('./routes/api');
 const webhookRoutes = require('./routes/webhooks');
 const chatRoutes = require('./routes/chat');
+const ttsRoutes = require('./routes/tts');
+const agentChatRoutes = require('./routes/agent-chat');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,6 +21,8 @@ app.get('/', (req, res) => {
 app.use('/api', apiRoutes);
 app.use('/webhooks', webhookRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/tts', ttsRoutes);
+app.use('/api/agent', agentChatRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
