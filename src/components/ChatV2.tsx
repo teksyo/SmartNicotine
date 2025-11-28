@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useConversation } from '@elevenlabs/react';
+import { Conversation } from '@elevenlabs/client';
 
 const ChatV2 = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [userProfile, setUserProfile] = useState(null);
-  const [message, setMessage] = useState('');
+  const [connectionStatus, setConnectionStatus] = useState('Disconnected');
+  const [agentStatus, setAgentStatus] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
   
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  // Initialize ElevenLabs conversation
-  const conversation = useConversation({
-    serverLocation: 'us',
-    textOnly: true,  // Use text-only mode for localhost development
-  });
+  
+  // Global variable to store conversation (just like your vanilla JS)
+  let conversation = null;
 
   useEffect(() => {
     const urlEmail = new URLSearchParams(window.location.search).get("email");
@@ -35,7 +34,6 @@ const ChatV2 = () => {
       if (response.ok) {
         const profile = await response.json();
         setUserProfile(profile);
-        initializeConversation(profile);
       } else if (response.status === 404) {
         setError("We couldn't find your assessment. Enter your email again.");
         setUserProfile(null);
@@ -49,43 +47,99 @@ const ChatV2 = () => {
     }
   };
 
-  const initializeConversation = async (profile) => {
+  // Your exact vanilla JS functions, just wrapped in React
+  async function startConversation() {
     try {
-      console.log('🚀 Starting ElevenLabs conversation with React SDK...');
+      setError('');
+      console.log('🎙️ Requesting microphone permission...');
       
-      // Simple session start for localhost - the agent should be public
-      await conversation.startSession({
-        agentId: import.meta.env.VITE_ELEVENLABS_AGENT_ID || 'agent_2901kb13dkgbemkbxhve2tbsymd2',
-        connectionType: 'websocket'
+      // Request microphone permission
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      console.log('📦 Using ElevenLabs Conversation from npm package...');
+      
+      console.log('🚀 Starting conversation...');
+
+      // Start the conversation with more debugging and configuration
+      const agentId = import.meta.env.VITE_ELEVENLABS_AGENT_ID || 'agent_2901kb13dkgbemkbxhve2tbsymd2';
+      console.log('🎯 Using agent ID:', agentId);
+      
+      // Get dynamic variables from user profile
+      const dynamicVariables = {};
+      if (userProfile && userProfile.answers) {
+        const answers = userProfile.answers;
+        dynamicVariables.first_name = answers['First name'] || '';
+        dynamicVariables.last_name = answers['Last name'] || '';
+        dynamicVariables.sex = answers['Sex'] || '';
+        dynamicVariables.date_of_birth = answers['Date of birth'] || '';
+        dynamicVariables.email = userProfile.email || '';
+        dynamicVariables.smoking_duration = answers['How long have you smoked cigarettes?'] || '';
+        dynamicVariables.brand = answers['What is your preferred cigarette brand?'] || '';
+        dynamicVariables.cigs_per_day = answers['On average, how many cigarettes do you smoke per day?'] || '';
+        dynamicVariables.quit_attempts = answers['How many times have you seriously tried to quit smoking?'] || '';
+        dynamicVariables.long_quits = answers['How many times have you quit smoking for 30 days or more?'] || '';
+        dynamicVariables.motivation = answers['What is your main motivation for wanting to quit smoking?'] || '';
+      }
+
+      console.log('🎯 Dynamic variables:', dynamicVariables);
+
+      conversation = await Conversation.startSession({
+        agentId: agentId,
+        // Try different connection types
+        connectionType: 'websocket', // explicitly set websocket instead of default
+        dynamicVariables: dynamicVariables, // Add dynamic variables
+        onConnect: () => {
+          console.log('✅ Connected to agent successfully');
+          setConnectionStatus('Connected');
+          setIsConnected(true);
+        },
+        onDisconnect: (reason) => {
+          console.log('❌ Disconnected from agent. Reason:', reason);
+          setConnectionStatus('Disconnected');
+          setIsConnected(false);
+          setAgentStatus('');
+          setError(`Disconnected: ${reason || 'Unknown reason'}`);
+        },
+        onError: (error) => {
+          console.error('❌ Conversation Error Details:', error);
+          setError(`Error: ${JSON.stringify(error)}`);
+        },
+        onModeChange: (mode) => {
+          console.log('🔄 Mode changed to:', mode);
+          setAgentStatus(mode.mode === 'speaking' ? 'Speaking' : 'Listening');
+        },
+        // Add more event handlers for debugging
+        onMessage: (message) => {
+          console.log('📨 Message received:', message);
+        },
+        onStatusChange: (status) => {
+          console.log('🔄 Status changed:', status);
+          setConnectionStatus(typeof status === 'object' ? status.status || 'Unknown' : status);
+        }
       });
-
-      console.log('✅ Conversation started successfully');
-    } catch (err) {
-      console.error('❌ Error starting conversation:', err);
-      console.error('Full error:', err);
-      setError(`Connection failed. This may be due to localhost limitations. Error: ${err.message}`);
+      
+      console.log('✅ Conversation object created:', conversation);
+    } catch (error) {
+      console.error('❌ Failed to start conversation:', error);
+      setError(`Failed to start conversation: ${error.message || error}`);
     }
-  };
+  }
 
-  const getDynamicVariables = (profile) => {
-    if (!profile) return {};
-    
-    const answers = profile.answers || {};
-    
-    return {
-      "first_name": answers['First name'] || '',
-      "last_name": answers['Last name'] || '',
-      "sex": answers['Sex'] || '',
-      "date_of_birth": answers['Date of birth'] || '',
-      "email": profile.email || '',
-      "smoking_duration": answers['How long have you smoked cigarettes?'] || '',
-      "brand": answers['What is your preferred cigarette brand?'] || '',
-      "cigs_per_day": answers['On average, how many cigarettes do you smoke per day?'] || '',
-      "quit_attempts": answers['How many times have you seriously tried to quit smoking?'] || '',
-      "long_quits": answers['How many times have you quit smoking for 30 days or more?'] || '',
-      "motivation": answers['What is your main motivation for wanting to quit smoking?'] || ''
-    };
-  };
+  async function stopConversation() {
+    if (conversation) {
+      try {
+        await conversation.endSession();
+        conversation = null;
+        setConnectionStatus('Disconnected');
+        setIsConnected(false);
+        setAgentStatus('');
+        console.log('🔚 Conversation ended');
+      } catch (error) {
+        console.error('❌ Failed to stop conversation:', error);
+        setError(`Failed to stop conversation: ${error.message || error}`);
+      }
+    }
+  }
 
   const handleEmailSubmit = (e) => {
     e.preventDefault();
@@ -96,26 +150,6 @@ const ChatV2 = () => {
     }
     
     window.location.href = `/chat-v2?email=${encodeURIComponent(email)}`;
-  };
-
-  const sendMessage = (e) => {
-    e.preventDefault();
-    
-    if (!message.trim()) return;
-    
-    try {
-      console.log('📤 Sending message:', message);
-      conversation.sendUserMessage(message);
-      setMessage('');
-    } catch (err) {
-      console.error('❌ Error sending message:', err);
-      setError(`Failed to send message: ${err.message}`);
-    }
-  };
-
-  const endConversation = () => {
-    conversation.endSession();
-    console.log('🔚 Conversation ended');
   };
 
   if (loading) {
@@ -157,55 +191,63 @@ const ChatV2 = () => {
   return (
     <div style={styles.fullScreenContainer}>
       <div style={styles.header}>
-        <h1 style={styles.title}>Smart Nicotine AI Guide - V2 (React SDK)</h1>
+        <h1 style={styles.title}>Smart Nicotine AI Guide - V2 (Direct SDK)</h1>
         <p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>
         <div style={styles.statusContainer}>
-          <span style={styles.statusDot}>🟢</span>
-          <span style={styles.statusText}>Status: {conversation.status}</span>
-          {conversation.isSpeaking && <span style={styles.speakingIndicator}>🎤 Speaking...</span>}
+          <span style={styles.statusDot}>{isConnected ? '🟢' : '🔴'}</span>
+          <span style={styles.statusText}>Status: {connectionStatus}</span>
+          {agentStatus && <span style={styles.speakingIndicator}>🎤 {agentStatus}</span>}
         </div>
       </div>
 
       <div style={styles.chatContainer}>
-        <div style={styles.conversationInfo}>
-          <p>Conversation Status: <strong>{conversation.status}</strong></p>
-          <p>Agent Speaking: <strong>{conversation.isSpeaking ? 'Yes' : 'No'}</strong></p>
-          {conversation.status === 'disconnected' && (
-            <div style={styles.warningBox}>
-              ⚠️ React SDK may have limitations on localhost. For full functionality, deploy to HTTPS or use the widget version at <a href={`/chat?email=${userProfile?.email}`}>/chat</a>
+        {/*<div style={styles.conversationInfo}>
+          <p>Connection Status: <strong>{connectionStatus}</strong></p>
+          <p>Agent Status: <strong>{agentStatus || 'Ready'}</strong></p>
+          
+          {error && (
+            <div style={styles.errorBox}>
+              ❌ {error}
+              <div style={{marginTop: '10px', fontSize: '12px'}}>
+                <strong>Possible causes:</strong>
+                <ul style={{textAlign: 'left', margin: '8px 0 0 20px', padding: 0}}>
+                  <li>Agent is not set as public in ElevenLabs dashboard</li>
+                  <li>Agent ID is incorrect</li>
+                  <li>Network/HTTPS issues on localhost</li>
+                  <li>ElevenLabs API authentication required</li>
+                </ul>
+                <p style={{margin: '8px 0 0 0'}}>
+                  <strong>Alternative:</strong> Try the <a href={`/chat?email=${userProfile?.email}`} style={{color: '#2196F3'}}>widget version</a> which works on localhost.
+                </p>
+              </div>
             </div>
           )}
-        </div>
+        </div>*/}
 
-        <div style={styles.messageForm}>
-          <form onSubmit={sendMessage} style={styles.inputContainer}>
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type your message to David Haye..."
-              style={styles.messageInput}
-              disabled={conversation.status !== 'connected'}
-            />
-            <button 
-              type="submit" 
-              style={{
-                ...styles.sendButton,
-                opacity: (!message.trim() || conversation.status !== 'connected') ? 0.5 : 1
-              }}
-              disabled={!message.trim() || conversation.status !== 'connected'}
-            >
-              Send
-            </button>
-          </form>
+        <div style={styles.controlsContainer}>
+          <button 
+            onClick={startConversation}
+            style={{
+              ...styles.startButton,
+              opacity: isConnected ? 0.5 : 1
+            }}
+            disabled={isConnected}
+          >
+            🎙️ Start Conversation with David Haye
+          </button>
           
           <button 
-            onClick={endConversation}
-            style={styles.endButton}
+            onClick={stopConversation}
+            style={{
+              ...styles.stopButton,
+              opacity: !isConnected ? 0.5 : 1
+            }}
+            disabled={!isConnected}
           >
-            End Conversation
+            🔴 Stop Conversation
           </button>
         </div>
+
       </div>
     </div>
   );
@@ -341,52 +383,55 @@ const styles = {
     marginBottom: '20px',
     border: '1px solid #e1e5e9'
   },
-  warningBox: {
-    background: '#fff3cd',
-    color: '#856404',
+  errorBox: {
+    background: '#fee',
+    color: '#c53030',
     padding: '12px',
     borderRadius: '6px',
-    border: '1px solid #ffeaa7',
+    border: '1px solid #fed7d7',
     marginTop: '10px',
     fontSize: '14px'
   },
-  messageForm: {
-    marginTop: 'auto'
-  },
-  inputContainer: {
+  controlsContainer: {
     display: 'flex',
-    gap: '12px',
-    marginBottom: '12px'
+    gap: '16px',
+    marginBottom: '30px',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
   },
-  messageInput: {
-    flex: 1,
-    padding: '12px 16px',
-    border: '2px solid #e1e5e9',
-    borderRadius: '24px',
-    fontSize: '16px',
-    outline: 'none',
-    fontFamily: 'inherit'
-  },
-  sendButton: {
-    background: '#2196F3',
+  startButton: {
+    background: 'linear-gradient(135deg, #4CAF50, #45a049)',
     color: 'white',
     border: 'none',
-    borderRadius: '24px',
-    padding: '12px 24px',
+    borderRadius: '12px',
+    padding: '16px 32px',
     cursor: 'pointer',
     fontSize: '16px',
-    fontFamily: 'inherit'
-  },
-  endButton: {
-    background: '#f44336',
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    padding: '10px 16px',
-    cursor: 'pointer',
-    fontSize: '14px',
     fontFamily: 'inherit',
-    width: '100%'
+    fontWeight: '600',
+    boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)',
+    transition: 'all 0.3s ease',
+    minWidth: '200px'
+  },
+  stopButton: {
+    background: 'linear-gradient(135deg, #f44336, #d32f2f)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '12px',
+    padding: '16px 32px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    fontFamily: 'inherit',
+    fontWeight: '600',
+    boxShadow: '0 4px 12px rgba(244, 67, 54, 0.3)',
+    transition: 'all 0.3s ease',
+    minWidth: '200px'
+  },
+  instructionsContainer: {
+    background: '#e3f2fd',
+    padding: '20px',
+    borderRadius: '8px',
+    border: '1px solid #bbdefb'
   }
 };
 

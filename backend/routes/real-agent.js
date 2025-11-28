@@ -62,6 +62,23 @@ router.post('/message', async (req, res) => {
     console.log(`💬 Sending to REAL ElevenLabs agent:`, message);
     console.log(`🤖 Agent ID:`, session.agentId);
 
+    // Prepare dynamic variables from user profile
+    const dynamicVariables = {};
+    if (session.userProfile && session.userProfile.answers) {
+      const answers = session.userProfile.answers;
+      dynamicVariables.first_name = answers['First name'] || '';
+      dynamicVariables.last_name = answers['Last name'] || '';
+      dynamicVariables.sex = answers['Sex'] || '';
+      dynamicVariables.date_of_birth = answers['Date of birth'] || '';
+      dynamicVariables.email = session.email || '';
+      dynamicVariables.smoking_duration = answers['How long have you smoked cigarettes?'] || '';
+      dynamicVariables.brand = answers['What is your preferred cigarette brand?'] || '';
+      dynamicVariables.cigs_per_day = answers['On average, how many cigarettes do you smoke per day?'] || '';
+      dynamicVariables.quit_attempts = answers['How many times have you seriously tried to quit smoking?'] || '';
+      dynamicVariables.long_quits = answers['How many times have you quit smoking for 30 days or more?'] || '';
+      dynamicVariables.motivation = answers['What is your main motivation for wanting to quit smoking?'] || '';
+    }
+
     // Use the Simulate Conversation API endpoint
     const response = await axios({
       method: 'POST',
@@ -71,11 +88,17 @@ router.post('/message', async (req, res) => {
         'Content-Type': 'application/json'
       },
       data: {
+        // Include dynamic variables and conversation history
+        dynamic_variables: dynamicVariables,
+        conversation_history: session.conversationHistory.map(msg => ({
+          role: msg.role === 'assistant' ? 'agent' : 'user',
+          content: msg.content
+        })),
         // Create a simulated user that sends your message
         simulation_specification: {
           simulated_user_config: {
             prompt: {
-              prompt: `You are a user named ${session.email.split('@')[0]} who wants to send this message: "${message}"`,
+              prompt: `You are a user who wants to send this message: "${message}"`,
               llm: "gpt-4o",
               temperature: 0.1
             }
