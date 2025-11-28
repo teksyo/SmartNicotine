@@ -11,6 +11,7 @@ const ChatV2 = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [messages, setMessages] = useState([
   ]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
@@ -34,9 +35,17 @@ const ChatV2 = () => {
     
     document.addEventListener('visibilitychange', handleVisibilityChange);
     
+    // Add resize listener for responsive design
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
     // Cleanup function to stop conversation on unmount
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('resize', handleResize);
       if (conversation) {
         console.log('🧹 Component unmounting - cleaning up conversation');
         conversation.endSession().catch(console.error);
@@ -303,7 +312,10 @@ const ChatV2 = () => {
               {agentStatus && <span style={styles.speakingIndicator}>🎤 {agentStatus}</span>}
             </span>
           </h3>
-          <div style={styles.messagesList}>
+          <div style={{
+            ...styles.messagesList,
+            minHeight: isMobile ? '300px' : '73vh'
+          }}>
             {messages.map((msg, index) => (
               <div key={index} style={{
                 ...styles.messageItem,
@@ -573,8 +585,7 @@ const styles = {
     flex: 1,
     overflowY: 'auto',
     padding: '16px',
-    maxHeight: '320px',
-    minHeight: '73vh'
+    maxHeight: '320px'
   },
   messageItem: {
     marginBottom: '16px',
