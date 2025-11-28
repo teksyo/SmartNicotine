@@ -18,14 +18,21 @@ export default defineConfig({
       '(components)': path.resolve(__dirname, './src/(components)'),
     }
   },
+  esbuild: {
+    target: 'esnext'
+  },
   build: {
-    rollupOptions: {
-      external: [],
-    },
     target: 'esnext',
-    minify: 'esbuild'
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {}
+      }
+    }
   },
   optimizeDeps: {
-    exclude: []
+    esbuildOptions: {
+      target: 'esnext'
+    }
   }
 })

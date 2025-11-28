@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "node -e \"try{require('@rollup/rollup-linux-x64-gnu')}catch{console.log('Rollup native binary not found, using fallback')}\""
   },
   "dependencies": {
     "@elevenlabs/convai-widget-embed": "^0.5.2",
