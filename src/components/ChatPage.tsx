@@ -29,6 +29,14 @@ const ChatPage = () => {
     const script = document.createElement('script');
     script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
     script.async = true;
+    script.onload = () => {
+      // Auto-start conversation after widget loads and user profile is ready
+      if (userProfile) {
+        setTimeout(() => {
+          autoStartConversation();
+        }, 2000); // Wait 2 seconds for widget to fully initialize
+      }
+    };
     document.body.appendChild(script);
 
     return () => {
@@ -38,7 +46,7 @@ const ChatPage = () => {
         document.body.removeChild(existingScript);
       }
     };
-  }, []);
+  }, [userProfile]); // Re-run when userProfile changes
 
   const loadUserProfile = async (userEmail) => {
     setLoading(true);
@@ -83,6 +91,29 @@ const ChatPage = () => {
       "long_quits": answers['How many times have you quit smoking for 30 days or more?'] || '',
       "motivation": answers['What is your main motivation for wanting to quit smoking?'] || ''
     };
+  };
+
+  const autoStartConversation = () => {
+    try {
+      console.log('🚀 Auto-starting ElevenLabs conversation...');
+      
+      // Try to find and click the start button in the ElevenLabs widget
+      const widget = document.querySelector('elevenlabs-convai');
+      if (widget && widget.shadowRoot) {
+        // Look for the start button in the shadow DOM
+        const startButton = widget.shadowRoot.querySelector('[data-testid="start-button"], button[class*="start"], button[class*="action"]');
+        if (startButton) {
+          startButton.click();
+          console.log('✅ Auto-started conversation');
+        } else {
+          console.log('❌ Start button not found in widget');
+        }
+      } else {
+        console.log('❌ Widget or shadow root not found');
+      }
+    } catch (err) {
+      console.error('❌ Error auto-starting conversation:', err);
+    }
   };
 
   const handleEmailSubmit = (e) => {
@@ -152,6 +183,23 @@ const ChatPage = () => {
           max-width: none !important;
           max-height: none !important;
         }
+        
+        /* Style the widget button to be more prominent */
+        elevenlabs-convai::part(action-button) {
+          background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+          border: none !important;
+          border-radius: 12px !important;
+          padding: 16px 32px !important;
+          font-size: 18px !important;
+          font-weight: 600 !important;
+          box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3) !important;
+          transition: all 0.3s ease !important;
+        }
+        
+        elevenlabs-convai::part(action-button):hover {
+          transform: translateY(-2px) !important;
+          box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4) !important;
+        }
       `}</style>
       
       <div style={styles.fullScreenContainer}>
@@ -165,6 +213,9 @@ const ChatPage = () => {
             agent-id={import.meta.env.VITE_ELEVENLABS_AGENT_ID || 'agent_2901kb13dkgbemkbxhve2tbsymd2'}
             dynamic-variables={JSON.stringify(getDynamicVariables(userProfile))}
             override-language="en"
+            variant="expanded"
+            action-text="Start Chat with David Haye"
+            start-call-text="Begin Conversation"
           />
         </div>
       </div>
