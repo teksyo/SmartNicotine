@@ -9,6 +9,8 @@ const ChatV2 = () => {
   const [connectionStatus, setConnectionStatus] = useState('Disconnected');
   const [agentStatus, setAgentStatus] = useState('');
   const [isConnected, setIsConnected] = useState(false);
+  const [messages, setMessages] = useState([
+  ]);
   
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
@@ -21,6 +23,26 @@ const ChatV2 = () => {
       setEmail(urlEmail);
       loadUserProfile(urlEmail);
     }
+    
+    // Add page visibility change handler
+    const handleVisibilityChange = () => {
+      if (document.hidden && conversation && isConnected) {
+        console.log('👁️ Page hidden - stopping conversation');
+        stopConversation();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Cleanup function to stop conversation on unmount
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (conversation) {
+        console.log('🧹 Component unmounting - cleaning up conversation');
+        conversation.endSession().catch(console.error);
+        conversation = null;
+      }
+    };
   }, []);
 
   const loadUserProfile = async (userEmail) => {
@@ -111,6 +133,20 @@ const ChatV2 = () => {
         // Add more event handlers for debugging
         onMessage: (message) => {
           console.log('📨 Message received:', message);
+          // Capture all message types more broadly
+          if (message.type === 'user_transcript' || (message.source === 'user' && message.message)) {
+            const text = message.message || message.text || message.content;
+            if (text) {
+              setMessages(prev => [...prev, { role: 'user', content: text, timestamp: new Date() }]);
+            }
+          } else if (message.type === 'agent_response' || message.source === 'ai' || message.role === 'ai') {
+            const text = message.message || message.text || message.content;
+            if (text) {
+              setMessages(prev => [...prev, { role: 'agent', content: text, timestamp: new Date() }]);
+            }
+          }
+
+          console.log(messages);
         },
         onStatusChange: (status) => {
           console.log('🔄 Status changed:', status);
@@ -126,20 +162,58 @@ const ChatV2 = () => {
   }
 
   async function stopConversation() {
+    console.log('🛑 Stopping conversation...');
+    
+    // Reset UI state immediately
+    setConnectionStatus('Disconnecting...');
+    setIsConnected(false);
+    setAgentStatus('');
+    setError('');
+    
     if (conversation) {
       try {
+        // Try to end the session properly
+        console.log('🔚 Ending ElevenLabs session...');
         await conversation.endSession();
-        conversation = null;
-        setConnectionStatus('Disconnected');
-        setIsConnected(false);
-        setAgentStatus('');
-        console.log('🔚 Conversation ended');
+        console.log('✅ ElevenLabs session ended successfully');
       } catch (error) {
-        console.error('❌ Failed to stop conversation:', error);
-        setError(`Failed to stop conversation: ${error.message || error}`);
+        console.error('❌ Error ending session:', error);
+        // Continue with cleanup even if endSession fails
       }
+      
+      // Null out the conversation object
+      conversation = null;
     }
+    
+    // Force cleanup - stop any ongoing audio/microphone
+    try {
+      // Stop all media streams
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const tracks = document.querySelectorAll('audio, video');
+        tracks.forEach(track => {
+          if (track.srcObject) {
+            track.srcObject.getTracks().forEach(t => t.stop());
+          }
+        });
+      }
+    } catch (error) {
+      console.log('Error stopping media streams:', error);
+    }
+    
+    // Final state reset
+    setConnectionStatus('Disconnected');
+    setIsConnected(false);
+    setAgentStatus('');
+    
+    console.log('🔚 Conversation fully stopped');
+    
+    // Refresh page after a short delay to ensure clean state
+    setTimeout(() => {
+      console.log('🔄 Refreshing page for clean state...');
+      window.location.reload();
+    }, 1000);
   }
+
 
   const handleEmailSubmit = (e) => {
     e.preventDefault();
@@ -191,13 +265,8 @@ const ChatV2 = () => {
   return (
     <div style={styles.fullScreenContainer}>
       <div style={styles.header}>
-        <h1 style={styles.title}>Smart Nicotine AI Guide - V2 (Direct SDK)</h1>
-        <p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>
-        <div style={styles.statusContainer}>
-          <span style={styles.statusDot}>{isConnected ? '🟢' : '🔴'}</span>
-          <span style={styles.statusText}>Status: {connectionStatus}</span>
-          {agentStatus && <span style={styles.speakingIndicator}>🎤 {agentStatus}</span>}
-        </div>
+        <h1 style={styles.title}>Smart Nicotine</h1>
+        {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
       </div>
 
       <div style={styles.chatContainer}>
@@ -223,6 +292,36 @@ const ChatV2 = () => {
             </div>
           )}
         </div>*/}
+
+        {/* Messages Display - Always show */}
+        <div style={styles.messagesContainer}>
+          <h3 style={styles.messagesTitle}>
+            Conversation with David Haye
+            <span style={styles.statusContainer}>
+              <span style={styles.statusDot}>{isConnected ? '🟢' : '🔴'}</span>
+              <span style={styles.statusText}>{connectionStatus}</span>
+              {agentStatus && <span style={styles.speakingIndicator}>🎤 {agentStatus}</span>}
+            </span>
+          </h3>
+          <div style={styles.messagesList}>
+            {messages.map((msg, index) => (
+              <div key={index} style={{
+                ...styles.messageItem,
+                ...(msg.role === 'user' ? styles.userMessage : styles.agentMessage)
+              }}>
+                <div style={styles.messageHeader}>
+                  <span style={styles.messageRole}>
+                    {msg.role === 'user' ? '👤 You' : '🥊 David Haye'}
+                  </span>
+                  <span style={styles.messageTime}>
+                    {msg.timestamp.toLocaleTimeString()}
+                  </span>
+                </div>
+                <div style={styles.messageContent}>{msg.content}</div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div style={styles.controlsContainer}>
           <button 
@@ -353,17 +452,19 @@ const styles = {
     fontWeight: '400'
   },
   statusContainer: {
-    display: 'flex',
+    display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     gap: '8px',
-    fontSize: '14px'
+    fontSize: '14px',
+    marginLeft: '15px'
   },
   statusDot: {
-    fontSize: '12px'
+    fontSize: '10px'
   },
   statusText: {
-    fontWeight: '500'
+    fontWeight: '500',
+    color: 'gray'
   },
   speakingIndicator: {
     color: '#ffeb3b',
@@ -427,11 +528,90 @@ const styles = {
     transition: 'all 0.3s ease',
     minWidth: '200px'
   },
+  testButton: {
+    background: 'linear-gradient(135deg, #ff9800, #f57c00)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '12px 20px',
+    cursor: 'pointer',
+    fontSize: '14px',
+    fontFamily: 'inherit',
+    fontWeight: '500',
+    boxShadow: '0 2px 8px rgba(255, 152, 0, 0.3)',
+    transition: 'all 0.3s ease',
+    minWidth: '160px'
+  },
   instructionsContainer: {
     background: '#e3f2fd',
     padding: '20px',
     borderRadius: '8px',
     border: '1px solid #bbdefb'
+  },
+
+  // Messages display styles
+  messagesContainer: {
+    background: '#f8f9fa',
+    borderRadius: '12px',
+    border: '1px solid #e1e5e9',
+    marginBottom: '20px',
+    //maxHeight: '400px',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  messagesTitle: {
+    margin: '0',
+    padding: '16px 20px',
+    borderBottom: '1px solid #e1e5e9',
+    background: '#ffffff',
+    fontSize: '18px',
+    fontWeight: '600',
+    color: '#2c3e50'
+  },
+  messagesList: {
+    flex: 1,
+    overflowY: 'auto',
+    padding: '16px',
+    maxHeight: '320px',
+    minHeight: '73vh'
+  },
+  messageItem: {
+    marginBottom: '16px',
+    padding: '12px 16px',
+    borderRadius: '12px',
+    maxWidth: '80%'
+  },
+  userMessage: {
+    background: 'linear-gradient(135deg, #2196F3, #1976D2)',
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: '0'
+  },
+  agentMessage: {
+    background: 'linear-gradient(135deg, #4CAF50, #45a049)',
+    color: 'white',
+    marginLeft: '0',
+    marginRight: 'auto'
+  },
+  messageHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '8px',
+    fontSize: '12px',
+    opacity: 0.9
+  },
+  messageRole: {
+    fontWeight: '600'
+  },
+  messageTime: {
+    fontSize: '11px',
+    opacity: 0.8
+  },
+  messageContent: {
+    fontSize: '14px',
+    lineHeight: '1.4'
   }
 };
 
