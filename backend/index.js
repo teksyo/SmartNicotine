@@ -6,7 +6,7 @@ const apiRoutes = require('./routes/api');
 const webhookRoutes = require('./routes/webhooks');
 const chatRoutes = require('./routes/chat');
 const ttsRoutes = require('./routes/tts');
-const agentChatRoutes = require('./routes/agent-chat');
+const realAgentRoutes = require('./routes/real-agent');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,7 +22,7 @@ app.use('/api', apiRoutes);
 app.use('/webhooks', webhookRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/tts', ttsRoutes);
-app.use('/api/agent', agentChatRoutes);
+app.use('/api/agent', realAgentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
