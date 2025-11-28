@@ -17,22 +17,5 @@ export default defineConfig({
       '@lib': path.resolve(__dirname, './src/lib'),
       '(components)': path.resolve(__dirname, './src/(components)'),
     }
-  },
-  esbuild: {
-    target: 'esnext'
-  },
-  build: {
-    target: 'esnext',
-    minify: 'esbuild',
-    rollupOptions: {
-      output: {
-        manualChunks: {}
-      }
-    }
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      target: 'esnext'
-    }
   }
 })
