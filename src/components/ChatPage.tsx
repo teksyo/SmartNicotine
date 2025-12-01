@@ -77,13 +77,13 @@ const ChatPage = () => {
     
     const answers = profile.answers || {};
     
-    // Map exactly to your system prompt variables
+    // Map exactly to your updated dynamic variables
     return {
       "first_name": answers['First name'] || '',
       "last_name": answers['Last name'] || '',
-      "sex": answers['Sex'] || '',
       "date_of_birth": answers['Date of birth'] || '',
       "email": profile.email || '',
+      "family_role": answers['Which of these best describes you?'] || '',
       "smoking_duration": answers['How long have you smoked cigarettes?'] || '',
       "brand": answers['What is your preferred cigarette brand?'] || '',
       "cigs_per_day": answers['On average, how many cigarettes do you smoke per day?'] || '',

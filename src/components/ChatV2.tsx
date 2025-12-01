@@ -273,8 +273,20 @@ const ChatV2 = () => {
 
   return (
     <div style={styles.fullScreenContainer}>
-      <div style={styles.header}>
-        <h1 style={styles.title}>Smart Nicotine</h1>
+      <div style={{
+        background: 'radial-gradient(circle at 30% 50%, rgba(59,130,246,0.1), transparent 50%), radial-gradient(circle at 70% 50%, rgba(34,197,94,0.1), transparent 50%)',
+        textAlign: 'center'
+      }}>
+        <h1 style={{
+          background: 'linear-gradient(to right, rgb(37, 99, 235), hsl(var(--primary)), rgb(22, 163, 74))',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          display:'inline-block',
+          color: 'transparent',
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          padding: '0.5rem'
+        }}>Smart Nicotine</h1>
         {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
       </div>
 
@@ -344,7 +356,7 @@ const ChatV2 = () => {
             }}
             disabled={isConnected}
           >
-            🎙️ Start Conversation with David Haye
+            PRESS ONCE to activate DH AI Coach
           </button>
           
           <button 
@@ -443,19 +455,6 @@ const styles = {
     background: '#f8f9fa',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     overflow: 'hidden'
-  },
-  header: {
-    background: 'linear-gradient(135deg, #2196F3, #1976D2)',
-    color: 'white',
-    padding: '16px 24px',
-    textAlign: 'center',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    zIndex: 10
-  },
-  title: {
-    margin: '0 0 4px 0',
-    fontSize: '24px',
-    fontWeight: '600'
   },
   subtitle: {
     margin: '0 0 8px 0',
