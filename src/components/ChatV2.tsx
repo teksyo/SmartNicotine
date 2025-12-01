@@ -272,7 +272,38 @@ const ChatV2 = () => {
   }
 
   return (
-    <div style={styles.fullScreenContainer}>
+    <>
+      <style>{`
+        @keyframes speakingWave {
+          0%, 100% {
+            transform: scaleY(0.3);
+          }
+          50% {
+            transform: scaleY(1.2);
+          }
+        }
+        
+        @keyframes listeningPulse {
+          0%, 100% {
+            transform: scaleY(0.6);
+            opacity: 0.6;
+          }
+          50% {
+            transform: scaleY(0.8);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes textPulse {
+          0%, 100% {
+            opacity: 0.7;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+      `}</style>
+      <div style={styles.fullScreenContainer}>
       <div style={{
         background: 'radial-gradient(circle at 30% 50%, rgba(59,130,246,0.1), transparent 50%), radial-gradient(circle at 70% 50%, rgba(34,197,94,0.1), transparent 50%)',
         textAlign: 'center'
@@ -314,7 +345,8 @@ const ChatV2 = () => {
           )}
         </div>*/}
 
-        {/* Messages Display - Always show */}
+        {/* Messages Display - COMMENTED OUT */}
+        {/*
         <div style={styles.messagesContainer}>
           <h3 style={styles.messagesTitle}>
             Conversation with David Haye
@@ -346,33 +378,72 @@ const ChatV2 = () => {
             ))}
           </div>
         </div>
+        */}
+
+        {/* Audio Visualization */}
+        <div style={styles.audioVisualizerContainer}>
+          <h3 style={styles.visualizerTitle}>
+            Conversation with David Haye
+            <span style={styles.statusContainer}>
+              <span style={styles.statusDot}>{isConnected ? '🟢' : '🔴'}</span>
+              <span style={styles.statusText}>{connectionStatus}</span>
+              {agentStatus && <span style={styles.speakingIndicator}>🎤 {agentStatus}</span>}
+            </span>
+          </h3>
+          <div style={styles.visualizerContent}>
+            <div style={styles.waveContainer}>
+              {[...Array(7)].map((_, index) => (
+                <div 
+                  key={index} 
+                  style={{
+                    ...styles.waveBar,
+                    animationDelay: `${index * 0.15}s`,
+                    ...(isConnected && agentStatus === 'Speaking' 
+                      ? { ...styles.speakingBar, animationName: 'speakingWave' }
+                      : isConnected && agentStatus === 'Listening'
+                      ? { ...styles.listeningBar, animationName: 'listeningPulse' }
+                      : { ...styles.idleBar }
+                    )
+                  }}
+                />
+              ))}
+            </div>
+            {!isConnected && (
+              <p style={styles.idleText}>Ready to start conversation...</p>
+            )}
+            {isConnected && agentStatus === 'Listening' && (
+              <p style={styles.listeningText}>🎤 Listening for your voice...</p>
+            )}
+            {isConnected && agentStatus === 'Speaking' && (
+              <p style={styles.speakingText}>🗣️ David is speaking...</p>
+            )}
+            {isConnected && !agentStatus && (
+              <p style={styles.idleText}>Connected - Ready...</p>
+            )}
+          </div>
+        </div>
 
         <div style={styles.controlsContainer}>
-          <button 
-            onClick={startConversation}
-            style={{
-              ...styles.startButton,
-              opacity: isConnected ? 0.5 : 1
-            }}
-            disabled={isConnected}
-          >
-            PRESS ONCE to activate DH AI Coach
-          </button>
-          
-          <button 
-            onClick={stopConversation}
-            style={{
-              ...styles.stopButton,
-              opacity: !isConnected ? 0.5 : 1
-            }}
-            disabled={!isConnected}
-          >
-            🔴 Stop Conversation
-          </button>
+          {!isConnected ? (
+            <button 
+              onClick={startConversation}
+              style={styles.startButton}
+            >
+              PRESS ONCE to activate DH AI Coach
+            </button>
+          ) : (
+            <button 
+              onClick={stopConversation}
+              style={styles.stopButton}
+            >
+              🔴 Stop Conversation
+            </button>
+          )}
         </div>
 
       </div>
     </div>
+    </>
   );
 };
 
@@ -622,6 +693,93 @@ const styles = {
   messageContent: {
     fontSize: '14px',
     lineHeight: '1.4'
+  },
+
+  // Audio Visualizer styles
+  audioVisualizerContainer: {
+    background: '#f8f9fa',
+    borderRadius: '12px',
+    border: '1px solid #e1e5e9',
+    marginBottom: '20px',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  visualizerTitle: {
+    margin: '0',
+    padding: '16px 20px',
+    borderBottom: '1px solid #e1e5e9',
+    background: '#ffffff',
+    fontSize: '18px',
+    fontWeight: '600',
+    color: '#2c3e50'
+  },
+  visualizerContent: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '40px',
+    minHeight: '300px'
+  },
+  waveContainer: {
+    display: 'flex',
+    alignItems: 'end',
+    justifyContent: 'center',
+    gap: '8px',
+    marginBottom: '24px'
+  },
+  waveBar: {
+    width: '8px',
+    borderRadius: '4px',
+    transition: 'all 0.3s ease'
+  },
+  
+  // Different bar states
+  idleBar: {
+    height: '12px',
+    backgroundColor: '#e0e0e0',
+    animation: 'none'
+  },
+  
+  listeningBar: {
+    height: '20px',
+    backgroundColor: '#2196F3',
+    animation: 'listeningPulse 2s ease-in-out infinite'
+  },
+  
+  speakingBar: {
+    height: '35px',
+    backgroundColor: '#4CAF50',
+    animation: 'speakingWave 0.8s ease-in-out infinite'
+  },
+  
+  // Text styles
+  idleText: {
+    color: '#666',
+    fontSize: '16px',
+    fontWeight: '500',
+    textAlign: 'center',
+    margin: '0'
+  },
+  
+  listeningText: {
+    color: '#2196F3',
+    fontSize: '16px',
+    fontWeight: '600',
+    textAlign: 'center',
+    margin: '0',
+    animation: 'textPulse 2s ease-in-out infinite'
+  },
+  
+  speakingText: {
+    color: '#4CAF50',
+    fontSize: '16px',
+    fontWeight: '600',
+    textAlign: 'center',
+    margin: '0',
+    animation: 'textPulse 1s ease-in-out infinite'
   }
 };
 
