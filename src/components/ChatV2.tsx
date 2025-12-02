@@ -383,7 +383,7 @@ const ChatV2 = () => {
         {/* Audio Visualization */}
         <div style={styles.audioVisualizerContainer}>
           <h3 style={styles.visualizerTitle}>
-            Conversation with David Haye
+            Conversation with David Haye AI
             <span style={styles.statusContainer}>
               <span style={styles.statusDot}>{isConnected ? '🟢' : '🔴'}</span>
               <span style={styles.statusText}>{connectionStatus}</span>
