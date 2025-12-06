@@ -1,0 +1,18 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bgGradient)" rx="10"/>
+  <!-- Silhouette of a person -->
+  <circle cx="100" cy="70" r="25" fill="#666666"/>
+  <path d="M100 95c-25 0-45 20-45 45v60h90v-60c0-25-20-45-45-45z" fill="#666666"/>
+  <!-- Glowing effect -->
+  <circle cx="100" cy="70" r="25" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.5"/>
+  <path d="M100 95c-25 0-45 20-45 45v60h90v-60c0-25-20-45-45-45z" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.3"/>
+  <!-- Text -->
+  <text x="100" y="190" text-anchor="middle" font-family="Arial" font-size="12" fill="#CCCCCC" font-weight="600">DAVID HAYE</text>
+</svg>
