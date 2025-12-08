@@ -4,6 +4,7 @@ import { SmartNicotineLanding } from "@/polymet/pages/smart-nicotine-landing";
 import { AssessmentPage } from "@/polymet/pages/assessment";
 import ChatPage from "@/components/ChatPage";
 import ChatV2 from "@/components/ChatV2";
+import LandingPage from "@/components/LandingPage";
 
 export default function SmartNicotineApp() {
   return (
@@ -11,11 +12,7 @@ export default function SmartNicotineApp() {
       <Routes>
         <Route
           path="/"
-          element={
-            <LandingLayout>
-              <SmartNicotineLanding />
-            </LandingLayout>
-          }
+          element={<LandingPage />}
         />
         <Route
           path="/assessment"

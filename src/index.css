@@ -77,10 +77,6 @@ body {
   color: hsl(var(--foreground));
 }
 
-*[class*="border"] {
-  border-color: hsl(var(--border));
-}
-
 .rounded-sm {
   border-radius: calc(var(--radius) - 4px);
 }
