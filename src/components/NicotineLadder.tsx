@@ -131,6 +131,7 @@ function NicotineLadder() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Nicotine Pouches
             </h3>
+            <img src="/nicotine-pouches.jpg" alt="Nicotine Pouches" className="bg-white w-full h-48 object-contain rounded-lg mb-4" />
             <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: '#ffffff' }}>
               Small white pouches that sit under the lip and release pharmaceutical-grade nicotine through the gums. They contain no tobacco and no smoke, do not require inhaling and are popular with adults who want a discreet, lower-harm alternative to smoking. They are still addictive and for existing nicotine users only.
             </p>
