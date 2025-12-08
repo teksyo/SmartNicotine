@@ -67,7 +67,7 @@ function NicotineLadder() {
                 backgroundColor: 'rgba(15, 52, 96, 0.7)', 
                 backdropFilter: 'blur(5px)' 
               }}>
-                <img src="/ploom.jpg" alt="Ploom heated tobacco device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                <img src="/ploom.jpg" alt="Ploom heated tobacco device" className="bg-white w-full h-32 object-contain rounded-lg mb-4 py-1.5" />
                 <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Ploom</h4>
                 <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>A compact heated tobacco product that warms tobacco sticks instead of burning them.</p>
                 <a href="https://www.ploom.co.uk" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
