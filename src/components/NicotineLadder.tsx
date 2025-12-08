@@ -57,7 +57,7 @@ function NicotineLadder() {
               }}>
                 <img src="/iqos.png" alt="IQOS heated tobacco device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
                 <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>IQOS</h4>
-                <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>A smoke-free heated tobacco device for adult smokers who would otherwise continue to smoke.</p>
+                <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>The UK’s most popular heated tobacco device with 90% market share. Heats real tobacco to 350°C instead of burning it at 900°C. No smoke, no tar, no ash.</p>
                 <a href="https://www.iqos.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
                   View on IQOS
                 </a>
@@ -69,7 +69,7 @@ function NicotineLadder() {
               }}>
                 <img src="/ploom.jpg" alt="Ploom heated tobacco device" className="bg-white w-full h-32 object-contain rounded-lg mb-4 py-1.5" />
                 <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Ploom</h4>
-                <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>A compact heated tobacco product that warms tobacco sticks instead of burning them.</p>
+                <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>The budget-friendly alternative. Same heat-not-burn technology.</p>
                 <a href="https://www.ploom.co.uk" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
                   View on Ploom
                 </a>
