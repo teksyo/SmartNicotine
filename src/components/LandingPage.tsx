@@ -43,7 +43,7 @@ const LandingPage = () => {
       
       <div className="font-inter min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
            style={{
-             backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.35), rgba(22, 33, 62, 0.35), rgba(15, 52, 96, 0.35), rgba(83, 52, 131, 0.35)), url('/david3.jpg')`,
+             backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.35), rgba(22, 33, 62, 0.35), rgba(15, 52, 96, 0.35), rgba(83, 52, 131, 0.35)), url('/david4.jpeg')`,
              
              backgroundSize: 'auto 100%',
              backgroundPosition: 'center',
@@ -86,7 +86,7 @@ const LandingPage = () => {
           {/* Stats Section */}
           <section className="flex max-w-sm mx-auto justify-around items-center mt-10 mb-4 md:mb-10 flex-wrap gap-5">
             <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 p-0.5 rounded-full">
-              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 backdrop-blur-sm relative">
+              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 hover:bg-gray-900/80 transition backdrop-blur-sm relative">
                 <div className="absolute -inset-2 border border-cyan-400/30 rounded-full"></div>
                 <div className="text-sm font-black leading-none mb-1">600K</div>
                 <div className="text-xs font-semibold leading-none mb-0.5">SMOKERS</div>
@@ -95,7 +95,7 @@ const LandingPage = () => {
             </div>
             
             <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 p-0.5 rounded-full">
-              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 backdrop-blur-sm relative">
+              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 hover:bg-gray-900/80 transition backdrop-blur-sm relative">
                 <div className="absolute -inset-2 border border-cyan-400/30 rounded-full"></div>
                 <div className="text-sm font-black leading-none mb-1">FREE</div>
                 <div className="text-xs font-semibold leading-none mb-0.5">6 MONTHS</div>
@@ -104,7 +104,7 @@ const LandingPage = () => {
             </div>
             
             <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 p-0.5 rounded-full">
-              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 backdrop-blur-sm relative">
+              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 hover:bg-gray-900/80 transition backdrop-blur-sm relative">
                 <div className="absolute -inset-2 border border-cyan-400/30 rounded-full"></div>
                 <div className="text-sm font-black leading-none mb-1">ZERO</div>
                 <div className="text-xs font-semibold leading-none mb-0.5">CIGARETTES</div>
