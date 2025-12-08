@@ -65,7 +65,7 @@ export function LandingLayout({ children }: LandingLayoutProps) {
           color: 'transparent',
           fontSize: '2.5rem',
           fontWeight: 'bold',
-        }}>Smart Nicotine</h1>
+        }}>Smart Nicotine UK</h1>
         {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
       </div>
 
@@ -81,7 +81,7 @@ export function LandingLayout({ children }: LandingLayoutProps) {
                 <HeartPulseIcon className="w-5 h-5 text-white" />
               </div>
               <div className="text-sm text-muted-foreground">
-                © 2026 Smart Nicotine Foundation
+                © 2026 Smart Nicotine UK
               </div>
             </div>
 

@@ -335,7 +335,7 @@ const ChatV2 = () => {
           color: 'transparent',
           fontSize: '2.5rem',
           fontWeight: 'bold',
-        }}>Smart Nicotine</h1>
+        }}>Smart Nicotine UK</h1>
         {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
       </div>
 

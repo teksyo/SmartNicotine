@@ -17,6 +17,23 @@ function NicotineLadder() {
         </div>
 
         <div className="space-y-6 sm:space-y-8">
+          {/* Level 0 - Smoking */}
+          <div className="rounded-lg p-6 sm:p-8 shadow-lg" style={{ 
+            backgroundColor: 'rgba(26, 26, 46, 0.8)', 
+            border: '1px solid rgba(64, 224, 208, 0.3)',
+            backdropFilter: 'blur(10px)'
+          }}>
+            <div className="mb-4">
+              <span className="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-3 py-1 rounded text-sm font-medium">Level 0</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
+              Combustible Cigarettes
+            </h3>
+            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#ffffff' }}>
+              Cigarettes burn tobacco at very high temperatures, creating smoke that contains thousands of chemicals including tar and carbon monoxide. Around half of long-term smokers die from smoking-related disease. Nicotine is present, but the main harm comes from combustion.
+            </p>
+          </div>
+
           {/* Level 1 - Heated Tobacco */}
           <div className="rounded-lg p-6 sm:p-8 shadow-lg" style={{ 
             backgroundColor: 'rgba(26, 26, 46, 0.8)', 
