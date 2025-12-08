@@ -5,10 +5,10 @@ const LandingPage = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         
-        .font-outfit {
-          font-family: 'Outfit', sans-serif;
+        .font-inter {
+          font-family: 'Inter', sans-serif;
         }
         
         .text-shadow-lg {
@@ -41,7 +41,7 @@ const LandingPage = () => {
         .border-smart-dark { border-color: #1a1a2e; }
       `}</style>
       
-      <div className="font-outfit min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
+      <div className="font-inter min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
            style={{
              backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.25), rgba(22, 33, 62, 0.25), rgba(15, 52, 96, 0.25), rgba(83, 52, 131, 0.25)), url('/david3.jpg')`,
              

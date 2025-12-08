@@ -315,21 +315,26 @@ const ChatV2 = () => {
             opacity: 1;
           }
         }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
       `}</style>
-      <div style={styles.fullScreenContainer}>
+      <div style={styles.fullScreenContainer}
+           className="relative min-h-[70%] pb-20"
+           data-bg-image="/background.jpg">
       <div style={{
-        background: 'radial-gradient(circle at 30% 50%, rgba(59,130,246,0.1), transparent 50%), radial-gradient(circle at 70% 50%, rgba(34,197,94,0.1), transparent 50%)',
-        textAlign: 'center'
+        background: 'rgba(26, 26, 46, 0.5)',
+        textAlign: 'center',
+        padding: '15px 20px',
+        backdropFilter: 'blur(10px)'
       }}>
         <h1 style={{
-          background: 'linear-gradient(to right, rgb(37, 99, 235), hsl(var(--primary)), rgb(22, 163, 74))',
+          background: 'linear-gradient(to right, #40e0d0, #0080ff)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
           display:'inline-block',
           color: 'transparent',
-          fontSize: '2rem',
+          fontSize: '2.5rem',
           fontWeight: 'bold',
-          padding: '0.5rem'
         }}>Smart Nicotine</h1>
         {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
       </div>
@@ -459,38 +464,17 @@ const ChatV2 = () => {
     
     {/* Wave transition */}
     <div className="relative">
-      <svg
-        className="w-full h-24"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#f8f9fa" />
-            <stop offset="100%" stopColor="#ffffff" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M0,60 C150,100 300,0 600,60 C900,120 1050,20 1200,60 L1200,120 L0,120 Z"
-          fill="url(#waveGradient)"
-        />
-        <path
-          d="M0,80 C200,120 400,40 600,80 C800,120 1000,40 1200,80 L1200,120 L0,120 Z"
-          fill="#ffffff"
-          opacity="0.8"
-        />
-      </svg>
+      
       
       {/* Scroll indicator */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-bounce mb-2">
-            <svg className="w-6 h-6 mx-auto text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 mx-auto text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </div>
-          <p className="text-sm text-gray-600 font-medium">Explore the Nicotine Ladder</p>
+          <p className="text-sm text-white font-medium">Explore the Nicotine Ladder</p>
         </div>
       </div>
     </div>
@@ -576,10 +560,13 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     width: '100vw',
-    background: '#f8f9fa',
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    backgroundImage: 'linear-gradient(rgba(26, 26, 46, 0.9), rgba(15, 52, 96, 0.9)), url("/background.jpg")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     overflow: 'hidden',
-    marginBottom: '100px'
   },
   subtitle: {
     margin: '0 0 8px 0',
@@ -600,7 +587,7 @@ const styles = {
   },
   statusText: {
     fontWeight: '500',
-    color: 'gray'
+    color: '#40e0d0'
   },
   speakingIndicator: {
     color: '#ffeb3b',
@@ -611,7 +598,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     padding: '20px',
-    background: '#ffffff'
+    background: 'rgba(26, 26, 46, 0.1)',
+    backdropFilter: 'blur(2px)',
+    margin: '0 20px',
+    borderRadius: '12px'
   },
   conversationInfo: {
     background: '#f8f9fa',
@@ -637,7 +627,7 @@ const styles = {
     flexWrap: 'wrap'
   },
   startButton: {
-    background: 'linear-gradient(135deg, #4CAF50, #45a049)',
+    background: 'linear-gradient(135deg, #40e0d0, #0080ff)',
     color: 'white',
     border: 'none',
     borderRadius: '12px',
@@ -646,7 +636,7 @@ const styles = {
     fontSize: '16px',
     fontFamily: 'inherit',
     fontWeight: '600',
-    boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)',
+    boxShadow: '0 4px 12px rgba(64, 224, 208, 0.4)',
     transition: 'all 0.3s ease',
     minWidth: '200px'
   },
@@ -751,24 +741,25 @@ const styles = {
 
   // Audio Visualizer styles
   audioVisualizerContainer: {
-    background: '#f8f9fa',
+    background: 'rgba(15, 52, 96, 0.8)',
     borderRadius: '12px',
-    border: '1px solid #e1e5e9',
+    border: '1px solid rgba(64, 224, 208, 0.3)',
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     maxWidth: '700px',
-    margin: '0 auto 20px auto'
+    margin: '0 auto 20px auto',
+    backdropFilter: 'blur(10px)'
   },
   visualizerTitle: {
     margin: '0',
     padding: '16px 20px',
-    borderBottom: '1px solid #e1e5e9',
-    background: '#ffffff',
+    borderBottom: '1px solid rgba(64, 224, 208, 0.3)',
+    background: 'rgba(22, 33, 62, 0.9)',
     fontSize: '18px',
     fontWeight: '600',
-    color: '#2c3e50'
+    color: '#ffffff'
   },
   visualizerContent: {
     flex: 1,
@@ -813,7 +804,7 @@ const styles = {
   
   // Text styles
   idleText: {
-    color: '#666',
+    color: '#ffffff',
     fontSize: '16px',
     fontWeight: '500',
     textAlign: 'center',

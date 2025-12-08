@@ -8,11 +8,10 @@ interface LandingLayoutProps {
 export function LandingLayout({ children }: LandingLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Header */}
+      {/* Header 
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-green-600 flex items-center justify-center">
                 <HeartPulseIcon className="w-6 h-6 text-white" />
@@ -27,7 +26,6 @@ export function LandingLayout({ children }: LandingLayoutProps) {
               </div>
             </div>
 
-            {/* Navigation Menu */}
             <nav className="flex items-center gap-6">
               <a 
                 href="/" 
@@ -43,7 +41,6 @@ export function LandingLayout({ children }: LandingLayoutProps) {
               </a>
             </nav>
 
-            {/* Trust Badge */}
             <div className="hidden lg:flex items-center gap-2 text-sm">
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-muted-foreground">
@@ -52,7 +49,25 @@ export function LandingLayout({ children }: LandingLayoutProps) {
             </div>
           </div>
         </div>
-      </header>
+      </header>*/}
+
+      <div style={{
+        background: 'rgba(26, 26, 46, 1)',
+        textAlign: 'center',
+        padding: '15px 20px',
+        backdropFilter: 'blur(10px)',
+      }}>
+        <h1 style={{
+          background: 'linear-gradient(to right, #40e0d0, #0080ff)',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          display:'inline-block',
+          color: 'transparent',
+          fontSize: '2.5rem',
+          fontWeight: 'bold',
+        }}>Smart Nicotine</h1>
+        {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
+      </div>
 
       {/* Main Content */}
       <main className="flex-1">{children}</main>
