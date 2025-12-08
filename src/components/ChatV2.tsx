@@ -319,7 +319,7 @@ const ChatV2 = () => {
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
       `}</style>
       <div style={styles.fullScreenContainer}
-           className="relative min-h-[70%] pb-20"
+           className="relative min-h-[70%] pb-20 w-full"
            data-bg-image="/background.jpg">
       <div style={{
         background: 'rgba(26, 26, 46, 0.5)',
