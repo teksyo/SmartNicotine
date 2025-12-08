@@ -50,7 +50,7 @@ const LandingPage = () => {
              backgroundRepeat: 'no-repeat'
            }}>
         
-        <div className="fixed top-0 left-0 w-full h-64 bg-gradient-to-t from-transparent to-black"></div>
+        <div className="fixed top-0 left-0 w-full h-72 md:h-64 bg-gradient-to-t from-transparent to-black/70"></div>
 
         {/* Geometric pattern overlay */}
         <div className="fixed inset-0 pointer-events-none z-0">
@@ -134,7 +134,7 @@ const LandingPage = () => {
           </section>
         </div>
 
-        <div className="fixed bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black to-transparent"></div>
+        <div className="fixed bottom-0 left-0 w-full h-96 md:h-64 bg-gradient-to-t from-black to-transparent"></div>
       </div>
     </>
   );
