@@ -89,6 +89,7 @@ function NicotineLadder() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               UK Regulated Vapes
             </h3>
+            <img src="/blu-vape.jpg" alt="Vape device" className="bg-white w-full h-48 object-contain rounded-lg mb-4" />
             <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: '#ffffff' }}>
               UK regulated vapes use a nicotine-containing liquid which is heated into vapour. They do not contain tobacco and are tightly regulated on ingredients, nicotine strength and packaging. Evidence from Public Health England and other bodies suggests they are far less harmful than smoking and can help some smokers quit.
             </p>
