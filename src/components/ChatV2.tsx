@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Conversation } from '@elevenlabs/client';
+import NicotineLadder from './NicotineLadder';
 
 const ChatV2 = () => {
   const [email, setEmail] = useState('');
@@ -100,16 +101,28 @@ const ChatV2 = () => {
       if (userProfile && userProfile.answers) {
         const answers = userProfile.answers;
         dynamicVariables.first_name = answers['First name'] || '';
-        dynamicVariables.last_name = answers['Last name'] || '';
-        dynamicVariables.sex = answers['Sex'] || '';
-        dynamicVariables.date_of_birth = answers['Date of birth'] || '';
-        dynamicVariables.email = userProfile.email || '';
         dynamicVariables.smoking_duration = answers['How long have you smoked cigarettes?'] || '';
         dynamicVariables.brand = answers['What is your preferred cigarette brand?'] || '';
         dynamicVariables.cigs_per_day = answers['On average, how many cigarettes do you smoke per day?'] || '';
         dynamicVariables.quit_attempts = answers['How many times have you seriously tried to quit smoking?'] || '';
         dynamicVariables.long_quits = answers['How many times have you quit smoking for 30 days or more?'] || '';
         dynamicVariables.motivation = answers['What is your main motivation for wanting to quit smoking?'] || '';
+        
+        // Calculate age from date of birth
+        const dateOfBirth = answers['Date of birth'];
+        if (dateOfBirth) {
+          const birthDate = new Date(dateOfBirth);
+          const today = new Date();
+          const age = today.getFullYear() - birthDate.getFullYear();
+          const monthDiff = today.getMonth() - birthDate.getMonth();
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            dynamicVariables.age = (age - 1).toString();
+          } else {
+            dynamicVariables.age = age.toString();
+          }
+        } else {
+          dynamicVariables.age = '';
+        }
       }
 
       console.log('🎯 Dynamic variables:', dynamicVariables);
@@ -248,7 +261,7 @@ const ChatV2 = () => {
     return (
       <div style={styles.emailContainer}>
         <div style={styles.emailForm}>
-          <h2>Smart Nicotine AI Guide - V2</h2>
+          <h2>Smart Nicotine AI Guide</h2>
           <p>Enter your email to continue</p>
           
           {error && <div style={styles.error}>{error}</div>}
@@ -443,6 +456,47 @@ const ChatV2 = () => {
 
       </div>
     </div>
+    
+    {/* Wave transition */}
+    <div className="relative">
+      <svg
+        className="w-full h-24"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#f8f9fa" />
+            <stop offset="100%" stopColor="#ffffff" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,60 C150,100 300,0 600,60 C900,120 1050,20 1200,60 L1200,120 L0,120 Z"
+          fill="url(#waveGradient)"
+        />
+        <path
+          d="M0,80 C200,120 400,40 600,80 C800,120 1000,40 1200,80 L1200,120 L0,120 Z"
+          fill="#ffffff"
+          opacity="0.8"
+        />
+      </svg>
+      
+      {/* Scroll indicator */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-bounce mb-2">
+            <svg className="w-6 h-6 mx-auto text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+          <p className="text-sm text-gray-600 font-medium">Explore the Nicotine Ladder</p>
+        </div>
+      </div>
+    </div>
+    
+    {/* Nicotine Ladder section below the chat */}
+    <NicotineLadder />
     </>
   );
 };
@@ -521,11 +575,11 @@ const styles = {
   fullScreenContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
     width: '100vw',
     background: '#f8f9fa',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    marginBottom: '100px'
   },
   subtitle: {
     margin: '0 0 8px 0',
@@ -700,10 +754,12 @@ const styles = {
     background: '#f8f9fa',
     borderRadius: '12px',
     border: '1px solid #e1e5e9',
-    marginBottom: '20px',
     overflow: 'hidden',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    width: '100%',
+    maxWidth: '700px',
+    margin: '0 auto 20px auto'
   },
   visualizerTitle: {
     margin: '0',

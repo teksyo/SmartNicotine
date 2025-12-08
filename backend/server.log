@@ -1682,3 +1682,59 @@ Server is running on port 3000
     email: 'johnsmith@mail.com'
   }
 }
+🔍 Searching for email: "johnsmith@mail.com"
+🔍 Normalized email: "johnsmith@mail.com"
+📧 Trying email column search...
+📊 Email column search result: {
+  dataLength: 1,
+  error: 'none',
+  firstRecord: {
+    id: 8,
+    created_at: '2025-11-26T00:17:15.44937+00:00',
+    form_id: 'DhUzA1Mm',
+    response_id: '5kuhp8kft3dp4gl5kuhptvzmitxksqb5',
+    submitted_at: '2025-11-25T23:21:04',
+    answers: {
+      Sex: 'Male',
+      'Last name': 'Smith',
+      'First name': 'John',
+      'Date of birth': '2000-02-23',
+      'Email address': 'johnsmith@mail.com',
+      'How long have you smoked cigarettes?': '3-5 years',
+      'What is your preferred cigarette brand?': 'Marlboro',
+      'On average, how many cigarettes do you smoke per day?': '25 or less',
+      'How many times have you seriously tried to quit smoking?': '3-5 times',
+      'How many times have you quit smoking for 30 days or more?': '• 5-10 times',
+      'What is your main motivation for wanting to quit smoking?': 'Fitness/sports'
+    },
+    email: 'johnsmith@mail.com'
+  }
+}
+🔍 Searching for email: "johnsmith@mail.com"
+🔍 Normalized email: "johnsmith@mail.com"
+📧 Trying email column search...
+📊 Email column search result: {
+  dataLength: 1,
+  error: 'none',
+  firstRecord: {
+    id: 8,
+    created_at: '2025-11-26T00:17:15.44937+00:00',
+    form_id: 'DhUzA1Mm',
+    response_id: '5kuhp8kft3dp4gl5kuhptvzmitxksqb5',
+    submitted_at: '2025-11-25T23:21:04',
+    answers: {
+      Sex: 'Male',
+      'Last name': 'Smith',
+      'First name': 'John',
+      'Date of birth': '2000-02-23',
+      'Email address': 'johnsmith@mail.com',
+      'How long have you smoked cigarettes?': '3-5 years',
+      'What is your preferred cigarette brand?': 'Marlboro',
+      'On average, how many cigarettes do you smoke per day?': '25 or less',
+      'How many times have you seriously tried to quit smoking?': '3-5 times',
+      'How many times have you quit smoking for 30 days or more?': '• 5-10 times',
+      'What is your main motivation for wanting to quit smoking?': 'Fitness/sports'
+    },
+    email: 'johnsmith@mail.com'
+  }
+}
