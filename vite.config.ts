@@ -23,7 +23,16 @@ export default defineConfig({
       output: {
         manualChunks: undefined,
       },
+      input: {
+        main: path.resolve(__dirname, 'index.html')
+      }
     },
   },
-  publicDir: 'public',
+  preview: {
+    port: 4173,
+    strictPort: true,
+  },
+  server: {
+    historyApiFallback: true,
+  }
 })

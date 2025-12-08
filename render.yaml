@@ -1,6 +1,6 @@
 services:
   - type: web
     name: smartnicotine-front
-    env: static
+    env: node
     buildCommand: npm run build
-    staticPublishPath: ./dist
+    startCommand: npm start
