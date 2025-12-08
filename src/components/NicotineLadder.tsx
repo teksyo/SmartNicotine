@@ -38,7 +38,7 @@ function NicotineLadder() {
                 backgroundColor: 'rgba(15, 52, 96, 0.7)', 
                 backdropFilter: 'blur(5px)' 
               }}>
-                <img src="/iqos.jpg" alt="IQOS heated tobacco device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                <img src="/iqos.png" alt="IQOS heated tobacco device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
                 <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>IQOS</h4>
                 <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>A smoke-free heated tobacco device for adult smokers who would otherwise continue to smoke.</p>
                 <a href="https://www.iqos.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">

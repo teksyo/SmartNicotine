@@ -43,7 +43,7 @@ const LandingPage = () => {
       
       <div className="font-inter min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
            style={{
-             backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.25), rgba(22, 33, 62, 0.25), rgba(15, 52, 96, 0.25), rgba(83, 52, 131, 0.25)), url('/david3.jpg')`,
+             backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.35), rgba(22, 33, 62, 0.35), rgba(15, 52, 96, 0.35), rgba(83, 52, 131, 0.35)), url('/david3.jpg')`,
              
              backgroundSize: 'auto 100%',
              backgroundPosition: 'center',
