@@ -63,7 +63,7 @@ export function LandingLayout({ children }: LandingLayoutProps) {
           backgroundClip: 'text',
           display:'inline-block',
           color: 'transparent',
-          fontSize: '2.5rem',
+          fontSize: '2.25rem',
           fontWeight: 'bold',
         }}>Smart Nicotine UK</h1>
         {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}

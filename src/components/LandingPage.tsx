@@ -43,7 +43,7 @@ const LandingPage = () => {
       
       <div className="font-inter min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
            style={{
-             backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.35), rgba(22, 33, 62, 0.35), rgba(15, 52, 96, 0.35), rgba(83, 52, 131, 0.35)), url('/david4.jpeg')`,
+             backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45)), url('/david4.jpeg')`,
              
              backgroundSize: 'auto 100%',
              backgroundPosition: 'center',
@@ -67,11 +67,11 @@ const LandingPage = () => {
               BREAK FREE FROM<br />COMBUSTIBLE CIGARETTES
             </h3>
             
-            <div className="text-center gap-3 text-xs mb-8">
+            <div className="text-center gap-3 text-[9px] mb-8">
               <div className="inline-flex items-center justify-center gap-3 border border-gray-800/50 rounded-full p-1 bg-gray-900/30 shadow-lg" 
                    style={{ boxShadow: '0 10px 25px rgba(0, 128, 255, 0.4)' }}>
-                <span className="pl-2">Powered by</span>
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 px-4 py-1 rounded-full font-bold uppercase">
+                <span className="pl-1.5">Powered by</span>
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 px-2.5 py-1 rounded-full font-bold uppercase">
                   DH-AI
                 </span>
               </div>

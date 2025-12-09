@@ -321,11 +321,9 @@ const ChatV2 = () => {
       <div style={styles.fullScreenContainer}
            className="relative min-h-[70%] pb-20 w-full"
            data-bg-image="/background.jpg">
-      <div style={{
+      <div className="w-full text-center py-4" style={{
         background: 'rgba(26, 26, 46, 0.5)',
-        textAlign: 'center',
-        padding: '15px 20px',
-        backdropFilter: 'blur(10px)'
+        backdropFilter: 'blur(10px)',
       }}>
         <h1 style={{
           background: 'linear-gradient(to right, #40e0d0, #0080ff)',
@@ -333,13 +331,13 @@ const ChatV2 = () => {
           backgroundClip: 'text',
           display:'inline-block',
           color: 'transparent',
-          fontSize: '2.5rem',
-          fontWeight: 'bold',
+          fontSize: '2.25rem',
+          fontWeight: 'bold'
         }}>Smart Nicotine UK</h1>
         {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
       </div>
 
-      <div style={styles.chatContainer}>
+      <div className='w-full' style={styles.chatContainer}>
         {/*<div style={styles.conversationInfo}>
           <p>Connection Status: <strong>{connectionStatus}</strong></p>
           <p>Agent Status: <strong>{agentStatus || 'Ready'}</strong></p>
@@ -399,9 +397,9 @@ const ChatV2 = () => {
         */}
 
         {/* Audio Visualization */}
-        <div style={styles.audioVisualizerContainer}>
+        <div style={styles.audioVisualizerContainer} className=''>
           <h3 style={styles.visualizerTitle}>
-            Conversation with David Haye AI
+            Talk to David Haye AI Coach
             <span style={styles.statusContainer}>
               <span style={styles.statusDot}>{isConnected ? '🟢' : '🔴'}</span>
               <span style={styles.statusText}>{connectionStatus}</span>
@@ -559,7 +557,6 @@ const styles = {
   fullScreenContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100vw',
     backgroundImage: 'linear-gradient(rgba(26, 26, 46, 0.9), rgba(15, 52, 96, 0.9)), url("/background.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -600,7 +597,7 @@ const styles = {
     padding: '20px',
     background: 'rgba(26, 26, 46, 0.1)',
     backdropFilter: 'blur(2px)',
-    margin: '0 20px',
+    margin: '0',
     borderRadius: '12px'
   },
   conversationInfo: {

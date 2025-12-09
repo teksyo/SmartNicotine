@@ -29,6 +29,7 @@ function NicotineLadder() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Combustible Cigarettes
             </h3>
+            <img src="/cigrates.jpeg" alt="Cigrates" className="bg-white w-full h-48 object-contain rounded-lg mb-4" />
             <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#ffffff' }}>
               Cigarettes burn tobacco at very high temperatures, creating smoke that contains thousands of chemicals including tar and carbon monoxide. Around half of long-term smokers die from smoking-related disease. Nicotine is present, but the main harm comes from combustion.
             </p>
@@ -89,32 +90,74 @@ function NicotineLadder() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               UK Regulated Vapes
             </h3>
-            <img src="/blu-vape.jpg" alt="Vape device" className="bg-white w-full h-48 object-contain rounded-lg mb-4" />
             <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: '#ffffff' }}>
               UK regulated vapes use a nicotine-containing liquid which is heated into vapour. They do not contain tobacco and are tightly regulated on ingredients, nicotine strength and packaging. Evidence from Public Health England and other bodies suggests they are far less harmful than smoking and can help some smokers quit.
             </p>
             
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
-                backgroundColor: 'rgba(15, 52, 96, 0.7)', 
-                backdropFilter: 'blur(5px)' 
-              }}>
-                <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Closed Pod Vape</h4>
-                <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Simple pre-filled device for adult smokers who want something easy to start with.</p>
-                <a href="https://www.gov.uk/guidance/e-cigarettes-regulations-for-consumer-products" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
-                  See regulated vape options
-                </a>
+            {/*<div className="mb-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Closed Pod Vape</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Simple pre-filled device for adult smokers who want something easy to start with.</p>
+                  <a href="https://www.gov.uk/guidance/e-cigarettes-regulations-for-consumer-products" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    See regulated vape options
+                  </a>
+                </div>
+                
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Refillable Vape</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Device where you refill the tank with e-liquid, often cheaper for regular users.</p>
+                  <a href="https://www.gov.uk/guidance/e-cigarettes-regulations-for-consumer-products" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    See regulated vape options
+                  </a>
+                </div>
               </div>
-              
-              <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
-                backgroundColor: 'rgba(15, 52, 96, 0.7)', 
-                backdropFilter: 'blur(5px)' 
-              }}>
-                <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Refillable Vape</h4>
-                <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Device where you refill the tank with e-liquid, often cheaper for regular users.</p>
-                <a href="https://www.gov.uk/guidance/e-cigarettes-regulations-for-consumer-products" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
-                  See regulated vape options
-                </a>
+            </div>*/}
+
+            {/* Available Products */}
+            <div>
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <img src="/veev.jpg" alt="VEEV vape device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>VEEV</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Premium closed-pod vaping system with innovative technology and sleek design.</p>
+                  <a href="https://www.veev-vape.com/hr/en" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    View on VEEV
+                  </a>
+                </div>
+                
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <img src="/vuse.webp" alt="Vuse vape device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Vuse</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Reliable pod-based vaping system with consistent performance and quality.</p>
+                  <a href="https://www.vuse.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    View on Vuse
+                  </a>
+                </div>
+
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <img src="/blu-vape.jpg" alt="Blu vape device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Blu</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Compact and user-friendly vaping device with simple operation and portability.</p>
+                  <a href="https://www.blu.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    View on Blu
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -131,20 +174,49 @@ function NicotineLadder() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Nicotine Pouches
             </h3>
-            <img src="/nicotine-pouches.jpg" alt="Nicotine Pouches" className="bg-white w-full h-48 object-contain rounded-lg mb-4" />
             <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: '#ffffff' }}>
               Small white pouches that sit under the lip and release pharmaceutical-grade nicotine through the gums. They contain no tobacco and no smoke, do not require inhaling and are popular with adults who want a discreet, lower-harm alternative to smoking. They are still addictive and for existing nicotine users only.
             </p>
             
-            <div className="rounded-lg p-4 sm:p-6 shadow-md max-w-md" style={{ 
-              backgroundColor: 'rgba(15, 52, 96, 0.7)', 
-              backdropFilter: 'blur(5px)' 
-            }}>
-              <h4 className="font-semibold text-white mb-2">Nicotine Pouches</h4>
-              <p className="text-sm text-white mb-4">Tobacco-free pouches that release nicotine through the lining of the mouth.</p>
-              <a href="#" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
-                Learn more about pouches
-              </a>
+            {/* Available Products */}
+            <div>
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <img src="/nicotine-pouches.jpg" alt="Nordic Spirit nicotine pouches" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Nordic Spirit</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Premium nicotine pouches offering a clean and discreet nicotine experience.</p>
+                  <a href="https://www.nordicspirit.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    View Nordic Spirit
+                  </a>
+                </div>
+                
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <img src="/velo.jpg" alt="Velo nicotine pouches" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Velo</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Modern nicotine pouches with various flavors and strengths for adult users.</p>
+                  <a href="https://www.velo.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    View Velo
+                  </a>
+                </div>
+
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
+                  <img src="/zyn.jpg" alt="Zyn nicotine pouches" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Zyn</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Popular tobacco-free nicotine pouches with smooth delivery and long-lasting satisfaction.</p>
+                  <a href="https://www.zyn.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    View Zyn
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
