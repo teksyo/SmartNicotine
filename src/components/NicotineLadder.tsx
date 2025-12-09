@@ -185,6 +185,18 @@ function NicotineLadder() {
                   backgroundColor: 'rgba(15, 52, 96, 0.7)', 
                   backdropFilter: 'blur(5px)' 
                 }}>
+                  <img src="/zyn.jpg" alt="Zyn nicotine pouches" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Zyn</h4>
+                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Popular tobacco-free nicotine pouches with smooth delivery and long-lasting satisfaction.</p>
+                  <a href="https://www.zyn.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    View Zyn
+                  </a>
+                </div>
+
+                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
+                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
+                  backdropFilter: 'blur(5px)' 
+                }}>
                   <img src="/nicotine-pouches.jpg" alt="Nordic Spirit nicotine pouches" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
                   <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Nordic Spirit</h4>
                   <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Premium nicotine pouches offering a clean and discreet nicotine experience.</p>
@@ -192,7 +204,7 @@ function NicotineLadder() {
                     View Nordic Spirit
                   </a>
                 </div>
-                
+
                 <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
                   backgroundColor: 'rgba(15, 52, 96, 0.7)', 
                   backdropFilter: 'blur(5px)' 
@@ -202,18 +214,6 @@ function NicotineLadder() {
                   <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Modern nicotine pouches with various flavors and strengths for adult users.</p>
                   <a href="https://www.velo.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
                     View Velo
-                  </a>
-                </div>
-
-                <div className="rounded-lg p-4 sm:p-6 shadow-md" style={{ 
-                  backgroundColor: 'rgba(15, 52, 96, 0.7)', 
-                  backdropFilter: 'blur(5px)' 
-                }}>
-                  <img src="/zyn.jpg" alt="Zyn nicotine pouches" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
-                  <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Zyn</h4>
-                  <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Popular tobacco-free nicotine pouches with smooth delivery and long-lasting satisfaction.</p>
-                  <a href="https://www.zyn.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
-                    View Zyn
                   </a>
                 </div>
               </div>
