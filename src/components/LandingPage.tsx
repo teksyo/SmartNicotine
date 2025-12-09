@@ -41,13 +41,9 @@ const LandingPage = () => {
         .border-smart-dark { border-color: #1a1a2e; }
       `}</style>
       
-      <div className="font-inter min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
+      <div className="font-inter min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125 bg-[auto_70%] md:bg-auto bg-[center_40%] md:bg-center bg-no-repeat" 
            style={{
              backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45)), url('/david4.jpeg')`,
-             
-             backgroundSize: 'auto 70%',
-             backgroundPosition: 'center 40%',
-             backgroundRepeat: 'no-repeat'
            }}>
         
         <div className="fixed top-0 left-0 w-full h-72 md:h-64 bg-gradient-to-t from-transparent to-black/70"></div>
