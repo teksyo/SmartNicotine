@@ -45,8 +45,8 @@ const LandingPage = () => {
            style={{
              backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45)), url('/david4.jpeg')`,
              
-             backgroundSize: 'auto 100%',
-             backgroundPosition: 'center',
+             backgroundSize: 'auto 70%',
+             backgroundPosition: 'center 40%',
              backgroundRepeat: 'no-repeat'
            }}>
         
@@ -60,22 +60,13 @@ const LandingPage = () => {
         <div className="relative z-10 max-w-sm md:max-w-full mx-auto px-5 py-5 min-h-screen flex flex-col justify-between">
           {/* Header */}
           <header className="text-center mb-8">
-            <h1 className="text-3xl md:text-5xl font-black tracking-wider mb-3 uppercase text-shadow-lg">
+            <h1 className="text-[1.5rem] min-[384px]:text-3xl md:text-5xl font-black tracking-wider mb-3 uppercase text-shadow-lg">
               SMART NICOTINE UK
             </h1>
             <h3 className="text-xl md:text-3xl font-bold leading-tight mb-5 uppercase tracking-wide text-shadow-sm">
               BREAK FREE FROM<br />COMBUSTIBLE CIGARETTES
             </h3>
             
-            <div className="text-center gap-3 text-[9px] mb-8">
-              <div className="inline-flex items-center justify-center gap-3 border border-gray-800/50 rounded-full p-1 bg-gray-900/30 shadow-lg" 
-                   style={{ boxShadow: '0 10px 25px rgba(0, 128, 255, 0.4)' }}>
-                <span className="pl-1.5">Powered by</span>
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 px-2.5 py-1 rounded-full font-bold uppercase">
-                  DH-AI
-                </span>
-              </div>
-            </div>
           </header>
           
           {/* Hero Section */}
@@ -83,6 +74,7 @@ const LandingPage = () => {
             {/* This section was empty in the original, keeping it as is */}
           </section>
           
+
           {/* Stats Section */}
           <section className="flex max-w-sm mx-auto justify-around items-center mt-10 mb-4 md:mb-10 flex-wrap gap-5">
             <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 p-0.5 rounded-full">
@@ -117,7 +109,7 @@ const LandingPage = () => {
           <section className="text-center mt-2 md:mt-5">
             <Link 
               to="/assessment" 
-              className="inline-block mb-20 md:mb-3 w-full max-w-sm bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 border-none py-4 px-6 rounded-full text-sm md:text-base font-bold uppercase tracking-wide cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-block mb-3 w-full max-w-sm bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 border-none py-4 px-6 rounded-full text-sm md:text-base font-bold uppercase tracking-wide cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
               style={{ 
                 boxShadow: '0 10px 25px rgba(64, 224, 208, 0.3)',
                 textDecoration: 'none'
@@ -132,6 +124,16 @@ const LandingPage = () => {
               SPEAK TO THE DAVID HAYE AI COACH
             </Link>
           </section>
+
+          <div className="text-left gap-3 text-[9px] mb-20 md:mb-3">
+            <div className="inline-flex items-center justify-center gap-3 border border-gray-800/50 rounded-full p-1 bg-gray-900/30 shadow-lg" 
+                  style={{ boxShadow: '0 10px 25px rgba(0, 128, 255, 0.4)' }}>
+              <span className="pl-1.5">Powered by</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 px-2.5 py-1 rounded-full font-bold uppercase">
+                DH-AI
+              </span>
+            </div>
+          </div>
         </div>
 
         <div className="fixed bottom-0 left-0 w-full h-96 md:h-64 bg-gradient-to-t from-black to-transparent"></div>
