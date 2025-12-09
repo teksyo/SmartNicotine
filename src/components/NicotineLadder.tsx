@@ -127,7 +127,7 @@ function NicotineLadder() {
                   backgroundColor: 'rgba(15, 52, 96, 0.7)', 
                   backdropFilter: 'blur(5px)' 
                 }}>
-                  <img src="/veev.jpg" alt="VEEV vape device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <img src="/veev.jpg" alt="VEEV vape device" className="bg-white w-full h-32 object-contain rounded-lg mb-4 p-1.5" />
                   <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>VEEV</h4>
                   <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Premium closed-pod vaping system with innovative technology and sleek design.</p>
                   <a href="https://www.veev-vape.com/hr/en" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
@@ -139,7 +139,7 @@ function NicotineLadder() {
                   backgroundColor: 'rgba(15, 52, 96, 0.7)', 
                   backdropFilter: 'blur(5px)' 
                 }}>
-                  <img src="/vuse.webp" alt="Vuse vape device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
+                  <img src="/vuse.png" alt="Vuse vape device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
                   <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>Vuse</h4>
                   <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>Reliable pod-based vaping system with consistent performance and quality.</p>
                   <a href="https://www.vuse.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
