@@ -9,7 +9,7 @@ export function AssessmentPage() {
       {/* Header */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center space-y-6 mb-8">
+          {/*<div className="text-center space-y-6 mb-8">
             <div className="space-y-3">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mt-10">
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -23,14 +23,14 @@ export function AssessmentPage() {
             <p className="text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#ffffff' }}>
               This personalized assessment will help us understand your smoking patterns and create a tailored roadmap for your success. It takes just 5 minutes to complete.
             </p>
-          </div>
+          </div> */}
 
           {/* Typeform Container */}
           <div className="backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg" style={{ 
             backgroundColor: 'rgba(26, 26, 46, 0.8)', 
             border: '1px solid rgba(64, 224, 208, 0.3)' 
           }}>
-            <div className="w-full" style={{ height: '600px' }}>
+            <div className="w-full h-[84vh] min-[400px]:h-[86vh]" >
               <iframe
                 src="https://form.typeform.com/to/DhUzA1Mm"
                 className="w-full h-full border-0"
