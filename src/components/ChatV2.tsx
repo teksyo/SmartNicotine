@@ -325,15 +325,13 @@ const ChatV2 = () => {
         background: 'rgba(26, 26, 46, 0.5)',
         backdropFilter: 'blur(10px)',
       }}>
-        <h1 style={{
+        <h1 className="text-[1.5rem] min-[400px]:text-3xl md:text-5xl font-bold" style={{
           background: 'linear-gradient(to right, #40e0d0, #0080ff)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
           display:'inline-block',
           color: 'transparent',
-          fontSize: '2.25rem',
-          fontWeight: 'bold'
-        }}>Smart Nicotine UK</h1>
+        }}>Smart Nicotine .Com</h1>
         {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
       </div>
 

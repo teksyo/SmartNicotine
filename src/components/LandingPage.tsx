@@ -53,16 +53,15 @@ const LandingPage = () => {
           <div className="absolute inset-0 bg-gradient-radial"></div>
         </div>
         
-        <div className="relative z-10 max-w-sm md:max-w-full mx-auto px-5 py-5 min-h-screen flex flex-col justify-between">
+        <div className="relative z-10 max-w-full mx-auto px-5 py-5 min-h-screen flex flex-col justify-between">
           {/* Header */}
           <header className="text-center mb-8">
-            <h1 className="text-[1.5rem] min-[384px]:text-3xl md:text-5xl font-black tracking-wider mb-3 uppercase text-shadow-lg">
-              SMART NICOTINE UK
+            <h1 className="text-[1.3rem] min-[380px]:text-[1.6rem] min-[440px]:text-3xl md:text-5xl font-black tracking-wider mb-3 uppercase text-shadow-lg">
+              SMART NICOTINE .COM
             </h1>
             <h3 className="text-xl md:text-3xl font-bold leading-tight mb-5 uppercase tracking-wide text-shadow-sm">
               BREAK FREE FROM<br />COMBUSTIBLE CIGARETTES
             </h3>
-            
           </header>
           
           {/* Hero Section */}
