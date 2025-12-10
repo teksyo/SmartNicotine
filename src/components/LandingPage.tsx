@@ -2,6 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -39,14 +52,55 @@ const LandingPage = () => {
         .bg-smart-purple { background-color: #533483; }
         
         .border-smart-dark { border-color: #1a1a2e; }
+        
+        .video-background {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          z-index: -1;
+          transform: translate(-50%, -52%);
+        }
+        
+        .video-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45));
+          z-index: 0;
+        }
       `}</style>
       
-      <div className="font-sans min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125 bg-[auto_70%] md:bg-auto bg-[center_40%] md:bg-center bg-no-repeat" 
-           style={{
+      <div className="font-sans min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
+           style={!isMobile ? {
              backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45)), url('/david4.jpeg')`,
-           }}>
+             backgroundSize: 'auto 70%',
+             backgroundPosition: 'center 40%',
+             backgroundRepeat: 'no-repeat'
+           } : {}}>
         
-      <div className="fixed top-0 left-0 w-full h-72 md:h-64 bg-gradient-to-t from-transparent to-black/70"></div>
+        {/* Mobile Video Background */}
+        {isMobile && (
+          <>
+            <video 
+              className="video-background"
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              preload="metadata"
+            >
+              <source src="/bg-video.mp4" type="video/mp4" />
+            </video>
+            <div className="video-overlay"></div>
+          </>
+        )}
+
+        <div className="fixed top-0 left-0 w-full h-72 md:h-64 bg-gradient-to-t from-transparent to-black/70"></div>
 
         {/* Geometric pattern overlay */}
         <div className="fixed inset-0 pointer-events-none z-0">
@@ -56,7 +110,7 @@ const LandingPage = () => {
         <div className="relative z-10 max-w-full mx-auto px-5 py-5 min-h-screen flex flex-col justify-between">
           {/* Header */}
           <header className="text-center mb-8">
-            <h1 className="text-[1.7rem] min-[380px]:text-[2.2rem] min-[440px]:text-3xl md:text-5xl font-sans font-extrabold tracking-wider mb-3 uppercase text-shadow-lg">
+            <h1 className="whitespace-nowrap text-[1.45rem] min-[400px]:text-[1.8rem] min-[440px]:text-3xl md:text-5xl font-sans font-extrabold tracking-wider mb-3 uppercase text-shadow-lg">
               SMART NICOTINE .COM
             </h1>
             <h3 className="text-xl md:text-3xl font-bold leading-tight mb-5 uppercase tracking-wide text-shadow-sm">
