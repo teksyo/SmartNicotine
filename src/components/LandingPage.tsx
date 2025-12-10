@@ -56,12 +56,12 @@ const LandingPage = () => {
         .video-background {
           position: absolute;
           top: 50%;
-          left: 50%;
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
+          left: 75%;
+          width: 150%;
+          height: 80%;
+          object-fit: cover;
           z-index: -1;
-          transform: translate(-50%, -52%);
+          transform: translate(-75%, -52%);
         }
         
         .video-overlay {
@@ -94,7 +94,7 @@ const LandingPage = () => {
               playsInline
               preload="metadata"
             >
-              <source src="/bg-video.mp4" type="video/mp4" />
+              <source src="/bg-video1.mp4" type="video/mp4" />
             </video>
             <div className="video-overlay"></div>
           </>
