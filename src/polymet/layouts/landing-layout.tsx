@@ -7,7 +7,11 @@ interface LandingLayoutProps {
 
 export function LandingLayout({ children }: LandingLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      `}</style>
+      <div className="min-h-screen flex flex-col bg-background">
       {/* Header 
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +61,7 @@ export function LandingLayout({ children }: LandingLayoutProps) {
         padding: '15px 20px',
         backdropFilter: 'blur(10px)',
       }}>
-        <h1 className="text-[1.5rem] min-[400px]:text-3xl md:text-5xl font-bold" style={{
+        <h1 className="text-[1.5rem] min-[400px]:text-3xl md:text-5xl font-sans font-extrabold" style={{
           background: 'linear-gradient(to right, #40e0d0, #0080ff)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
@@ -97,6 +101,7 @@ export function LandingLayout({ children }: LandingLayoutProps) {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }

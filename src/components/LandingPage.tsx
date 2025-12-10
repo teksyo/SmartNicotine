@@ -5,7 +5,7 @@ const LandingPage = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap');
         
         .font-inter {
           font-family: 'Inter', sans-serif;
@@ -41,7 +41,7 @@ const LandingPage = () => {
         .border-smart-dark { border-color: #1a1a2e; }
       `}</style>
       
-      <div className="font-inter min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125 bg-[auto_70%] md:bg-auto bg-[center_40%] md:bg-center bg-no-repeat" 
+      <div className="font-sans min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125 bg-[auto_70%] md:bg-auto bg-[center_40%] md:bg-center bg-no-repeat" 
            style={{
              backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45)), url('/david4.jpeg')`,
            }}>
@@ -56,7 +56,7 @@ const LandingPage = () => {
         <div className="relative z-10 max-w-full mx-auto px-5 py-5 min-h-screen flex flex-col justify-between">
           {/* Header */}
           <header className="text-center mb-8">
-            <h1 className="text-[1.3rem] min-[380px]:text-[1.6rem] min-[440px]:text-3xl md:text-5xl font-black tracking-wider mb-3 uppercase text-shadow-lg">
+            <h1 className="text-[1.7rem] min-[380px]:text-[2.2rem] min-[440px]:text-3xl md:text-5xl font-sans font-extrabold tracking-wider mb-3 uppercase text-shadow-lg">
               SMART NICOTINE .COM
             </h1>
             <h3 className="text-xl md:text-3xl font-bold leading-tight mb-5 uppercase tracking-wide text-shadow-sm">

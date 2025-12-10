@@ -316,7 +316,7 @@ const ChatV2 = () => {
           }
         }
         
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap');
       `}</style>
       <div style={styles.fullScreenContainer}
            className="relative min-h-[70%] pb-20 w-full"
@@ -325,7 +325,7 @@ const ChatV2 = () => {
         background: 'rgba(26, 26, 46, 0.5)',
         backdropFilter: 'blur(10px)',
       }}>
-        <h1 className="text-[1.5rem] min-[400px]:text-3xl md:text-5xl font-bold" style={{
+        <h1 className="text-[1.5rem] min-[400px]:text-3xl md:text-5xl font-sans font-extrabold" style={{
           background: 'linear-gradient(to right, #40e0d0, #0080ff)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
@@ -560,7 +560,7 @@ const styles = {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: 'fixed',
-    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    fontFamily: 'Google Sans Flex, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     overflow: 'hidden',
   },
   subtitle: {
