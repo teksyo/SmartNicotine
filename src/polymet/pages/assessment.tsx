@@ -8,7 +8,7 @@ export function AssessmentPage() {
     }}>
       {/* Header */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full lg:max-w-[1200px] mx-auto">
           {/*<div className="text-center space-y-6 mb-8">
             <div className="space-y-3">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mt-10">
