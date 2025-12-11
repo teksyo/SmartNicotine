@@ -216,8 +216,7 @@ router.post('/subscribers', async (req, res) => {
       .from('subscribers')
       .insert([{
         fullname: fullname.trim(),
-        email: email.toLowerCase().trim(),
-        registeredOn: new Date().toISOString()
+        email: email.toLowerCase().trim()
       }])
       .select()
       .single();
@@ -262,7 +261,7 @@ CREATE INDEX IF NOT EXISTS idx_subscribers_registered ON subscribers(registeredO
         id: data.id,
         fullname: data.fullname,
         email: data.email,
-        registeredOn: data.registeredOn
+        registeredOn: data.registeredon
       }
     });
 
@@ -283,7 +282,7 @@ router.get('/subscribers', async (req, res) => {
     const { data, error, count } = await supabase
       .from('subscribers')
       .select('*', { count: 'exact' })
-      .order('registeredOn', { ascending: false })
+      .order('registeredon', { ascending: false })
       .range(offset, offset + parseInt(limit) - 1);
 
     if (error) {
