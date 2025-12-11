@@ -17,5 +17,8 @@ export default defineConfig({
       '@lib': path.resolve(__dirname, './src/lib'),
       '(components)': path.resolve(__dirname, './src/(components)'),
     }
+  },
+  preview: {
+    allowedHosts: ['smartnicotine-com.onrender.com']
   }
 })

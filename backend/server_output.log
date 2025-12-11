@@ -1,2 +1,10 @@
 [dotenv@17.2.3] injecting env (7) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
 Server is running on port 3000
+📝 Adding subscriber: John Doe (john@example.com)
+✅ Subscriber added successfully: {
+  id: 1,
+  fullname: 'John Doe',
+  email: 'john@example.com',
+  registeredon: '2025-12-11T02:48:48.29524+00:00'
+}
+📝 Adding subscriber: John Doe (john@example.com)
