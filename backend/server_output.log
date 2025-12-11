@@ -1,0 +1,9 @@
+[dotenv@17.2.3] injecting env (7) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+Server is running on port 3000
+📝 Adding subscriber: Test User (test@example.com)
+Supabase insert error: {
+  code: 'PGRST205',
+  details: null,
+  hint: null,
+  message: "Could not find the table 'public.subscribers' in the schema cache"
+}

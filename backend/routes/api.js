@@ -177,4 +177,137 @@ router.get('/user', async (req, res) => {
   }
 });
 
+// Waitlist/Subscribers API
+router.post('/subscribers', async (req, res) => {
+  try {
+    const { fullname, email } = req.body;
+    
+    if (!fullname || !email) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        required: ['fullname', 'email']
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    console.log(`📝 Adding subscriber: ${fullname} (${email})`);
+
+    // Check if subscriber already exists
+    const { data: existing } = await supabase
+      .from('subscribers')
+      .select('id, email')
+      .eq('email', email.toLowerCase().trim())
+      .limit(1);
+
+    if (existing && existing.length > 0) {
+      return res.status(409).json({ 
+        error: 'Email already subscribed',
+        subscriberId: existing[0].id
+      });
+    }
+
+    // Insert new subscriber
+    const { data, error } = await supabase
+      .from('subscribers')
+      .insert([{
+        fullname: fullname.trim(),
+        email: email.toLowerCase().trim(),
+        registeredOn: new Date().toISOString()
+      }])
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+      
+      // Handle case where table doesn't exist
+      if (error.message?.includes('relation "subscribers" does not exist') || 
+          error.message?.includes("Could not find the table 'public.subscribers'")) {
+        return res.status(500).json({ 
+          error: 'Database table not found',
+          details: 'Please create the subscribers table first',
+          sql: `
+-- Run this SQL in your Supabase dashboard:
+CREATE TABLE IF NOT EXISTS subscribers (
+  id SERIAL PRIMARY KEY,
+  fullname VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  registeredOn TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Add indexes for better performance
+CREATE INDEX IF NOT EXISTS idx_subscribers_email ON subscribers(email);
+CREATE INDEX IF NOT EXISTS idx_subscribers_registered ON subscribers(registeredOn);
+          `.trim()
+        });
+      }
+      
+      return res.status(500).json({ 
+        error: 'Failed to add subscriber',
+        details: error.message 
+      });
+    }
+
+    console.log('✅ Subscriber added successfully:', data);
+
+    res.status(201).json({
+      success: true,
+      message: 'Successfully added to waitlist',
+      subscriber: {
+        id: data.id,
+        fullname: data.fullname,
+        email: data.email,
+        registeredOn: data.registeredOn
+      }
+    });
+
+  } catch (err) {
+    console.error('API error:', err);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      details: err.message 
+    });
+  }
+});
+
+// Get all subscribers (for admin use)
+router.get('/subscribers', async (req, res) => {
+  try {
+    const { limit = 50, offset = 0 } = req.query;
+    
+    const { data, error, count } = await supabase
+      .from('subscribers')
+      .select('*', { count: 'exact' })
+      .order('registeredOn', { ascending: false })
+      .range(offset, offset + parseInt(limit) - 1);
+
+    if (error) {
+      console.error('Supabase query error:', error);
+      return res.status(500).json({ 
+        error: 'Failed to fetch subscribers',
+        details: error.message 
+      });
+    }
+
+    res.json({
+      subscribers: data || [],
+      total: count || 0,
+      limit: parseInt(limit),
+      offset: parseInt(offset)
+    });
+
+  } catch (err) {
+    console.error('API error:', err);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      details: err.message 
+    });
+  }
+});
+
 module.exports = router;
