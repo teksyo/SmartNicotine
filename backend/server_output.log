@@ -7,3 +7,10 @@ Supabase insert error: {
   hint: null,
   message: "Could not find the table 'public.subscribers' in the schema cache"
 }
+📝 Adding subscriber: John Doe (john@example.com)
+Supabase insert error: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'registeredOn' column of 'subscribers' in the schema cache"
+}
