@@ -24,7 +24,7 @@ function NicotineLadder() {
             backdropFilter: 'blur(10px)'
           }}>
             <div className="mb-4">
-              <span className="inline-block bg-red-600 text-white px-3 py-1 rounded text-sm font-medium">Level 0</span>
+              <span className="inline-block bg-red-600 text-white px-3 py-1 rounded text-sm font-medium">Step 0</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Combustible Cigarettes
@@ -42,7 +42,7 @@ function NicotineLadder() {
             backdropFilter: 'blur(10px)'
           }}>
             <div className="mb-4">
-              <span className="inline-block bg-orange-600 text-white px-3 py-1 rounded text-sm font-medium">Level 1</span>
+              <span className="inline-block bg-orange-600 text-white px-3 py-1 rounded text-sm font-medium">Step 1</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Heated Tobacco
@@ -85,7 +85,7 @@ function NicotineLadder() {
             backdropFilter: 'blur(10px)'
           }}>
             <div className="mb-4">
-              <span className="inline-block bg-green-700 text-white px-3 py-1 rounded text-sm font-medium">Level 2</span>
+              <span className="inline-block bg-green-700 text-white px-3 py-1 rounded text-sm font-medium">Step 2</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               UK Regulated Vapes
@@ -169,7 +169,7 @@ function NicotineLadder() {
             backdropFilter: 'blur(10px)'
           }}>
             <div className="mb-4">
-              <span className="inline-block bg-green-700 text-white px-3 py-1 rounded text-sm font-medium">Level 3</span>
+              <span className="inline-block bg-green-700 text-white px-3 py-1 rounded text-sm font-medium">Step 3</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Nicotine Pouches
@@ -227,7 +227,7 @@ function NicotineLadder() {
             backdropFilter: 'blur(10px)'
           }}>
             <div className="mb-4">
-              <span className="inline-block bg-green-500 text-white px-3 py-1 rounded text-sm font-medium">Level 4</span>
+              <span className="inline-block bg-green-500 text-white px-3 py-1 rounded text-sm font-medium">Step 4</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Nicotine Replacement Therapy (NRT)
@@ -354,7 +354,7 @@ function NicotineLadder() {
             backdropFilter: 'blur(10px)'
           }}>
             <div className="mb-4">
-              <span className="inline-block bg-green-400 text-white px-3 py-1 rounded text-sm font-medium">Level 5</span>
+              <span className="inline-block bg-green-400 text-white px-3 py-1 rounded text-sm font-medium">Step 5</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-4" style={{ color: '#ffffff' }}>
               Nicotine Free
