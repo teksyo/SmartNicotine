@@ -59,8 +59,8 @@ function NicotineLadder() {
                 <img src="/iqos.png" alt="IQOS heated tobacco device" className="bg-white w-full h-32 object-contain rounded-lg mb-4" />
                 <h4 className="font-semibold mb-2" style={{ color: '#ffffff' }}>IQOS</h4>
                 <p className="text-xs sm:text-sm mb-4" style={{ color: '#ffffff' }}>The UK’s most popular heated tobacco device with 90% market share. Heats real tobacco to 350°C instead of burning it at 900°C. No smoke, no tar, no ash.</p>
-                <a href="https://www.iqos.com" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
-                  View on IQOS
+                <a href="/iqos" target="_blank" className="inline-block bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                  IQOS Details
                 </a>
               </div>
               

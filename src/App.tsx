@@ -5,6 +5,7 @@ import { AssessmentPage } from "@/polymet/pages/assessment";
 import ChatPage from "@/components/ChatPage";
 import ChatV2 from "@/components/ChatV2";
 import LandingPage from "@/components/LandingPage";
+import IqosPage from "@/components/IqosPage";
 
 export default function SmartNicotineApp() {
   return (
@@ -29,6 +30,14 @@ export default function SmartNicotineApp() {
         <Route
           path="/chat-v2"
           element={<ChatV2 />}
+        />
+        <Route
+          path="/iqos"
+          element={
+            <LandingLayout>
+              <IqosPage />
+            </LandingLayout>
+          }
         />
       </Routes>
     </Router>
