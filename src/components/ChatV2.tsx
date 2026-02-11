@@ -96,7 +96,6 @@ const ChatV2 = () => {
 
       // Start the conversation with more debugging and configuration
       const agentId = import.meta.env.VITE_ELEVENLABS_AGENT_ID || 'agent_2901kb13dkgbemkbxhve2tbsymd2';
-      console.log('🎯 Using agent ID:', agentId);
       
       // Get dynamic variables from user profile
       const dynamicVariables = {};
