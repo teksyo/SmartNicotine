@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from './Header';
+import { Button } from './Button';
 
 const LandingPage = () => {
   const [isMobile, setIsMobile] = React.useState(false);
@@ -18,79 +20,45 @@ const LandingPage = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap');
-        
-        .font-inter {
-          font-family: 'Inter', sans-serif;
-        }
-        
         .text-shadow-lg {
-          text-shadow: 2px 2px 10px rgba(3, 202, 228, 0.75);
+          text-shadow: 0 2px 12px rgba(0, 201, 167, 0.3);
         }
-        
+
         .text-shadow-sm {
-          text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
         }
-        
-        .bg-gradient-radial {
-          background: radial-gradient(circle at 20% 80%, rgba(120, 120, 120, 0.3) 0%, transparent 50%), 
-                     radial-gradient(circle at 80% 20%, rgba(120, 120, 120, 0.15) 0%, transparent 50%);
-        }
-        
-        .smart-dark { color: #1a1a2e; }
-        .smart-blue { color: #16213e; }
-        .smart-ocean { color: #0f3460; }
-        .smart-purple { color: #533483; }
-        .smart-green { color: #00ff88; }
-        .smart-green-dark { color: #00cc6a; }
-        .mint-green { color: #40e0d0; }
-        .electric-blue { color: #0080ff; }
-        
-        .bg-smart-dark { background-color: #1a1a2e; }
-        .bg-smart-blue { background-color: #16213e; }
-        .bg-smart-ocean { background-color: #0f3460; }
-        .bg-smart-purple { background-color: #533483; }
-        
-        .border-smart-dark { border-color: #1a1a2e; }
-        
-        .video-background {
-          position: absolute;
-          top: 50%;
-          left: 75%;
-          width: 150%;
-          height: 80%;
-          object-fit: cover;
-          z-index: -1;
-          transform: translate(-75%, -52%);
-        }
-        
+
         .video-overlay {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45));
+          background: linear-gradient(to bottom right, rgba(10, 22, 40, 0.75), rgba(15, 36, 64, 0.7), rgba(10, 22, 40, 0.8));
           z-index: 0;
         }
       `}</style>
       
-      <div className="font-sans min-h-screen text-white overflow-x-hidden relative bg-black brightness-110 contrast-125" 
-           style={!isMobile ? {
-             backgroundImage: `linear-gradient(to bottom right, rgba(26, 26, 46, 0.45), rgba(22, 33, 62, 0.45), rgba(15, 52, 96, 0.45), rgba(83, 52, 131, 0.45)), url('/david4.jpeg')`,
-             backgroundSize: 'auto 70%',
-             backgroundPosition: 'center 40%',
-             backgroundRepeat: 'no-repeat'
-           } : {}}>
-        
+      <div className="font-sans min-h-screen overflow-x-hidden relative"
+           style={{
+             backgroundColor: 'hsl(var(--deep-navy))',
+             color: 'hsl(var(--off-white))',
+             ...(!isMobile ? {
+               backgroundImage: `url('/david4.jpeg')`,
+               backgroundSize: 'auto 70%',
+               backgroundPosition: 'center 40%',
+               backgroundRepeat: 'no-repeat'
+             } : {})
+           }}>
+
         {/* Mobile Video Background */}
         {isMobile && (
           <>
-            <video 
+            <video
               className="video-background"
-              autoPlay 
-              muted 
-              loop 
+              autoPlay
+              muted
+              loop
               playsInline
               preload="metadata"
             >
@@ -100,23 +68,24 @@ const LandingPage = () => {
           </>
         )}
 
-        <div className="fixed top-0 left-0 w-full h-72 md:h-64 bg-gradient-to-t from-transparent to-black/70"></div>
+        <div className="fixed top-0 left-0 w-full h-72 md:h-64"></div>
 
-        {/* Geometric pattern overlay */}
+        {/* Background glow overlay */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute inset-0 bg-gradient-radial"></div>
+          <div className="absolute inset-0" style={{
+            background: 'radial-gradient(ellipse at 40% 40%, rgba(0, 201, 167, 0.04) 0%, transparent 60%)'
+          }}></div>
         </div>
         
         <div className="relative z-10 max-w-full mx-auto px-5 py-5 min-h-screen flex flex-col justify-between">
           {/* Header */}
-          <header className="text-center mb-8">
-            <h1 className="whitespace-nowrap text-[1.45rem] min-[400px]:text-[1.8rem] min-[440px]:text-3xl md:text-5xl font-sans font-extrabold tracking-wider mb-3 uppercase text-shadow-lg">
-              SMART NICOTINE .COM
-            </h1>
-            <h3 className="text-xl md:text-3xl font-bold leading-tight mb-5 uppercase tracking-wide text-shadow-sm">
+          <div className="-mt-10">
+           <Header />
+            <h3 className="mx-auto text-center -mt-8 md:text-3xl font-bold leading-tight mb-5 uppercase text-shadow-sm"
+                style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, letterSpacing: '0.05em', color: 'hsl(var(--off-white))' }}>
               BREAK FREE FROM<br />COMBUSTIBLE CIGARETTES
             </h3>
-          </header>
+          </div>
           
           {/* Hero Section */}
           <section className="flex-grow flex flex-col justify-center items-center text-center">
@@ -126,37 +95,37 @@ const LandingPage = () => {
 
           {/* Stats Section */}
           <section className="flex max-w-sm mx-auto justify-around items-center mt-10 mb-4 md:mb-10 flex-wrap gap-5">
-            <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 p-0.5 rounded-full">
-              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 hover:bg-gray-900/80 transition backdrop-blur-sm relative">
-                <div className="absolute -inset-2 border border-cyan-400/30 rounded-full"></div>
-                <div className="text-sm font-black leading-none mb-1">600K</div>
-                <div className="text-xs font-semibold leading-none mb-0.5">SMOKERS</div>
-                <div className="text-xs font-normal opacity-80 leading-none">THE TARGET</div>
+            <div className="w-24 h-24 p-0.5 rounded-full" style={{ background: 'linear-gradient(to right, hsl(var(--snuk-teal)), hsl(var(--accent-mint)))' }}>
+              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center transition backdrop-blur-sm relative" style={{ backgroundColor: 'hsl(var(--deep-navy))' }}>
+                <div className="absolute -inset-2 rounded-full" style={{ border: '1px solid rgba(0, 201, 167, 0.3)' }}></div>
+                <div className="text-sm font-black leading-none mb-1" style={{ fontFamily: "'Outfit', sans-serif", color: 'hsl(var(--snuk-teal))' }}>600K</div>
+                <div className="text-xs font-semibold leading-none mb-0.5" style={{ color: 'hsl(var(--off-white))' }}>SMOKERS</div>
+                <div className="text-xs font-normal leading-none" style={{ color: 'hsl(var(--slate-grey))' }}>THE TARGET</div>
               </div>
             </div>
-            
-            <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 p-0.5 rounded-full">
-              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 hover:bg-gray-900/80 transition backdrop-blur-sm relative">
-                <div className="absolute -inset-2 border border-cyan-400/30 rounded-full"></div>
-                <div className="text-sm font-black leading-none mb-1">FREE</div>
-                <div className="text-xs font-semibold leading-none mb-0.5">6 MONTHS</div>
-                <div className="text-xs font-normal opacity-80 leading-none">PLAN</div>
+
+            <div className="w-24 h-24 p-0.5 rounded-full" style={{ background: 'linear-gradient(to right, hsl(var(--snuk-teal)), hsl(var(--accent-mint)))' }}>
+              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center transition backdrop-blur-sm relative" style={{ backgroundColor: 'hsl(var(--deep-navy))' }}>
+                <div className="absolute -inset-2 rounded-full" style={{ border: '1px solid rgba(0, 201, 167, 0.3)' }}></div>
+                <div className="text-sm font-black leading-none mb-1" style={{ fontFamily: "'Outfit', sans-serif", color: 'hsl(var(--snuk-teal))' }}>FREE</div>
+                <div className="text-xs font-semibold leading-none mb-0.5" style={{ color: 'hsl(var(--off-white))' }}>6 MONTHS</div>
+                <div className="text-xs font-normal leading-none" style={{ color: 'hsl(var(--slate-grey))' }}>PLAN</div>
               </div>
             </div>
-            
-            <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 p-0.5 rounded-full">
-              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center bg-gray-900 hover:bg-gray-900/80 transition backdrop-blur-sm relative">
-                <div className="absolute -inset-2 border border-cyan-400/30 rounded-full"></div>
-                <div className="text-sm font-black leading-none mb-1">ZERO</div>
-                <div className="text-xs font-semibold leading-none mb-0.5">CIGARETTES</div>
-                <div className="text-xs font-normal opacity-80 leading-none">THE GOAL</div>
+
+            <div className="w-24 h-24 p-0.5 rounded-full" style={{ background: 'linear-gradient(to right, hsl(var(--snuk-teal)), hsl(var(--accent-mint)))' }}>
+              <div className="w-full h-full rounded-full flex flex-col justify-center items-center text-center transition backdrop-blur-sm relative" style={{ backgroundColor: 'hsl(var(--deep-navy))' }}>
+                <div className="absolute -inset-2 rounded-full" style={{ border: '1px solid rgba(0, 201, 167, 0.3)' }}></div>
+                <div className="text-sm font-black leading-none mb-1" style={{ fontFamily: "'Outfit', sans-serif", color: 'hsl(var(--snuk-teal))' }}>ZERO</div>
+                <div className="text-xs font-semibold leading-none mb-0.5" style={{ color: 'hsl(var(--off-white))' }}>CIGARETTES</div>
+                <div className="text-xs font-normal leading-none" style={{ color: 'hsl(var(--slate-grey))' }}>THE GOAL</div>
               </div>
             </div>
           </section>
           
           {/* CTA Section */}
           <section className="text-center mt-2 md:mt-5">
-            <Link 
+            {/* <Link 
               to="/assessment" 
               className="inline-block mb-3 w-full max-w-sm bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 border-none py-4 px-6 rounded-full text-sm md:text-base font-bold uppercase tracking-wide cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
               style={{ 
@@ -171,21 +140,28 @@ const LandingPage = () => {
               }}
             >
               SPEAK TO THE DAVID HAYE AI COACH
-            </Link>
+            </Link> */}
+            <Button 
+  text="SPEAK TO THE DAVID HAYE AI COACH" 
+  variant="primary" 
+  href="/assessment" 
+  rightIcon="→"
+/>
+
           </section>
 
           <div className="text-left gap-3 text-[9px] mb-20 md:mb-3">
-            <div className="inline-flex items-center justify-center gap-3 border border-gray-800/50 rounded-full p-1 bg-gray-900/30 shadow-lg" 
-                  style={{ boxShadow: '0 10px 25px rgba(0, 128, 255, 0.4)' }}>
-              <span className="pl-1.5">Powered by</span>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 px-2.5 py-1 rounded-full font-bold uppercase">
+            <div className="inline-flex items-center justify-center gap-3 rounded-full p-1 shadow-lg"
+                  style={{ border: '1px solid rgba(0, 201, 167, 0.2)', backgroundColor: 'rgba(15, 36, 64, 0.5)', boxShadow: '0 10px 25px rgba(0, 201, 167, 0.2)' }}>
+              <span className="pl-1.5" style={{ color: 'hsl(var(--slate-grey))' }}>Powered by</span>
+              <span className="px-2.5 py-1 rounded-full font-bold uppercase" style={{ background: 'linear-gradient(to right, hsl(var(--snuk-teal)), hsl(var(--accent-mint)))', color: 'hsl(var(--deep-navy))' }}>
                 DH-AI
               </span>
             </div>
           </div>
         </div>
 
-        <div className="fixed bottom-0 left-0 w-full h-96 md:h-64 bg-gradient-to-t from-black to-transparent"></div>
+        <div className="fixed bottom-0 left-0 w-full h-96 md:h-64" style={{ background: 'linear-gradient(to top, hsl(var(--deep-navy)), transparent)' }}></div>
       </div>
     </>
   );

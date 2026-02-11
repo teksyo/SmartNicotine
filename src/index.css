@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap";
 
 @tailwind base;
 
@@ -6,42 +6,78 @@
 
 @tailwind utilities;
 
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
 
 :root {
-  --background: 0 0% 98.8235%;
-  --foreground: 0 0% 9.0196%;
-  --card: 0 0% 98.8235%;
-  --card-foreground: 0 0% 9.0196%;
-  --popover: 0 0% 98.8235%;
-  --popover-foreground: 0 0% 32.1569%;
-  --primary: 151.3274 66.8639% 66.8627%;
-  --primary-foreground: 153.3333 13.0435% 13.5294%;
-  --secondary: 0 0% 99.2157%;
-  --secondary-foreground: 0 0% 9.0196%;
-  --muted: 0 0% 92.9412%;
-  --muted-foreground: 0 0% 12.5490%;
-  --accent: 0 0% 92.9412%;
-  --accent-foreground: 0 0% 12.5490%;
-  --destructive: 9.8901 81.9820% 43.5294%;
-  --destructive-foreground: 0 100% 99.4118%;
-  --border: 0 0% 87.4510%;
-  --input: 0 0% 96.4706%;
-  --ring: 151.3274 66.8639% 66.8627%;
-  --radius: 0.5rem;
-  --chart-1: 151.3274 66.8639% 66.8627%;
-  --chart-2: 217.2193 91.2195% 59.8039%;
-  --chart-3: 258.3117 89.5349% 66.2745%;
-  --chart-4: 37.6923 92.1260% 50.1961%;
-  --chart-5: 160.1183 84.0796% 39.4118%;
+  /* === Core Backgrounds === */
+  --deep-navy:    220 75% 9%;     /* #0A1628 */
+  --navy:         214 60% 15%;    /* #0F2440 */
+
+  /* === Brand Colors === */
+  --snuk-teal:    170 100% 39%;   /* #00C9A7 — Primary brand colour */
+  --teal-light:   170 100% 45%;   /* #00E8C0 — Hover, highlights */
+  --accent-mint:  169 100% 50%;   /* #00FFD1 — Gradients, glow */
+    --snuk-teal-glow: rgba(0, 201, 167, 0.15);
+
+  /* === Feedback / Warnings === */
+  --warm-alert:   16 100% 60%;    /* #FF6B35 — Warnings, urgency */
+
+  /* === Neutrals === */
+  --off-white:    200 50% 98%;    /* #F8FAFB — Text on dark */
+  --slate-grey:   215 20% 65%;    /* #94A3B8 — Secondary text */
+
+  /* === System / Design System Mappings (Dark Mode friendly) === */
+  --background:   var(--deep-navy);
+  --foreground:   var(--off-white);
+
+  --card:         var(--navy);
+  --card-foreground: var(--off-white);
+
+  --popover:      var(--navy);
+  --popover-foreground: var(--off-white);
+
+  --primary:      var(--snuk-teal);
+  --primary-foreground: var(--deep-navy);
+
+  --secondary:    var(--deep-navy);
+  --secondary-foreground: var(--off-white);
+
+  --muted:        215 28% 17%;    /* Slightly lighter navy for muted surfaces */
+  --muted-foreground: var(--slate-grey);
+
+  --accent:       var(--teal-light);
+  --accent-foreground: var(--deep-navy);
+
+  --destructive:  var(--warm-alert);
+  --destructive-foreground: var(--off-white);
+
+  --border:       214 32% 26%;    /* Subtle navy border */
+  --input:        214 32% 26%;
+  --ring:         var(--snuk-teal);
+
+  /* === Typography & Sizing (from brand guidelines) === */
+  --font-headline:    2.5rem;     /* Outfit 800, ~-3% tracking */
+  --font-subheading:  1.75rem;    /* Outfit 700, ~-2% tracking */
+  --font-body:        1rem;       /* DM Sans 400, ~1.7 line height */
+  --font-caption:     0.75rem;    /* DM Sans 400, 12px */
+  --font-ui:          0.875rem;   /* Outfit 600, +15% tracking */
+
+  /* Optional line-heights & tracking */
+  --lh-body:    1.7;
+  --lh-caption: 1.5;
+  --tracking-ui: 0.15em;         /* +15% for UI / buttons */
+
+  /* Border radius (modern pill / card style) */
+  --radius:     0.75rem;
+  --radius-full: 9999px;         /* for pill buttons */
+
+  /* Shadows / Glows (used in buttons/hovers) */
+  --shadow-teal-glow: 0 8px 30px hsl(170 100% 39% / 0.3);
 }
 
+
+
 .dark {
-  --background: 0 0% 7.0588%;
+  /* --background: 0 0% 7.0588%; */
   --foreground: 214.2857 31.8182% 91.3725%;
   --card: 0 0% 9.0196%;
   --card-foreground: 214.2857 31.8182% 91.3725%;
@@ -66,16 +102,18 @@
   --chart-4: 43.2558 96.4126% 56.2745%;
   --chart-5: 172.4551 66.0079% 50.3922%;
 }
+*{
+  @apply scrollbar-slim-x scrollbar-slim-y;
 
-body {
-  font-family: 'Google Sans Flex', sans-serif;
-  font-weight: 400;
 }
-
 body {
-  background-color: hsl(var(--background));
+  font-family: 'DM Sans', 'Google Sans Flex', sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  background-color: hsl(var(--deep-navy));
   color: hsl(var(--foreground));
 }
+
 
 .rounded-sm {
   border-radius: calc(var(--radius) - 4px);
@@ -98,3 +136,268 @@ body {
 }
 
 /* Design system mode: light */
+/* icon */
+
+
+  .logo-card {
+    border-radius: 16px;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-height: 22px; */
+
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .logo-card:hover { transform: scale(1.02); }
+
+  .logo-card.dark {
+    /* background: hsl(var(--navy)); */
+    border: 1px solid rgba(0, 201, 167, 0.1);
+  }
+
+  .logo-card.light {
+    background: #F0F4F8;
+  }
+
+  .logo-card.teal {
+    background: hsl(var(--snuk-teal));
+  }
+
+  .logo-card .card-label {
+    position: absolute;
+    top: 1rem;
+    left: 1.25rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  .logo-card.light .card-label { color: hsl(var(--deep-navy)); }
+  .logo-card.teal .card-label { color: hsl(var(--deep-navy)); }
+
+  /* ── SVG LOGO ── */
+  .snuk-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .snuk-logo .logo-mark {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+  }
+
+  .snuk-logo .logo-mark .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2.5px solid hsl(var(--snuk-teal));
+    box-shadow: none;
+  }
+
+  .snuk-logo .logo-mark .breath-dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: hsl(var(--snuk-teal));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.7; }
+  }
+
+  .snuk-logo .logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .snuk-logo .logo-sub {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 2px;
+  }
+
+  .breath-dot{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: hsl(var(--snuk-teal));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  .snuk-logo.dark-theme .logo-text { color: hsl(var(--off-white)); }
+  .snuk-logo.dark-theme .logo-sub { color: hsl(var(--slate-grey)); }
+  .snuk-logo.light-theme .logo-text { color: hsl(var(--deep-navy)); }
+  .snuk-logo.light-theme .logo-sub { color: hsl(var(--slate-grey)); }
+  .snuk-logo.light-theme .logo-mark .ring { border-color: hsl(var(--snuk-teal)); }
+  .snuk-logo.reverse-theme .logo-text { color: hsl(var(--deep-navy)); }
+  .snuk-logo.reverse-theme .logo-sub { color: hsl(var(--deep-navy)); opacity: 0.7; }
+  .snuk-logo.reverse-theme .logo-mark .ring { border-color: hsl(var(--deep-navy)); }
+
+  /* ── HERO LOGO (larger) ── */
+  .logo-main .snuk-logo .logo-mark { width: 72px; height: 72px; }
+  .logo-main .snuk-logo .logo-mark .ring { border-width: 3px; }
+  .logo-main .snuk-logo .logo-text { font-size: 3.5rem; }
+  .logo-main .snuk-logo .logo-sub { font-size: 0.7rem; letter-spacing: 0.4em; }
+
+  /* ── ICON ONLY ── */
+  .icon-only {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .icon-variant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .icon-variant .icon-box {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .icon-variant .icon-box.bg-dark { background: hsl(var(--navy)); border: 1px solid rgba(0,201,167,0.15); }
+
+  .icon-variant span {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsl(var(--slate-grey));
+  }
+
+  .mini-mark {
+    position: relative;
+    width: 36px;
+    height: 36px;
+  }
+
+  .mini-mark .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid hsl(var(--snuk-teal));
+  }
+
+  
+
+  .mini-mark.dark-m .ring { border-color: hsl(var(--deep-navy)); }
+
+.scrollbar-slim-x::-webkit-scrollbar {
+  height: 6px;
+  /* adjust: 4px–8px */
+}
+
+.scrollbar-slim-x::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.5);
+  /* slate */
+  border-radius: 9999px;
+}
+
+.scrollbar-slim-y::-webkit-scrollbar {
+  width: 6px;
+  /* adjust: 4px–8px */
+}
+
+.scrollbar-slim-y::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.5);
+  /* slate */
+  border-radius: 9999px;
+}
+
+.scrollbar-slim-x::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* buttons */
+ .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .btn-snuk {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: hsl(var(--snuk-teal));
+    color: hsl(var(--deep-navy));
+  } .btn-danger {
+    background: hsl(var(--warm-alert));
+    color: hsl(var(--off-white));
+  }
+  .btn-danger:hover {
+    transform: translateY(-2px);
+  }
+  .btn-primary:hover {
+    background: hsl(var(--teal-light));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 201, 167, 0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: hsl(var(--snuk-teal));
+    border: 1.5px solid hsl(var(--snuk-teal));
+  }
+  .btn-secondary:hover {
+    background: hsl(var(--snuk-teal-glow));
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.05);
+    color: hsl(var(--snuk-white)) ;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+  }

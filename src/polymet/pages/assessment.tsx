@@ -1,13 +1,14 @@
 export function AssessmentPage() {
   return (
     <div className="min-h-screen relative" style={{
-      backgroundImage: 'linear-gradient(rgba(26, 26, 46, 0.85), rgba(15, 52, 96, 0.85)), url("/background.jpg")',
+      // backgroundColor:'#0A1628' ,
+      // backgroundImage: 'linear-gradient(rgba(26, 26, 46, 0.85), rgba(15, 52, 96, 0.85)), url("/background.jpg")',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed'
     }}>
       {/* Header */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 sm:py-0 py-4">
         <div className="w-full lg:max-w-[1200px] mx-auto">
           {/*<div className="text-center space-y-6 mb-8">
             <div className="space-y-3">
@@ -26,9 +27,9 @@ export function AssessmentPage() {
           </div> */}
 
           {/* Typeform Container */}
-          <div className="backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg" style={{ 
-            backgroundColor: 'rgba(26, 26, 46, 0.8)', 
-            border: '1px solid rgba(64, 224, 208, 0.3)' 
+          <div className="backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg" style={{
+            backgroundColor: 'rgba(15, 36, 64, 0.8)',
+            border: '1px solid rgba(0, 201, 167, 0.3)'
           }}>
             <div className="w-full h-[84vh] min-[400px]:h-[86vh]" >
               <iframe
@@ -42,21 +43,21 @@ export function AssessmentPage() {
 
           {/* Footer Information */}
           <div className="mt-8 text-center space-y-4">
-            <div className="flex items-center justify-center gap-4 text-sm" style={{ color: '#ffffff' }}>
+            <div className="flex items-center justify-center gap-4 text-sm" style={{ color: '#F8FAFB' }}>
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-[#00C9A7] rounded-full"></span>
                 100% Free
               </span>
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-[#00E8C0] rounded-full"></span>
                 No Credit Card Required
               </span>
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-[#00FFD1] rounded-full"></span>
                 Science-Backed
               </span>
             </div>
-            <p className="text-xs" style={{ color: '#ffffff' }}>
+            <p className="text-xs" style={{ color: '#F8FAFB' }}>
               Your responses are confidential and will only be used to create your personalized quit plan.
             </p>
           </div>

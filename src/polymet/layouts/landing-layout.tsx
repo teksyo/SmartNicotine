@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { HeartPulseIcon } from "lucide-react";
+import Header from "@/components/Header";
 
 interface LandingLayoutProps {
   children: ReactNode;
@@ -9,95 +9,37 @@ export function LandingLayout({ children }: LandingLayoutProps) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+        @keyframes pulse {
+          0%, 100% { opacity: 0.6; transform: scale(0.9); }
+          50% { opacity: 1; transform: scale(1.1); }
+        }
       `}</style>
-      <div className="min-h-screen flex flex-col bg-background">
-      {/* Header 
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-green-600 flex items-center justify-center">
-                <HeartPulseIcon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-lg font-bold text-foreground">
-                  Smart Nicotine
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  Science-Backed Cessation
-                </div>
-              </div>
-            </div>
+      <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'hsl(var(--deep-navy))', color: 'hsl(var(--off-white))', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.7 }}>
 
-            <nav className="flex items-center gap-6">
-              <a 
-                href="/" 
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Home
-              </a>
-              <a 
-                href="/chat" 
-                className="text-sm font-medium bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-green-700 transition-all"
-              >
-                Chat
-              </a>
-            </nav>
-
-            <div className="hidden lg:flex items-center gap-2 text-sm">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-muted-foreground">
-                Registered UK Charity
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>*/}
-
-      <div style={{
-        background: 'rgba(26, 26, 46, 1)',
-        textAlign: 'center',
-        padding: '15px 20px',
-        backdropFilter: 'blur(10px)',
-      }}>
-        <h1 className="text-[1.5rem] min-[400px]:text-3xl md:text-5xl font-sans font-extrabold" style={{
-          background: 'linear-gradient(to right, #40e0d0, #0080ff)',
-          WebkitBackgroundClip: 'text',
-          backgroundClip: 'text',
-          display:'inline-block',
-          color: 'transparent',
-        }}>Smart Nicotine .Com</h1>
-        {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
+      <div style={{ padding: '0 20px' }}>
+        <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-1">{children}</main>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-green-600 flex items-center justify-center">
-                <HeartPulseIcon className="w-5 h-5 text-white" />
-              </div>
-              <div className="text-sm text-muted-foreground">
-                © 2026 SmartNicotine.com
-              </div>
+      <footer style={{ borderTop: '1px solid rgba(0, 201, 167, 0.06)', padding: '2.5rem 2rem', textAlign: 'center' }}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'hsl(var(--snuk-teal))', animation: 'pulse 2.5s ease-in-out infinite' }}></div>
+            <span style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.15em', color: 'hsl(var(--slate-grey))' }}>SNUK</span>
+          </div>
+          <div style={{ fontSize: '0.75rem', color: 'rgba(148, 163, 184, 0.5)', lineHeight: 1.6 }}>
+            <p>SNUK Ltd. Independent smoking switching education.</p>
+            <div className="flex items-center justify-center gap-6 mt-3" style={{ fontSize: '0.75rem' }}>
+              <a href="#" style={{ color: 'hsl(var(--snuk-teal))', textDecoration: 'none' }}>Privacy Policy</a>
+              <a href="#" style={{ color: 'hsl(var(--snuk-teal))', textDecoration: 'none' }}>Terms of Service</a>
+              <a href="#" style={{ color: 'hsl(var(--snuk-teal))', textDecoration: 'none' }}>Contact</a>
             </div>
-
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Contact
-              </a>
-            </div>
+            <p className="mt-3">© 2026 SmartNicotine.com</p>
           </div>
         </div>
       </footer>

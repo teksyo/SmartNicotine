@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Conversation } from '@elevenlabs/client';
 import NicotineLadder from './NicotineLadder';
+import Header from './Header';
+import { Button } from './Button';
 
 const ChatV2 = () => {
   const [email, setEmail] = useState('');
@@ -67,7 +69,7 @@ const ChatV2 = () => {
         const profile = await response.json();
         setUserProfile(profile);
       } else if (response.status === 404) {
-        setError("We couldn't find your assessment. Enter your email again.");
+        setError("Invalid email. Enter your email again.");
         setUserProfile(null);
       } else {
         throw new Error('Failed to load user profile');
@@ -237,8 +239,7 @@ const ChatV2 = () => {
   }
 
 
-  const handleEmailSubmit = (e) => {
-    e.preventDefault();
+  const handleEmailSubmit = ()=> {
     
     if (!email || !emailRegex.test(email)) {
       setError('Please enter a valid email address');
@@ -261,23 +262,21 @@ const ChatV2 = () => {
     return (
       <div style={styles.emailContainer}>
         <div style={styles.emailForm}>
-          <h2>Smart Nicotine AI Guide</h2>
-          <p>Enter your email to continue</p>
+       
           
           {error && <div style={styles.error}>{error}</div>}
           
-          <form onSubmit={handleEmailSubmit}>
+          <form>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your.email@example.com"
               style={styles.emailInput}
+              className='text-[hsl(var(--deep-navy))]'
               required
             />
-            <button type="submit" style={styles.emailButton}>
-              Continue
-            </button>
+            <Button variant='outline' text={'Continue'} rightIcon="" icon="" onClick={handleEmailSubmit}  />
           </form>
         </div>
       </div>
@@ -320,20 +319,8 @@ const ChatV2 = () => {
       `}</style>
       <div style={styles.fullScreenContainer}
            className="relative min-h-[70%] pb-20 w-full"
-           data-bg-image="/background.jpg">
-      <div className="w-full text-center py-4" style={{
-        background: 'rgba(26, 26, 46, 0.5)',
-        backdropFilter: 'blur(10px)',
-      }}>
-        <h1 className="text-[1.5rem] min-[400px]:text-3xl md:text-5xl font-sans font-extrabold" style={{
-          background: 'linear-gradient(to right, #40e0d0, #0080ff)',
-          WebkitBackgroundClip: 'text',
-          backgroundClip: 'text',
-          display:'inline-block',
-          color: 'transparent',
-        }}>Smart Nicotine .Com</h1>
-        {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
-      </div>
+          >
+    <Header/>
 
       <div className='w-full' style={styles.chatContainer}>
         {/*<div style={styles.conversationInfo}>
@@ -395,7 +382,7 @@ const ChatV2 = () => {
         */}
 
         {/* Audio Visualization */}
-        <div style={styles.audioVisualizerContainer} className=''>
+        <div style={styles.audioVisualizerContainer} className='bg-navy'>
           <h3 style={styles.visualizerTitle}>
             Talk to David Haye AI Coach
             <span style={styles.statusContainer}>
@@ -439,19 +426,20 @@ const ChatV2 = () => {
 
         <div style={styles.controlsContainer}>
           {!isConnected ? (
-            <button 
-              onClick={startConversation}
-              style={styles.startButton}
-            >
-              PRESS ONCE to activate DH AI Coach
-            </button>
+              <Button 
+             text="SPEAK TO THE DAVID HAYE AI COACH" 
+             variant="primary" 
+             rightIcon=""
+             onClick={startConversation}
+
+             
+           />
           ) : (
-            <button 
-              onClick={stopConversation}
-              style={styles.stopButton}
-            >
-              🔴 Stop Conversation
-            </button>
+            <Button 
+             text="STOP CONVERSATION" 
+             variant="danger" 
+             rightIcon="🔴"
+             onClick={stopConversation} />
           )}
         </div>
 
@@ -488,12 +476,12 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+    // background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
     padding: '20px',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
   },
   emailForm: {
-    background: 'white',
+    background: 'hsl(var(--navy))',
     padding: '40px',
     borderRadius: '12px',
     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
@@ -504,24 +492,13 @@ const styles = {
   emailInput: {
     width: '100%',
     padding: '12px 16px',
-    border: '2px solid #e1e5e9',
     borderRadius: '8px',
     fontSize: '16px',
     marginBottom: '20px',
     boxSizing: 'border-box',
     fontFamily: 'inherit'
   },
-  emailButton: {
-    background: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    padding: '12px 24px',
-    borderRadius: '8px',
-    fontSize: '16px',
-    cursor: 'pointer',
-    width: '100%',
-    fontFamily: 'inherit'
-  },
+
   error: {
     background: '#fee',
     color: '#c53030',
@@ -538,7 +515,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+    // background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
   },
   spinner: {
@@ -555,7 +532,7 @@ const styles = {
   fullScreenContainer: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundImage: 'linear-gradient(rgba(26, 26, 46, 0.9), rgba(15, 52, 96, 0.9)), url("/background.jpg")',
+    // backgroundImage: 'linear-gradient(rgba(26, 26, 46, 0.9), rgba(15, 52, 96, 0.9)), url("/background.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -593,7 +570,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     padding: '20px',
-    background: 'rgba(26, 26, 46, 0.1)',
     backdropFilter: 'blur(2px)',
     margin: '0',
     borderRadius: '12px'
@@ -736,10 +712,10 @@ const styles = {
 
   // Audio Visualizer styles
   audioVisualizerContainer: {
-    background: 'rgba(15, 52, 96, 0.8)',
     borderRadius: '12px',
-    border: '1px solid rgba(64, 224, 208, 0.3)',
+    // border: '1px solid rgba(64, 224, 208, 0.3)',
     overflow: 'hidden',
+    boxShadow: '0 1px 2px gray ',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -751,7 +727,6 @@ const styles = {
     margin: '0',
     padding: '16px 20px',
     borderBottom: '1px solid rgba(64, 224, 208, 0.3)',
-    background: 'rgba(22, 33, 62, 0.9)',
     fontSize: '18px',
     fontWeight: '600',
     color: '#ffffff'
