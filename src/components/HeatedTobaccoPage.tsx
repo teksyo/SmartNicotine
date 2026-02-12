@@ -21,7 +21,7 @@ const HeatedTobaccoPage: React.FC = () => {
             Heated tobacco devices warm real tobacco just enough to release nicotine and flavour, but never hot enough to burn it. No combustion means no smoke, no tar, no ash, and a massive reduction in the chemicals that actually cause harm.
           </p>
           <div className="hero-cta-row">
-            <a href="#start" className="ht-btn-primary">Join SNUK Free</a>
+            <a href="/iqos" className="ht-btn-primary">Select Your IQOS Device</a>
             <a href="#science" className="ht-btn-ghost">See the Science</a>
           </div>
         </div>
