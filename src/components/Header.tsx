@@ -4,6 +4,7 @@ import './Header.css';
 function Header() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const savedEmail = localStorage.getItem('snuk_email');
 
   return (
     <nav className="site-nav">
@@ -17,7 +18,11 @@ function Header() {
         <a href="/nicotine-pouches" style={currentPath === '/nicotine-pouches' ? { color: '#F8FAFB' } : undefined}>Nicotine Pouches</a>
         <a href="/vapes" style={currentPath === '/vapes' ? { color: '#F8FAFB' } : undefined}>Vapes</a>
       </div>
-      <a href="/assessment" className="site-nav-cta" style={currentPath === '/assessment' ? { visibility: 'hidden' } : undefined}>Start Free Programme</a>
+      {savedEmail ? (
+        <a href={`/chat-v2?email=${encodeURIComponent(savedEmail)}`} className="site-nav-cta" style={currentPath === '/chat-v2' ? { visibility: 'hidden' } : undefined}>Go to Agent Page</a>
+      ) : (
+        <a href="/assessment" className="site-nav-cta" style={currentPath === '/assessment' ? { visibility: 'hidden' } : undefined}>Start Free Programme</a>
+      )}
     </nav>
   );
 }
