@@ -1,30 +1,25 @@
-import React from 'react'
+import { useLocation } from 'react-router-dom';
+import './Header.css';
 
 function Header() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
-     <header style={{
-        // background: 'rgba(26, 26, 46, 1)',
-        // textAlign: 'center',
-        padding: '-5px 20px',
-        // borderBottom: '1px solid rgba(0, 201, 167, 0.3)',
-        
-      }}>
-         <div className="logo-card dark" style={{border:'none',
-        boxShadow: 'none',}} >
-      <div className="snuk-logo dark-theme">
-        <div className="logo-mark">
-          <div className="ring"></div>
-          <div className="breath-dot"></div>
-        </div>
-        <div>
-          <div className="logo-text">SNUK</div>
-          <div className="logo-sub">Smart Nicotine UK</div>
-        </div>
+    <nav className="site-nav">
+      <a href="/" className="site-nav-logo">
+        <div className="site-nav-dot" />
+        <span>SNUK</span>
+      </a>
+      <div className="site-nav-links">
+        <a href="/" style={currentPath === '/' ? { color: '#F8FAFB' } : undefined}>Home</a>
+        <a href="/heated-tobacco" style={currentPath === '/heated-tobacco' ? { color: '#F8FAFB' } : undefined}>Heated Tobacco</a>
+        <a href="/nicotine-pouches" style={currentPath === '/nicotine-pouches' ? { color: '#F8FAFB' } : undefined}>Nicotine Pouches</a>
+        <a href="/vapes" style={currentPath === '/vapes' ? { color: '#F8FAFB' } : undefined}>Vapes</a>
       </div>
-    </div>
-        {/*<p style={styles.subtitle}>Chat with David Haye • {userProfile?.email}</p>*/}
-      </header>
-  )
+      <a href="/assessment" className="site-nav-cta">Start Free Programme</a>
+    </nav>
+  );
 }
 
-export default Header
+export default Header;

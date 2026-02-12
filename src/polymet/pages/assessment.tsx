@@ -8,7 +8,7 @@ export function AssessmentPage() {
       backgroundAttachment: 'fixed'
     }}>
       {/* Header */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 sm:py-0 py-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 sm:pb-0 pb-4">
         <div className="w-full lg:max-w-[1200px] mx-auto">
           {/*<div className="text-center space-y-6 mb-8">
             <div className="space-y-3">

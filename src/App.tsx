@@ -6,6 +6,9 @@ import ChatPage from "@/components/ChatPage";
 import ChatV2 from "@/components/ChatV2";
 import LandingPage from "@/components/LandingPage";
 import IqosPage from "@/components/IqosPage";
+import VapesPage from "@/components/VapesPage";
+import NicotinePouchesPage from "@/components/NicotinePouchesPage";
+import HeatedTobaccoPage from "@/components/HeatedTobaccoPage";
 
 export default function SmartNicotineApp() {
   return (
@@ -38,6 +41,18 @@ export default function SmartNicotineApp() {
               <IqosPage />
             </LandingLayout>
           }
+        />
+        <Route
+          path="/vapes"
+          element={<VapesPage />}
+        />
+        <Route
+          path="/nicotine-pouches"
+          element={<NicotinePouchesPage />}
+        />
+        <Route
+          path="/heated-tobacco"
+          element={<HeatedTobaccoPage />}
         />
       </Routes>
     </Router>
