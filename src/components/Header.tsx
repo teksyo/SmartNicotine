@@ -6,7 +6,9 @@ function Header() {
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
   const isAssessment = currentPath === '/assessment';
+  const isChatV2 = currentPath === '/chat-v2';
   const showNav = !isHome && !isAssessment;
+  const savedEmail = localStorage.getItem('snuk_email');
 
   return (
     <nav className="site-nav">
@@ -23,6 +25,8 @@ function Header() {
       )}
       {isHome ? (
         <a href="/assessment" className="site-nav-cta">Start Free Programme</a>
+      ) : showNav && !isChatV2 && savedEmail ? (
+        <a href={`/chat-v2?email=${encodeURIComponent(savedEmail)}`} className="site-nav-cta">Go to Agent Page</a>
       ) : (
         <span className="site-nav-cta" style={{ visibility: 'hidden' }}>Start Free Programme</span>
       )}
