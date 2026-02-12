@@ -213,6 +213,7 @@ const HeatedTobaccoPage: React.FC = () => {
               <span className="spec-pill silver-pill">22 Sessions Per Charge</span>
               <span className="spec-pill silver-pill">25 Second Heat-Up</span>
             </div>
+            <a href="https://www.ploom.co.uk" target="_blank" rel="noopener noreferrer" className="ht-btn-primary" style={{ display: 'inline-block', marginTop: '1.5rem' }}>Buy Ploom Device</a>
           </div>
         </div>
       </div>
