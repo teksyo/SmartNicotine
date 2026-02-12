@@ -26,7 +26,6 @@ const ChatV2 = () => {
     const urlEmail = new URLSearchParams(window.location.search).get("email");
     if (urlEmail && emailRegex.test(urlEmail)) {
       setEmail(urlEmail);
-      localStorage.setItem('snuk_email', urlEmail);
       loadUserProfile(urlEmail);
     }
     

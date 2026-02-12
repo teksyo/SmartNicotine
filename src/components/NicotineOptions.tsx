@@ -34,7 +34,7 @@ const NicotineOptions = () => {
               <p className="no-science-text">By heating tobacco to 350&deg;C instead of burning at 600&deg;C+, IQOS produces on average 95% lower levels of harmful chemicals compared to cigarettes (excluding nicotine). Supported by 30+ peer-reviewed studies.</p>
             </div>
             <div className="no-cta-row">
-              <a href="/iqos" target="_blank" rel="noopener noreferrer" className="no-cta no-cta-primary">Go to Store to Buy</a>
+              <a href="/iq" target="_blank" rel="noopener noreferrer" className="no-cta no-cta-primary">Go to Store to Buy</a>
               <a href="/heated-tobacco" className="no-cta no-cta-secondary">Learn More</a>
             </div>
           </div>
