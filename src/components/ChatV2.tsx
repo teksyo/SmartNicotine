@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Conversation } from '@elevenlabs/client';
-import NicotineLadder from './NicotineLadder';
+// import NicotineLadder from './NicotineLadder';
+import NicotineOptions from './NicotineOptions';
 import Header from './Header';
 import { Button } from './Button';
 
@@ -317,7 +318,7 @@ const ChatV2 = () => {
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap');
       `}</style>
       <div style={styles.fullScreenContainer}
-           className="relative min-h-[70%] pb-20 w-full"
+           className="relative min-h-[70%] pb-20 w-full pt-20 sm:pt-24 lg:pt-32"
           >
     <Header/>
 
@@ -381,7 +382,7 @@ const ChatV2 = () => {
         */}
 
         {/* Audio Visualization */}
-        <div style={styles.audioVisualizerContainer} className='bg-navy'>
+        <div style={styles.audioVisualizerContainer}>
           <h3 style={styles.visualizerTitle}>
             Talk to David Haye AI Coach
             <span style={styles.statusContainer}>
@@ -445,11 +446,8 @@ const ChatV2 = () => {
       </div>
     </div>
     
-    {/* Wave transition */}
+    {/* Wave transition - COMMENTED OUT
     <div className="relative">
-      
-      
-      {/* Scroll indicator */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-bounce mb-2">
@@ -461,9 +459,11 @@ const ChatV2 = () => {
         </div>
       </div>
     </div>
-    
-    {/* Nicotine Ladder section below the chat */}
     <NicotineLadder />
+    */}
+
+    {/* Nicotine Options section below the chat */}
+    <NicotineOptions />
     </>
   );
 };
@@ -720,7 +720,8 @@ const styles = {
     width: '100%',
     maxWidth: '700px',
     margin: '0 auto 20px auto',
-    backdropFilter: 'blur(10px)'
+    backdropFilter: 'blur(10px)',
+    background: 'radial-gradient(ellipse at 40% 40%, rgb(0 201 167 / 10%) 0%, #298e890d 60%)'
   },
   visualizerTitle: {
     margin: '0',
@@ -767,7 +768,7 @@ const styles = {
   
   speakingBar: {
     height: '35px',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#00C9A7',
     animation: 'speakingWave 0.8s ease-in-out infinite'
   },
   
@@ -790,7 +791,7 @@ const styles = {
   },
   
   speakingText: {
-    color: '#4CAF50',
+    color: '#00C9A7',
     fontSize: '16px',
     fontWeight: '600',
     textAlign: 'center',

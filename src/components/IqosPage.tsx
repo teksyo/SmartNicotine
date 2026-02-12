@@ -1,6 +1,5 @@
-import React from 'react';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
+import Header from './Header';
 
 interface IqosProduct {
   id: string;
@@ -72,59 +71,52 @@ const IqosPage = () => {
   return (
     <>
       <style>{`
-        .product-card {
-          background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(64, 224, 208, 0.2);
+        .iqos-page {
+          font-family: 'DM Sans', sans-serif;
+          background: #0A1628;
+          color: #F8FAFB;
+          min-height: 100vh;
         }
 
-        .product-card:hover {
-          border-color: rgba(0, 128, 255, 0.4);
+        .iqos-page .product-card {
+          background: #0F2440;
+          border: 1px solid rgba(0, 201, 167, 0.1);
+          border-radius: 16px;
+          overflow: hidden;
+          transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .iqos-page .product-card:hover {
+          border-color: rgba(0, 201, 167, 0.3);
           transform: translateY(-2px);
-          box-shadow: 0 20px 40px rgba(0, 128, 255, 0.2);
+          box-shadow: 0 20px 40px rgba(0, 201, 167, 0.1);
         }
 
-        .buy-button {
-          background: linear-gradient(135deg, #40e0d0, #0080ff);
+        .iqos-page .buy-button {
+          background: #00C9A7;
           transition: all 0.3s ease;
         }
 
-        .buy-button:hover {
-          background: linear-gradient(135deg, #0080ff, #40e0d0);
+        .iqos-page .buy-button:hover {
+          background: #00E8C0;
           transform: translateY(-1px);
-          box-shadow: 0 10px 25px rgba(64, 224, 208, 0.4);
+          box-shadow: 0 10px 25px rgba(0, 201, 167, 0.3);
         }
       `}</style>
-      
-      <div className="min-h-screen text-white" style={{
-        backgroundImage: 'linear-gradient(rgba(26, 26, 46, 0.85), rgba(15, 52, 96, 0.85)), url("/background.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}>
-        <div className="max-w-7xl mx-auto px-5 py-8">
+
+      <div className="iqos-page">
+        <Header />
+        <div className="max-w-7xl mx-auto px-5 py-8" style={{ paddingTop: '100px' }}>
           {/* Header */}
           <header className="text-center mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <button 
-                onClick={() => window.history.back()}
-                className="flex items-center gap-2 text-cyan-400 hover:text-blue-400 transition-colors bg-transparent border-none cursor-pointer"
-              >
-                <ArrowLeft size={20} />
-                <span className="text-sm font-medium">Back to Chat</span>
-              </button>
-            </div>
-            
-            <h1 className="text-white text-3xl md:text-4xl font-sans font-extrabold tracking-wider mb-3 uppercase" style={{
-              display:'inline-block',
-            }}>
+            <h1 style={{ fontFamily: 'Outfit, sans-serif', color: '#F8FAFB', fontSize: '2.2rem', fontWeight: 700, marginBottom: '0.75rem', letterSpacing: '1px' }}>
               IQOS PRODUCTS
             </h1>
-            <h3 className="text-lg md:text-xl font-bold leading-tight mb-5 uppercase tracking-wide opacity-80">
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#00C9A7', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '2px' }}>
               HEATED TOBACCO ALTERNATIVES
             </h3>
-            <p className="text-sm md:text-base max-w-2xl mx-auto opacity-70 leading-relaxed">
-              Explore IQOS heated tobacco products as a reduced-risk alternative. 
+            <p style={{ fontSize: '0.95rem', maxWidth: '600px', margin: '0 auto', color: '#94A3B8', lineHeight: 1.6 }}>
+              Explore IQOS heated tobacco products as a reduced-risk alternative.
               All products are sorted from lowest to highest price.
             </p>
           </header>
@@ -132,82 +124,84 @@ const IqosPage = () => {
           {/* Products Grid */}
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {sortedProducts.map((product) => (
-              <div key={product.id} className="product-card rounded-lg p-6 transition-all duration-300">
+              <div key={product.id} className="product-card transition-all duration-300">
                 {/* Product Image */}
-                <div className="w-full h-80 bg-gray-800 rounded-lg mb-4 overflow-hidden">
-                  <img 
-                    src={product.image} 
+                <div style={{ width: '100%', height: '320px', background: '#1E3A5F', overflow: 'hidden' }}>
+                  <img
+                    src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }}
+                    className="hover:scale-105"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement.innerHTML = `
-                        <div class="w-full h-full flex items-center justify-center text-gray-400 text-center">
+                      e.currentTarget.parentElement!.innerHTML = `
+                        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#94A3B8;text-align:center">
                           <div>
-                            <div class="text-2xl mb-2">📱</div>
-                            <div class="text-xs">IQOS Product</div>
+                            <div style="font-size:2rem;margin-bottom:0.5rem">📱</div>
+                            <div style="font-size:0.75rem">IQOS Product</div>
                           </div>
                         </div>
                       `;
                     }}
                   />
                 </div>
-                
+
                 {/* Product Info */}
-                <div className="mb-4">
+                <div style={{ padding: '20px' }}>
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-bold text-cyan-400">{product.name}</h3>
-                    <span className="bg-cyan-400/20 text-cyan-400 px-2 py-1 rounded text-xs font-medium">
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#00C9A7', fontFamily: 'Outfit, sans-serif' }}>{product.name}</h3>
+                    <span style={{ background: 'rgba(0,201,167,0.12)', color: '#00C9A7', padding: '4px 10px', borderRadius: '6px', fontSize: '0.7rem', fontWeight: 500 }}>
                       {product.category}
                     </span>
                   </div>
-                  
-                  <p className="text-2xl font-bold text-white mb-3">
-                    ${product.price}
+
+                  <p style={{ fontSize: '1.5rem', fontWeight: 700, color: '#F8FAFB', margin: '0.75rem 0', fontFamily: 'Outfit, sans-serif' }}>
+                    &pound;{product.price.toFixed(2)}
                   </p>
-                  
-                  <p className="text-gray-300 text-sm mb-6 leading-relaxed">
+
+                  <p style={{ color: '#94A3B8', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: 1.6 }}>
                     {product.description}
                   </p>
+
+                  {/* Buy Button */}
+                  <a
+                    href={product.buyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="buy-button"
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '12px', borderRadius: '10px', color: '#0A1628', fontWeight: 700, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', textDecoration: 'none', cursor: 'pointer' }}
+                  >
+                    Buy on IQOS.com
+                    <ExternalLink size={16} />
+                  </a>
                 </div>
-                
-                {/* Buy Button */}
-                <a
-                  href={product.buyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="buy-button w-full py-3 px-4 rounded-lg text-gray-900 font-bold text-sm uppercase tracking-wide cursor-pointer transition-all duration-300 flex items-center justify-center gap-2 no-underline"
-                >
-                  Buy on IQOS.com
-                  <ExternalLink size={16} />
-                </a>
               </div>
             ))}
           </section>
 
           {/* Info Section */}
-          <section className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-700/50">
-            <h2 className="text-xl font-bold text-cyan-400 mb-4">About IQOS Heated Tobacco</h2>
-            <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-300">
+          <section style={{ background: '#0F2440', border: '1px solid rgba(0,201,167,0.1)', borderRadius: '16px', padding: '24px', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#00C9A7', marginBottom: '1rem', fontFamily: 'Outfit, sans-serif' }}>About IQOS Heated Tobacco</h2>
+            <div className="grid md:grid-cols-2 gap-6" style={{ fontSize: '0.9rem', color: '#94A3B8' }}>
               <div>
-                <h3 className="font-semibold text-white mb-2">How It Works</h3>
-                <p className="leading-relaxed">
-                  IQOS heats tobacco instead of burning it, producing a tobacco vapor with 
+                <h3 style={{ fontWeight: 600, color: '#F8FAFB', marginBottom: '0.5rem' }}>How It Works</h3>
+                <p style={{ lineHeight: 1.6 }}>
+                  IQOS heats tobacco instead of burning it, producing a tobacco vapor with
                   significantly reduced harmful chemicals compared to cigarette smoke.
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold text-white mb-2">Reduced Risk</h3>
-                <p className="leading-relaxed">
-                  Scientific studies show IQOS produces on average 95% lower levels of harmful 
+                <h3 style={{ fontWeight: 600, color: '#F8FAFB', marginBottom: '0.5rem' }}>Reduced Risk</h3>
+                <p style={{ lineHeight: 1.6 }}>
+                  Scientific studies show IQOS produces on average 95% lower levels of harmful
                   chemicals compared to cigarettes.
                 </p>
               </div>
             </div>
-            
-            <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-              <p className="text-xs text-yellow-200">
-                <strong>Important:</strong> IQOS is not risk-free and delivers nicotine, which is addictive. 
+
+            <div style={{ marginTop: '1rem', padding: '14px', background: 'rgba(255,107,53,0.08)', border: '1px solid rgba(255,107,53,0.2)', borderRadius: '10px' }}>
+              <p style={{ fontSize: '0.8rem', color: '#FF6B35' }}>
+                <strong>Important:</strong> IQOS is not risk-free and delivers nicotine, which is addictive.
                 The best decision any smoker can make is to quit tobacco and nicotine use altogether.
               </p>
             </div>

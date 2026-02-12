@@ -17,7 +17,7 @@ function Header() {
         <a href="/nicotine-pouches" style={currentPath === '/nicotine-pouches' ? { color: '#F8FAFB' } : undefined}>Nicotine Pouches</a>
         <a href="/vapes" style={currentPath === '/vapes' ? { color: '#F8FAFB' } : undefined}>Vapes</a>
       </div>
-      <a href="/assessment" className="site-nav-cta">Start Free Programme</a>
+      <a href="/assessment" className="site-nav-cta" style={currentPath === '/assessment' ? { visibility: 'hidden' } : undefined}>Start Free Programme</a>
     </nav>
   );
 }

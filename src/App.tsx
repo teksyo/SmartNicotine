@@ -36,11 +36,7 @@ export default function SmartNicotineApp() {
         />
         <Route
           path="/iqos"
-          element={
-            <LandingLayout>
-              <IqosPage />
-            </LandingLayout>
-          }
+          element={<IqosPage />}
         />
         <Route
           path="/vapes"

@@ -1,0 +1,303 @@
+.nicotine-options {
+  --no-bg: #0a0a0a1d;
+  --no-card: #0c1e37;
+  --no-card-hover: #1a1a1a;
+  --no-teal: #00C9A7;
+  --no-teal-dim: rgba(0, 201, 167, 0.15);
+  --no-text: #e8e8e8;
+  --no-text-dim: #94A3B8;
+  --no-accent-warm: #ff6b35;
+  --no-border: rgba(0,201,167,.1);
+  --no-radius: 16px;
+
+  font-family: 'DM Sans', sans-serif;
+  background: var(--no-bg);
+  color: var(--no-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nicotine-options h1,
+.nicotine-options h2,
+.nicotine-options h3,
+.nicotine-options h4 {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Credits Banner */
+.nicotine-options .no-credits-banner {
+  background: linear-gradient(135deg, rgba(0, 201, 167, 0.12), rgba(0, 201, 167, 0.04));
+  border-bottom: 1px solid rgba(0, 201, 167, 0.2);
+  padding: 14px 20px;
+  text-align: center;
+}
+
+.nicotine-options .no-credits-banner p {
+  font-size: 0.85rem;
+  color: var(--no-teal);
+  margin: 0;
+}
+
+.nicotine-options .no-credits-banner strong {
+  font-weight: 600;
+}
+
+/* Sections */
+.nicotine-options .no-section {
+  padding: 32px 16px 16px;
+}
+
+.nicotine-options .no-section-header {
+  margin-bottom: 20px;
+}
+
+.nicotine-options .no-section-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--no-teal);
+  margin-bottom: 6px;
+}
+
+.nicotine-options .no-section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.nicotine-options .no-section-sub {
+  font-size: 0.85rem;
+  color: var(--no-text-dim);
+  line-height: 1.5;
+}
+
+/* Product Cards */
+.nicotine-options .no-product-card {
+  background: var(--no-card);
+  border: 1px solid var(--no-border);
+  border-radius: var(--no-radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.nicotine-options .no-product-card:hover {
+  border-color: rgba(0, 201, 167, 0.3);
+}
+
+.nicotine-options .no-product-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+
+.nicotine-options .no-product-body {
+  padding: 20px;
+}
+
+.nicotine-options .no-product-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.nicotine-options .no-product-maker {
+  font-size: 0.75rem;
+  color: var(--no-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.nicotine-options .no-product-desc {
+  font-size: 0.9rem;
+  color: var(--no-text-dim);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Stats Grid */
+.nicotine-options .no-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.nicotine-options .no-stat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--no-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.nicotine-options .no-stat-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--no-teal);
+}
+
+.nicotine-options .no-stat-label {
+  font-size: 0.7rem;
+  color: var(--no-text-dim);
+  margin-top: 2px;
+}
+
+/* Science Badge */
+.nicotine-options .no-science {
+  background: var(--no-teal-dim);
+  border: 1px solid rgba(0, 201, 167, 0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.nicotine-options .no-science-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--no-teal);
+  margin-bottom: 4px;
+}
+
+.nicotine-options .no-science-text {
+  font-size: 0.82rem;
+  color: var(--no-text);
+  line-height: 1.5;
+}
+
+/* CTAs */
+.nicotine-options .no-cta-row {
+  display: flex;
+  gap: 8px;
+}
+
+.nicotine-options .no-cta {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nicotine-options .no-cta-primary {
+  background: var(--no-teal);
+  color: #000;
+}
+
+.nicotine-options .no-cta-primary:hover {
+  background: #00e6be;
+}
+
+.nicotine-options .no-cta-secondary {
+  background: transparent;
+  border: 1px solid var(--no-border);
+  color: var(--no-text);
+}
+
+.nicotine-options .no-cta-secondary:hover {
+  border-color: var(--no-teal);
+  color: var(--no-teal);
+}
+
+/* Flavours */
+.nicotine-options .no-flavour-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.nicotine-options .no-flavour {
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--no-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: var(--no-text-dim);
+}
+
+/* Strengths */
+.nicotine-options .no-strength-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.nicotine-options .no-strength {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--no-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.nicotine-options .no-strength-val {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--no-teal);
+}
+
+.nicotine-options .no-strength-lbl {
+  font-size: 0.65rem;
+  color: var(--no-text-dim);
+  margin-top: 2px;
+}
+
+/* Footer */
+.nicotine-options .no-footer {
+  padding: 32px 16px;
+  text-align: center;
+  border-top: 1px solid var(--no-border);
+  margin-top: 24px;
+}
+
+.nicotine-options .no-footer p {
+  font-size: 0.75rem;
+  color: var(--no-text-dim);
+  line-height: 1.6;
+}
+
+/* Divider */
+.nicotine-options .no-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--no-border), transparent);
+  margin: 8px 16px;
+}
+
+@media (min-width: 600px) {
+  .nicotine-options .no-section {
+    padding: 40px 24px 20px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .nicotine-options .no-credits-banner {
+    padding: 16px 24px;
+  }
+
+  .nicotine-options .no-footer {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .nicotine-options .no-section {
+    max-width: 680px;
+  }
+
+  .nicotine-options .no-footer {
+    max-width: 680px;
+  }
+}
