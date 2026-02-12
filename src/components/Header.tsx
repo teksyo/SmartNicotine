@@ -4,20 +4,28 @@ import './Header.css';
 function Header() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const isHome = currentPath === '/';
+  const isAssessment = currentPath === '/assessment';
+  const showNav = !isHome && !isAssessment;
 
   return (
     <nav className="site-nav">
-      <a href="/" className="site-nav-logo">
+      <div className="site-nav-logo">
         <div className="site-nav-dot" />
         <span>SNUK</span>
-      </a>
-      <div className="site-nav-links">
-        <a href="/" style={currentPath === '/' ? { color: '#F8FAFB' } : undefined}>Home</a>
-        <a href="/heated-tobacco" style={currentPath === '/heated-tobacco' ? { color: '#F8FAFB' } : undefined}>Heated Tobacco</a>
-        <a href="/nicotine-pouches" style={currentPath === '/nicotine-pouches' ? { color: '#F8FAFB' } : undefined}>Nicotine Pouches</a>
-        <a href="/vapes" style={currentPath === '/vapes' ? { color: '#F8FAFB' } : undefined}>Vapes</a>
       </div>
-      <a href="/assessment" className="site-nav-cta" style={currentPath === '/assessment' || currentPath === '/chat-v2' ? { visibility: 'hidden' } : undefined}>Start Free Programme</a>
+      {showNav && (
+        <div className="site-nav-links">
+          <a href="/heated-tobacco" style={currentPath === '/heated-tobacco' ? { color: '#F8FAFB' } : undefined}>Heated Tobacco</a>
+          <a href="/nicotine-pouches" style={currentPath === '/nicotine-pouches' ? { color: '#F8FAFB' } : undefined}>Nicotine Pouches</a>
+          <a href="/vapes" style={currentPath === '/vapes' ? { color: '#F8FAFB' } : undefined}>Vapes</a>
+        </div>
+      )}
+      {isHome ? (
+        <a href="/assessment" className="site-nav-cta">Start Free Programme</a>
+      ) : (
+        <span className="site-nav-cta" style={{ visibility: 'hidden' }}>Start Free Programme</span>
+      )}
     </nav>
   );
 }

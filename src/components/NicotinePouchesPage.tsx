@@ -10,8 +10,6 @@ const NicotinePouchesPage: React.FC = () => {
       <section className="hero">
         <div className="hero-content">
           <div className="breadcrumb">
-            <a href="/">Home</a>
-            <span>/</span>
             Nicotine Pouches
           </div>
           <div className="hero-label">No Smoke. No Vapour. No Tobacco.</div>
@@ -318,15 +316,13 @@ const NicotinePouchesPage: React.FC = () => {
         <div className="section-title">The Cleanest Way to Get Your Nicotine.</div>
         <p>Join SNUK&rsquo;s free 12-month programme. Learn the science. Talk to your AI coach. Earn &pound;30/month in credits redeemable at zyn.com. No cost, no catch, no judgement. Just a smarter approach to nicotine.</p>
         <div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
-          <a href="/assessment" className="np-btn-primary">Start Your Free Programme</a>
-          <a href="/" className="np-btn-ghost">Back to Home</a>
+          <a href="/chat-v2" className="np-btn-primary">Back to AI Coach</a>
         </div>
       </div>
 
       {/* FOOTER */}
       <footer>
         <div className="footer-links">
-          <a href="/">Home</a>
           <a href="/heated-tobacco">Heated Tobacco</a>
           <a href="/nicotine-pouches">Nicotine Pouches</a>
           <a href="/vapes">Vapes</a>

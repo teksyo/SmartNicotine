@@ -9,7 +9,7 @@ const VapesPage: React.FC = () => {
       {/* HERO */}
       <section className="hero">
         <div className="hero-content">
-          <div className="breadcrumb"><a href="/">Home</a><span>/</span>Vapes</div>
+          <div className="breadcrumb">Vapes</div>
           <div className="hero-label">A Smarter Way to Vape</div>
           <h1 className="hero-headline">
             99% Fewer Harmful Chemicals.<br />
@@ -276,15 +276,13 @@ const VapesPage: React.FC = () => {
         <div className="section-title">A Cleaner Way to Get Your Nicotine.</div>
         <p>Join SNUK&rsquo;s free 12-month programme. Learn the science. Talk to your AI coach. Earn &pound;30/month in credits. Whether you switch to VEEV, ZYN pouches, or heated tobacco, SNUK helps you make a smarter choice.</p>
         <div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
-          <a href="/assessment" className="vp-btn-primary">Start Your Free Programme</a>
-          <a href="/" className="vp-btn-ghost">Back to Home</a>
+          <a href="/chat-v2" className="vp-btn-primary">Back to AI Coach</a>
         </div>
       </div>
 
       {/* FOOTER */}
       <footer>
         <div className="footer-links">
-          <a href="/">Home</a>
           <a href="/heated-tobacco">Heated Tobacco</a>
           <a href="/nicotine-pouches">Nicotine Pouches</a>
           <a href="/vapes">Vapes</a>
