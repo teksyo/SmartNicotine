@@ -21,7 +21,6 @@ const NicotinePouchesPage: React.FC = () => {
             Nicotine pouches are the cleanest way to consume nicotine. No smoke, no vapour, no tobacco leaf, no spit, no smell. A small pouch goes under your lip and delivers nicotine for up to 30 minutes. That&rsquo;s it. Use them anywhere. Nobody knows.
           </p>
           <div className="hero-cta-row">
-            <a href="#start" className="np-btn-primary">Join SNUK Free</a>
             <a href="#what" className="np-btn-ghost">Learn More</a>
           </div>
         </div>
@@ -315,9 +314,9 @@ const NicotinePouchesPage: React.FC = () => {
         <div className="section-label">Ready?</div>
         <div className="section-title">The Cleanest Way to Get Your Nicotine.</div>
         <p>Join SNUK&rsquo;s free 12-month programme. Learn the science. Talk to your AI coach. Earn &pound;30/month in credits redeemable at zyn.com. No cost, no catch, no judgement. Just a smarter approach to nicotine.</p>
-        <div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
+        {/* <div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
           <a href="/chat-v2" className="np-btn-primary">Back to AI Coach</a>
-        </div>
+        </div>*/}
       </div>
 
       {/* FOOTER */}

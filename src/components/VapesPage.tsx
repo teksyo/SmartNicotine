@@ -19,7 +19,6 @@ const VapesPage: React.FC = () => {
             If you&rsquo;re switching from cigarettes, vaping is one of the smartest moves you can make. VEEV ONE gives you a premium, tested, regulated device with ceramic heating technology, sealed pods, and full ingredient transparency. No guesswork, just a cleaner way to get your nicotine.
           </p>
           <div className="hero-cta-row">
-            <a href="#start" className="vp-btn-primary">Join SNUK Free</a>
             <a href="#veev" className="vp-btn-ghost">Explore VEEV ONE</a>
           </div>
         </div>
@@ -275,9 +274,9 @@ const VapesPage: React.FC = () => {
         <div className="section-label">Ready?</div>
         <div className="section-title">A Cleaner Way to Get Your Nicotine.</div>
         <p>Join SNUK&rsquo;s free 12-month programme. Learn the science. Talk to your AI coach. Earn &pound;30/month in credits. Whether you switch to VEEV, ZYN pouches, or heated tobacco, SNUK helps you make a smarter choice.</p>
-        <div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
+        {/*<div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
           <a href="/chat-v2" className="vp-btn-primary">Back to AI Coach</a>
-        </div>
+        </div>*/}
       </div>
 
       {/* FOOTER */}
