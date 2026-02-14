@@ -428,7 +428,7 @@ const ChatV2 = () => {
         <div style={styles.controlsContainer}>
           {!isConnected ? (
               <Button 
-             text="SPEAK TO THE DAVID HAYE AI COACH" 
+             text="Press One to speak to DH-AI Coach" 
              variant="primary" 
              rightIcon=""
              onClick={startConversation}
