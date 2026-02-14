@@ -24,7 +24,7 @@ const NicotineOptions = () => {
             <div className="no-product-maker">Philip Morris International</div>
             <p className="no-product-desc">The UK&rsquo;s leading heated tobacco system. SMARTCORE INDUCTION SYSTEM heats tobacco from within, with no blade, no cleaning, no burning. Three devices to suit your style.</p>
             <div className="no-stats">
-              <div className="no-stat"><div className="no-stat-value">&pound;9 &ndash; &pound;39</div><div className="no-stat-label">Device range</div></div>
+              <div className="no-stat"><div className="no-stat-value">&pound;9 &ndash; &pound;89</div><div className="no-stat-label">Device range</div></div>
               <div className="no-stat"><div className="no-stat-value">&pound;6 &ndash; &pound;7</div><div className="no-stat-label">TEREA (20 sticks)</div></div>
               <div className="no-stat"><div className="no-stat-value">95%</div><div className="no-stat-label">UK market share</div></div>
               <div className="no-stat"><div className="no-stat-value">20+</div><div className="no-stat-label">TEREA flavours</div></div>
@@ -48,7 +48,7 @@ const NicotineOptions = () => {
             <div className="no-product-maker">JTI (Japan Tobacco International)</div>
             <p className="no-product-desc">JTI&rsquo;s heated tobacco device using HeatFlow technology. A budget-friendly alternative with touch-to-start activation and 20&ndash;23 uses per charge. Won Product of the Year 2024 in the Heated Tobacco category.</p>
             <div className="no-stats">
-              <div className="no-stat"><div className="no-stat-value">&pound;5 &ndash; &pound;7</div><div className="no-stat-label">Device price</div></div>
+              <div className="no-stat"><div className="no-stat-value">&pound;5 &ndash; &pound;17</div><div className="no-stat-label">Device price</div></div>
               <div className="no-stat"><div className="no-stat-value">&pound;5.00</div><div className="no-stat-label">EVO sticks (20 pack)</div></div>
               <div className="no-stat"><div className="no-stat-value">~5%</div><div className="no-stat-label">UK market share</div></div>
               <div className="no-stat"><div className="no-stat-value">9</div><div className="no-stat-label">EVO flavours</div></div>

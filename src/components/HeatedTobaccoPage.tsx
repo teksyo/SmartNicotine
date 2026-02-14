@@ -186,7 +186,7 @@ const HeatedTobaccoPage: React.FC = () => {
       {/* PLOOM PRODUCT SECTION */}
       <div className="showcase" id="ploom">
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div className="section-label" style={{ color: 'var(--ht-silver)' }}>The Challenger</div>
+          <div className="section-label" style={{ color: 'var(--ht-silver)' }}>Heated Tobacco</div>
           <div className="section-title">Ploom X Advanced by JTI</div>
         </div>
 
