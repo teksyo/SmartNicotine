@@ -25,9 +25,8 @@ function Header() {
       )}
       {isHome ? (
         <a href="/assessment" className="site-nav-cta">Start Free Programme</a>
-      ) : showNav && !isChatV2 && savedEmail ? (
-        <a href={`/chat-v2?email=${encodeURIComponent(savedEmail)}`} className="site-nav-cta">Go to Agent Page</a>
       ) : (
+        /* <a href={`/chat-v2?email=${encodeURIComponent(savedEmail)}`} className="site-nav-cta">Go to Agent Page</a> */
         <span className="site-nav-cta" style={{ visibility: 'hidden' }}>Start Free Programme</span>
       )}
     </nav>
