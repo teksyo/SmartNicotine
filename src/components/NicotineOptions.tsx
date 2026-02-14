@@ -67,54 +67,10 @@ const NicotineOptions = () => {
 
       <div className="no-divider"></div>
 
-      {/* ==================== VAPES ==================== */}
-      <div className="no-section">
-        <div className="no-section-header">
-          <div className="no-section-label">Category 02</div>
-          <h2 className="no-section-title">Vapes</h2>
-          <p className="no-section-sub">No tobacco, no combustion. A heated nicotine liquid that delivers satisfaction in a compact, pocket-friendly format.</p>
-        </div>
-
-        {/* VEEV ONE */}
-        <div className="no-product-card">
-          <img className="no-product-img" src="/veev-one-device.jpg" alt="VEEV ONE vape device" />
-          <div className="no-product-body">
-            <div className="no-product-name">VEEV ONE</div>
-            <div className="no-product-maker">Philip Morris International</div>
-            <p className="no-product-desc">PMI&rsquo;s closed-pod vape system with MESH heating technology for consistent flavour from first to last puff. Prefilled pods, no mess, no refilling. Rechargeable via USB-C.</p>
-            <div className="no-stats">
-              <div className="no-stat"><div className="no-stat-value">From &pound;5.99</div><div className="no-stat-label">Starter kit</div></div>
-              <div className="no-stat"><div className="no-stat-value">&pound;5.99</div><div className="no-stat-label">Pod 2-pack</div></div>
-              <div className="no-stat"><div className="no-stat-value">~500</div><div className="no-stat-label">Puffs per pod</div></div>
-              <div className="no-stat"><div className="no-stat-value">10+</div><div className="no-stat-label">Flavour pods</div></div>
-            </div>
-            <div className="no-flavour-grid">
-              <span className="no-flavour">Sour Apple</span>
-              <span className="no-flavour">Velvety Mint</span>
-              <span className="no-flavour">Strawberry X</span>
-              <span className="no-flavour">Blueberry</span>
-              <span className="no-flavour">Classic Tobacco</span>
-              <span className="no-flavour">Mango Tropical</span>
-              <span className="no-flavour">Watermelon</span>
-            </div>
-            <div className="no-science">
-              <div className="no-science-title">The Science</div>
-              <p className="no-science-text">Vapes heat liquid containing nicotine, propylene glycol, and flavourings without combustion. Public Health England has stated that vaping is at least 95% less harmful than smoking cigarettes.</p>
-            </div>
-            <div className="no-cta-row">
-              <a href="https://www.veev-one.com" target="_blank" rel="noopener noreferrer" className="no-cta no-cta-primary">Go to Store to Buy</a>
-              <a href="/vapes" className="no-cta no-cta-secondary">Learn More</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="no-divider"></div>
-
       {/* ==================== NICOTINE POUCHES ==================== */}
       <div className="no-section">
         <div className="no-section-header">
-          <div className="no-section-label">Category 03</div>
+          <div className="no-section-label">Category 02</div>
           <h2 className="no-section-title">Nicotine Pouches</h2>
           <p className="no-section-sub">Tobacco-free, smoke-free, vapour-free. A small white pouch placed under the lip delivers nicotine discreetly. Use anywhere, anytime.</p>
         </div>
@@ -157,6 +113,51 @@ const NicotineOptions = () => {
           </div>
         </div>
       </div>
+      
+      {/* ==================== VAPES ==================== */}
+      <div className="no-section">
+        <div className="no-section-header">
+          <div className="no-section-label">Category 03</div>
+          <h2 className="no-section-title">Vapes</h2>
+          <p className="no-section-sub">No tobacco, no combustion. A heated nicotine liquid that delivers satisfaction in a compact, pocket-friendly format.</p>
+        </div>
+
+        {/* VEEV ONE */}
+        <div className="no-product-card">
+          <img className="no-product-img" src="/veev-one-device.jpg" alt="VEEV ONE vape device" />
+          <div className="no-product-body">
+            <div className="no-product-name">VEEV ONE</div>
+            <div className="no-product-maker">Philip Morris International</div>
+            <p className="no-product-desc">PMI&rsquo;s closed-pod vape system with MESH heating technology for consistent flavour from first to last puff. Prefilled pods, no mess, no refilling. Rechargeable via USB-C.</p>
+            <div className="no-stats">
+              <div className="no-stat"><div className="no-stat-value">From &pound;5.99</div><div className="no-stat-label">Starter kit</div></div>
+              <div className="no-stat"><div className="no-stat-value">&pound;5.99</div><div className="no-stat-label">Pod 2-pack</div></div>
+              <div className="no-stat"><div className="no-stat-value">~500</div><div className="no-stat-label">Puffs per pod</div></div>
+              <div className="no-stat"><div className="no-stat-value">10+</div><div className="no-stat-label">Flavour pods</div></div>
+            </div>
+            <div className="no-flavour-grid">
+              <span className="no-flavour">Sour Apple</span>
+              <span className="no-flavour">Velvety Mint</span>
+              <span className="no-flavour">Strawberry X</span>
+              <span className="no-flavour">Blueberry</span>
+              <span className="no-flavour">Classic Tobacco</span>
+              <span className="no-flavour">Mango Tropical</span>
+              <span className="no-flavour">Watermelon</span>
+            </div>
+            <div className="no-science">
+              <div className="no-science-title">The Science</div>
+              <p className="no-science-text">Vapes heat liquid containing nicotine, propylene glycol, and flavourings without combustion. Public Health England has stated that vaping is at least 95% less harmful than smoking cigarettes.</p>
+            </div>
+            <div className="no-cta-row">
+              <a href="https://www.veev-one.com" target="_blank" rel="noopener noreferrer" className="no-cta no-cta-primary">Go to Store to Buy</a>
+              <a href="/vapes" className="no-cta no-cta-secondary">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="no-divider"></div>
+
 
       {/* Footer */}
       <div className="no-footer">
