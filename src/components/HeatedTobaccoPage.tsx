@@ -270,9 +270,9 @@ const HeatedTobaccoPage: React.FC = () => {
         <div className="section-label">Ready?</div>
         <div className="section-title">Still Burning Tobacco? There&rsquo;s a Smarter Way.</div>
         <p>Join SNUK&rsquo;s free 12-month programme. Learn the science. Talk to your AI coach. Earn &pound;30/month in credits. No cost, no catch, no judgement. Just a smarter approach to nicotine.</p>
-        <div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
+        {/* <div className="hero-cta-row" style={{ opacity: 1, animation: 'none' }}>
           <a href="/chat-v2" className="ht-btn-primary">Back to AI Coach</a>
-        </div>
+        </div>*/}
       </div>
 
       {/* FOOTER */}
