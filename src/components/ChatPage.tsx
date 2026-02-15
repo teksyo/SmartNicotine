@@ -89,9 +89,8 @@ const ChatPage = () => {
       "brand": answers['What is your preferred cigarette brand?'] || '',
       "cigs_per_day": answers['On average, how many cigarettes do you smoke per day?'] || '',
       "quit_attempts": answers['How many times have you seriously tried to quit smoking?'] || '',
-      "long_quits": answers['How many times have you quit smoking for 30 days or more?'] || '',
+      "long_quits": answers['(LAST QUESTION) How many times have you quit smoking for 30 days or more?'] || '',
       "motivation": answers['What is your main motivation for wanting to quit smoking?'] || '',
-      "how_many_30_days": answers['(LAST QUESTION) How many times have you quit smoking for 30 days or more?'] || '',
     };
   };
 
