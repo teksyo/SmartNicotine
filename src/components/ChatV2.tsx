@@ -100,7 +100,7 @@ const ChatV2 = () => {
       const agentId = import.meta.env.VITE_ELEVENLABS_AGENT_ID || 'agent_2901kb13dkgbemkbxhve2tbsymd2';
       
       // Get dynamic variables from user profile
-      const dynamicVariables = {};
+      const dynamicVariables: Record<string, string> = {};
       if (userProfile && userProfile.answers) {
         const answers = userProfile.answers;
         dynamicVariables.first_name = answers['First name'] || '';

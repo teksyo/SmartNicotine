@@ -6,9 +6,7 @@ function Header() {
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
   const isAssessment = currentPath === '/assessment';
-  const isChatV2 = currentPath === '/chat-v2';
   const showNav = !isHome && !isAssessment;
-  const savedEmail = localStorage.getItem('snuk_email');
 
   return (
     <nav className="site-nav">
