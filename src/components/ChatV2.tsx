@@ -104,16 +104,20 @@ const ChatV2 = () => {
       if (userProfile && userProfile.answers) {
         const answers = userProfile.answers;
         dynamicVariables.first_name = answers['First name'] || '';
+        dynamicVariables.last_name = answers['Last name'] || '';
+        dynamicVariables.email = userProfile.email || '';
+        dynamicVariables.sex = answers['Are you Male or Female?'] || '';
         dynamicVariables.smoking_duration = answers['How long have you smoked cigarettes?'] || '';
         dynamicVariables.brand = answers['What is your preferred cigarette brand?'] || '';
         dynamicVariables.cigs_per_day = answers['On average, how many cigarettes do you smoke per day?'] || '';
         dynamicVariables.quit_attempts = answers['How many times have you seriously tried to quit smoking?'] || '';
-        dynamicVariables.long_quits = answers['How many times have you quit smoking for 30 days or more?'] || '';
+        dynamicVariables.long_quits = answers['(LAST QUESTION) How many times have you quit smoking for 30 days or more?'] || '';
         dynamicVariables.motivation = answers['What is your main motivation for wanting to quit smoking?'] || '';
-        
+
         // Calculate age from date of birth
         const dateOfBirth = answers['Date of birth'];
         if (dateOfBirth) {
+          dynamicVariables.date_of_birth = dateOfBirth;
           const birthDate = new Date(dateOfBirth);
           const today = new Date();
           const age = today.getFullYear() - birthDate.getFullYear();
@@ -124,6 +128,7 @@ const ChatV2 = () => {
             dynamicVariables.age = age.toString();
           }
         } else {
+          dynamicVariables.date_of_birth = '';
           dynamicVariables.age = '';
         }
       }
