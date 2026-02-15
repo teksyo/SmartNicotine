@@ -912,7 +912,7 @@ export function ComingSoonPage() {
               <p>UK adults still smoke<br />(ONS, 2024)</p>
             </div>
             <div className="snuk-stat-item snuk-reveal" ref={addRevealRef}>
-              <h3>64,000</h3>
+              <h3>80,000+</h3>
               <p>UK deaths from smoking<br />every single year</p>
             </div>
             <div className="snuk-stat-item snuk-reveal" ref={addRevealRef}>
