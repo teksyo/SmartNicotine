@@ -180,12 +180,12 @@ router.get('/user', async (req, res) => {
 // Waitlist/Subscribers API
 router.post('/subscribers', async (req, res) => {
   try {
-    const { fullname, email } = req.body;
-    
-    if (!fullname || !email) {
-      return res.status(400).json({ 
+    const { first_name, last_name, email } = req.body;
+
+    if (!first_name || !last_name || !email) {
+      return res.status(400).json({
         error: 'Missing required fields',
-        required: ['fullname', 'email']
+        required: ['first_name', 'last_name', 'email']
       });
     }
 
@@ -195,7 +195,7 @@ router.post('/subscribers', async (req, res) => {
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    console.log(`📝 Adding subscriber: ${fullname} (${email})`);
+    console.log(`📝 Adding subscriber: ${first_name} ${last_name} (${email})`);
 
     // Check if subscriber already exists
     const { data: existing } = await supabase
@@ -205,7 +205,7 @@ router.post('/subscribers', async (req, res) => {
       .limit(1);
 
     if (existing && existing.length > 0) {
-      return res.status(409).json({ 
+      return res.status(409).json({
         error: 'Email already subscribed',
         subscriberId: existing[0].id
       });
@@ -215,7 +215,8 @@ router.post('/subscribers', async (req, res) => {
     const { data, error } = await supabase
       .from('subscribers')
       .insert([{
-        fullname: fullname.trim(),
+        first_name: first_name.trim(),
+        last_name: last_name.trim(),
         email: email.toLowerCase().trim()
       }])
       .select()
@@ -223,18 +224,19 @@ router.post('/subscribers', async (req, res) => {
 
     if (error) {
       console.error('Supabase insert error:', error);
-      
+
       // Handle case where table doesn't exist
-      if (error.message?.includes('relation "subscribers" does not exist') || 
+      if (error.message?.includes('relation "subscribers" does not exist') ||
           error.message?.includes("Could not find the table 'public.subscribers'")) {
-        return res.status(500).json({ 
+        return res.status(500).json({
           error: 'Database table not found',
           details: 'Please create the subscribers table first',
           sql: `
 -- Run this SQL in your Supabase dashboard:
 CREATE TABLE IF NOT EXISTS subscribers (
   id SERIAL PRIMARY KEY,
-  fullname VARCHAR(255) NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   registeredOn TIMESTAMPTZ DEFAULT NOW()
 );
@@ -245,10 +247,10 @@ CREATE INDEX IF NOT EXISTS idx_subscribers_registered ON subscribers(registeredO
           `.trim()
         });
       }
-      
-      return res.status(500).json({ 
+
+      return res.status(500).json({
         error: 'Failed to add subscriber',
-        details: error.message 
+        details: error.message
       });
     }
 
@@ -259,7 +261,8 @@ CREATE INDEX IF NOT EXISTS idx_subscribers_registered ON subscribers(registeredO
       message: 'Successfully added to waitlist',
       subscriber: {
         id: data.id,
-        fullname: data.fullname,
+        first_name: data.first_name,
+        last_name: data.last_name,
         email: data.email,
         registeredOn: data.registeredon
       }
@@ -267,9 +270,9 @@ CREATE INDEX IF NOT EXISTS idx_subscribers_registered ON subscribers(registeredO
 
   } catch (err) {
     console.error('API error:', err);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Internal server error',
-      details: err.message 
+      details: err.message
     });
   }
 });
