@@ -3,1517 +3,1042 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Silverback Intelligence Inc | Behavioural Intelligence & Predictive Analytics</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Silverback Intelligence | Real-Time Behavioural Intelligence at Population Scale</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg-primary: #0a0b0d;
-  --bg-secondary: #0f1114;
-  --bg-tertiary: #151719;
-  --bg-card: #12141799;
-  --border: #1e2227;
-  --border-active: #2a8f5c;
-  --text-primary: #e4e7eb;
-  --text-secondary: #8b929c;
-  --text-muted: #5a6170;
-  --accent: #2a8f5c;
-  --accent-dim: #1a5c3b;
-  --accent-glow: rgba(42, 143, 92, 0.15);
-  --red: #c04040;
-  --amber: #c09040;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'DM Sans', sans-serif;
+  --bg: #060709;
+  --bg-2: #0b0d10;
+  --bg-3: #101216;
+  --bg-4: #151820;
+  --border: #1a1d25;
+  --border-2: #242830;
+  --text: #f0f1f4;
+  --text-2: #b0b5c0;
+  --text-3: #7a8090;
+  --text-4: #4a5060;
+  --green: #22c55e;
+  --green-dim: #166534;
+  --green-glow: rgba(34, 197, 94, 0.07);
+  --green-bright: #4ade80;
+  --blue: #3b82f6;
+  --blue-glow: rgba(59, 130, 246, 0.07);
+  --amber: #f59e0b;
+  --amber-glow: rgba(245, 158, 11, 0.07);
+  --purple: #a855f7;
+  --purple-glow: rgba(168, 85, 247, 0.07);
+  --red: #ef4444;
+  --red-glow: rgba(239, 68, 68, 0.07);
+  --cyan: #06b6d4;
+  --cyan-glow: rgba(6, 182, 212, 0.07);
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Space Grotesk', sans-serif;
+  --serif: 'Newsreader', serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-::selection {
-  background: var(--accent);
-  color: #fff;
+::selection { background: var(--green); color: #000; }
+
+/* TEXTURE */
+.bg-noise {
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1;
 }
 
-/* GRID BACKGROUND */
-.grid-bg {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+.bg-grid {
+  position: fixed; inset: 0;
   background-image:
-    linear-gradient(rgba(42, 143, 92, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(42, 143, 92, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* NOISE OVERLAY */
-.noise {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.5;
-}
-
-/* SCANLINE */
-.scanline {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.08;
-  z-index: 2;
-  animation: scanline 8s linear infinite;
-}
-
-@keyframes scanline {
-  0% { top: -2px; }
-  100% { top: 100vh; }
+    linear-gradient(rgba(34, 197, 94, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.015) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none; z-index: 1;
 }
 
 /* LAYOUT */
-.container {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 40px;
-  position: relative;
-  z-index: 10;
-}
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 10; }
+.rule { height: 1px; background: var(--border); }
+.rule-glow { height: 1px; background: linear-gradient(90deg, transparent, var(--green-dim), transparent); opacity: 0.4; }
 
-/* TOPBAR */
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(10, 11, 13, 0.85);
-  backdrop-filter: blur(20px);
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(6, 7, 9, 0.88);
+  backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
 }
-
-.topbar-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
+.nav-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between; height: 64px;
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--text-primary);
+.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-icon {
+  width: 28px; height: 28px; border: 2px solid var(--green); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--green);
 }
-
-.logo-mark {
-  width: 32px;
-  height: 32px;
-  border: 2px solid var(--accent);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--accent);
-  position: relative;
+.nav-name {
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text);
 }
-
-.logo-mark::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border: 1px solid rgba(42, 143, 92, 0.2);
-  border-radius: 6px;
+.nav-name span { color: var(--text-3); font-weight: 400; margin-left: 6px; font-size: 11px; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3);
+  text-decoration: none; transition: color 0.3s;
 }
-
-.logo-text {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.nav-links a:hover { color: var(--green); }
+.nav-status {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px; color: var(--text-3);
 }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-.logo-text span {
-  color: var(--text-muted);
-  font-weight: 400;
-  margin-left: 6px;
+/* BUTTONS */
+.btn-fill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green); color: #000; padding: 13px 28px; border: none; border-radius: 4px;
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+  transition: all 0.3s;
 }
-
-.topbar-nav {
-  display: flex;
-  align-items: center;
-  gap: 32px;
+.btn-fill:hover { background: var(--green-bright); box-shadow: 0 0 30px rgba(34,197,94,0.25); }
+.btn-line {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--text-2); padding: 13px 28px;
+  border: 1px solid var(--border); border-radius: 4px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+  transition: all 0.3s;
 }
-
-.topbar-nav a {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.topbar-nav a:hover {
-  color: var(--accent);
-}
-
-.topbar-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(42, 143, 92, 0.4); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(42, 143, 92, 0); }
-}
+.btn-line:hover { border-color: var(--text-3); color: var(--text); }
 
 /* HERO */
-.hero {
-  padding: 180px 0 120px;
-  position: relative;
+.hero { padding: 180px 0 100px; position: relative; }
+.hero-glow {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 500px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(34,197,94,0.04) 0%, transparent 70%);
+  pointer-events: none;
 }
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 80px;
-  align-items: start;
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green-glow); border: 1px solid rgba(34,197,94,0.15);
+  border-radius: 20px; padding: 6px 16px; margin-bottom: 28px;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--green);
 }
-
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.hero-eyebrow::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-}
-
+.hero-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
 .hero h1 {
-  font-family: var(--font-sans);
-  font-size: 52px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 28px;
+  font-family: var(--sans); font-size: 56px; font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.025em; max-width: 800px; margin-bottom: 24px;
+  color: #ffffff;
 }
-
-.hero h1 em {
-  font-style: normal;
-  color: var(--accent);
+.hero h1 .accent { color: var(--green); }
+.hero-desc {
+  font-size: 18px; color: #c0c4cc; line-height: 1.7;
+  max-width: 620px; margin-bottom: 20px;
 }
-
-.hero-sub {
-  font-size: 17px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 540px;
-  margin-bottom: 48px;
+.hero-desc-2 {
+  font-size: 15px; color: #8a8f9c; line-height: 1.7;
+  max-width: 620px; margin-bottom: 48px;
+  font-family: var(--mono); font-style: normal;
 }
+.hero-btns { display: flex; gap: 14px; align-items: center; }
 
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  align-items: center;
+/* LIVE COUNTER BAR */
+.counter-bar {
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 36px 0; background: var(--bg-2);
 }
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--accent);
-  color: #fff;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s;
+.counter-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
 }
-
-.btn-primary:hover {
-  background: #33a569;
-  box-shadow: 0 0 30px rgba(42, 143, 92, 0.3);
+.counter-item {
+  padding: 0 32px; border-right: 1px solid var(--border);
 }
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: transparent;
-  color: var(--text-secondary);
-  padding: 14px 28px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s;
+.counter-item:last-child { border-right: none; }
+.counter-item:first-child { padding-left: 0; }
+.counter-label {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px;
 }
-
-.btn-ghost:hover {
-  border-color: var(--text-muted);
-  color: var(--text-primary);
-}
-
-/* HERO TERMINAL */
-.hero-terminal {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  margin-top: 20px;
-}
-
-.terminal-header {
-  background: var(--bg-tertiary);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-}
-
-.terminal-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.terminal-dots span {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--border);
-}
-
-.terminal-dots span:first-child { background: var(--red); }
-.terminal-dots span:nth-child(2) { background: var(--amber); }
-.terminal-dots span:nth-child(3) { background: var(--accent); }
-
-.terminal-title {
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
-
-.terminal-body {
-  padding: 20px;
-  line-height: 1.9;
-}
-
-.terminal-line {
-  display: flex;
-  gap: 8px;
-  opacity: 0;
-  animation: terminal-fade 0.3s ease forwards;
-}
-
-.terminal-line:nth-child(1) { animation-delay: 0.4s; }
-.terminal-line:nth-child(2) { animation-delay: 0.8s; }
-.terminal-line:nth-child(3) { animation-delay: 1.2s; }
-.terminal-line:nth-child(4) { animation-delay: 1.6s; }
-.terminal-line:nth-child(5) { animation-delay: 2.0s; }
-.terminal-line:nth-child(6) { animation-delay: 2.4s; }
-.terminal-line:nth-child(7) { animation-delay: 2.8s; }
-.terminal-line:nth-child(8) { animation-delay: 3.2s; }
-.terminal-line:nth-child(9) { animation-delay: 3.6s; }
-.terminal-line:nth-child(10) { animation-delay: 4.0s; }
-
-@keyframes terminal-fade {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.t-prompt { color: var(--accent); }
-.t-cmd { color: var(--text-primary); }
-.t-output { color: var(--text-muted); }
-.t-value { color: var(--accent); }
-.t-key { color: var(--amber); }
-.t-warn { color: var(--red); }
-.t-dim { color: var(--text-muted); opacity: 0.6; }
-
-.terminal-cursor {
-  display: inline-block;
-  width: 8px;
-  height: 16px;
-  background: var(--accent);
-  animation: blink 1s step-end infinite;
-  vertical-align: middle;
-  margin-left: 4px;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-/* METRICS BAR */
-.metrics-bar {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 40px 0;
-  margin-bottom: 0;
-  position: relative;
-  z-index: 10;
-}
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-}
-
-.metric {
-  padding: 0 40px;
-  border-right: 1px solid var(--border);
-}
-
-.metric:last-child { border-right: none; }
-.metric:first-child { padding-left: 0; }
-
-.metric-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.metric-value {
-  font-family: var(--font-mono);
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--text-primary);
+.counter-val {
+  font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--text);
   letter-spacing: -0.02em;
 }
+.counter-val .unit { font-size: 13px; color: var(--text-3); font-weight: 400; margin-left: 2px; }
+.counter-note { font-family: var(--mono); font-size: 10px; color: var(--green-dim); margin-top: 2px; }
 
-.metric-value span {
-  color: var(--text-muted);
-  font-size: 14px;
-  font-weight: 400;
-  margin-left: 4px;
+/* SECTION UTILS */
+section { padding: 100px 0; position: relative; z-index: 10; }
+.sec-tag {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--green);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+}
+.sec-tag::before { content: ''; width: 16px; height: 1px; background: var(--green); }
+.sec-h2 {
+  font-size: 38px; font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.015em; max-width: 640px; margin-bottom: 12px;
+  color: #ffffff;
+}
+.sec-desc {
+  font-size: 16px; color: #b0b5c0; max-width: 560px; line-height: 1.7; margin-bottom: 56px;
+}
+.dark-section {
+  background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
 
-.metric-delta {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--accent);
-  margin-top: 4px;
+/* WHAT WE DO - THE EXPLANATION */
+.explain-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+}
+.explain-text h3 {
+  font-size: 24px; font-weight: 600; margin-bottom: 16px; line-height: 1.3;
+}
+.explain-text p {
+  font-size: 15px; color: #b0b5c0; line-height: 1.8; margin-bottom: 16px;
+}
+.explain-text .highlight {
+  color: var(--green); font-weight: 500;
+}
+.explain-terminal {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.explain-terminal-bar {
+  background: var(--bg-3); padding: 10px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.term-dots { display: flex; gap: 5px; }
+.term-dots span { width: 8px; height: 8px; border-radius: 50%; }
+.term-dots .r { background: #ef4444; } .term-dots .y { background: #f59e0b; } .term-dots .g { background: #22c55e; }
+.term-title { font-family: var(--mono); font-size: 10px; color: var(--text-4); }
+.explain-terminal-body {
+  padding: 20px; font-family: var(--mono); font-size: 12px; line-height: 2;
+}
+.tl { opacity: 0; animation: tFade 0.3s ease forwards; }
+.tl:nth-child(1){animation-delay:0.3s} .tl:nth-child(2){animation-delay:0.6s}
+.tl:nth-child(3){animation-delay:0.9s} .tl:nth-child(4){animation-delay:1.2s}
+.tl:nth-child(5){animation-delay:1.5s} .tl:nth-child(6){animation-delay:1.8s}
+.tl:nth-child(7){animation-delay:2.1s} .tl:nth-child(8){animation-delay:2.4s}
+.tl:nth-child(9){animation-delay:2.7s} .tl:nth-child(10){animation-delay:3.0s}
+.tl:nth-child(11){animation-delay:3.3s} .tl:nth-child(12){animation-delay:3.6s}
+@keyframes tFade { from { opacity:0; transform:translateY(3px); } to { opacity:1; transform:translateY(0); } }
+.tp { color: var(--green); } .tc { color: var(--text); } .to { color: var(--text-3); }
+.tv { color: var(--green); } .tk { color: var(--amber); } .tw { color: var(--red); }
+.tb { color: var(--blue); } .tcur { display:inline-block; width:7px; height:14px; background:var(--green); animation:blink 1s step-end infinite; vertical-align:middle; margin-left:3px; }
+@keyframes blink { 50%{opacity:0} }
+
+/* DATA CATEGORIES */
+.data-cats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.data-cat {
+  background: var(--bg); padding: 32px 24px; transition: background 0.3s; position: relative;
+}
+.data-cat::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  opacity: 0; transition: opacity 0.3s;
+}
+.data-cat:hover { background: var(--bg-2); }
+.data-cat:hover::before { opacity: 1; }
+.data-cat:nth-child(1)::before { background: var(--green); }
+.data-cat:nth-child(2)::before { background: var(--blue); }
+.data-cat:nth-child(3)::before { background: var(--amber); }
+.data-cat:nth-child(4)::before { background: var(--purple); }
+.data-cat:nth-child(5)::before { background: var(--cyan); }
+.data-cat:nth-child(6)::before { background: var(--red); }
+.data-cat:nth-child(7)::before { background: var(--green); }
+.data-cat:nth-child(8)::before { background: var(--blue); }
+.cat-icon {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 8px;
+  border-radius: 3px; display: inline-block; margin-bottom: 16px;
+}
+.cat-icon.green { background: var(--green-glow); color: var(--green); border: 1px solid rgba(34,197,94,0.15); }
+.cat-icon.blue { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(59,130,246,0.15); }
+.cat-icon.amber { background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(245,158,11,0.15); }
+.cat-icon.purple { background: var(--purple-glow); color: var(--purple); border: 1px solid rgba(168,85,247,0.15); }
+.cat-icon.cyan { background: var(--cyan-glow); color: var(--cyan); border: 1px solid rgba(6,182,212,0.15); }
+.cat-icon.red { background: var(--red-glow); color: var(--red); border: 1px solid rgba(239,68,68,0.15); }
+.data-cat h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.data-cat p { font-size: 13px; color: #8a8f9c; line-height: 1.6; }
+.cat-points {
+  font-family: var(--mono); font-size: 10px; color: var(--text-4);
+  margin-top: 14px; letter-spacing: 0.05em;
 }
 
-/* SECTIONS */
-section {
-  padding: 100px 0;
-  position: relative;
-  z-index: 10;
+/* SECTOR VERTICALS */
+.verticals-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.vertical-card {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 36px 28px; transition: all 0.3s; position: relative; overflow: hidden;
+}
+.vertical-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+.vertical-card .v-color {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.vertical-card h4 {
+  font-size: 18px; font-weight: 600; margin-bottom: 6px;
+}
+.vertical-card .v-sub {
+  font-family: var(--mono); font-size: 10px; color: var(--text-3);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px;
+}
+.vertical-card p {
+  font-size: 14px; color: #b0b5c0; line-height: 1.7; margin-bottom: 20px;
+}
+.v-example {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+  padding: 14px 16px; font-family: var(--mono); font-size: 11px; color: var(--text-3); line-height: 1.7;
+}
+.v-example .qp { color: var(--green); }
+.v-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.v-tag {
+  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
+  background: var(--bg); border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px;
 }
 
-.section-header {
-  margin-bottom: 64px;
+/* EXCLUSIVITY MODEL */
+.excl-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.excl-tier {
+  background: var(--bg); padding: 40px 32px; position: relative;
+}
+.excl-tier.featured {
+  background: var(--bg-2);
+}
+.excl-tier.featured::before {
+  content: 'MOST POPULAR'; position: absolute; top: 16px; right: 16px;
+  font-family: var(--mono); font-size: 8px; font-weight: 700;
+  letter-spacing: 0.12em; color: var(--green); background: var(--green-glow);
+  border: 1px solid rgba(34,197,94,0.15); padding: 3px 8px; border-radius: 2px;
+}
+.excl-badge {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+}
+.excl-tier h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.excl-tier .price {
+  font-family: var(--mono); font-size: 11px; color: var(--text-3); margin-bottom: 20px;
+}
+.excl-tier p {
+  font-size: 14px; color: #b0b5c0; line-height: 1.7; margin-bottom: 24px;
+}
+.excl-features { list-style: none; }
+.excl-features li {
+  padding: 8px 0; border-bottom: 1px solid rgba(26,29,37,0.5);
+  font-size: 13px; color: #a0a5b0; display: flex; align-items: flex-start; gap: 10px;
+}
+.excl-features li:last-child { border-bottom: none; }
+.excl-features li::before {
+  content: '+'; font-family: var(--mono); color: var(--green); font-weight: 600; flex-shrink: 0;
 }
 
-.section-tag {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* SECTOR STATUS GRID */
+.sector-status-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-bottom: 48px;
+}
+.sector-status-card {
+  background: var(--bg); padding: 28px 20px; text-align: center; position: relative;
+}
+.sector-status-card.taken {
+  background: var(--bg-2); opacity: 0.55;
+}
+.sector-status-card.taken::after {
+  content: 'EXCLUSIVE — TAKEN'; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 8px; font-weight: 700;
+  letter-spacing: 0.12em; color: var(--red); background: var(--red-glow);
+  border: 1px solid rgba(239,68,68,0.2); padding: 3px 10px; border-radius: 2px; white-space: nowrap;
+}
+.sector-status-card .sector-name {
+  font-size: 15px; font-weight: 600; color: var(--text); margin-top: 8px; margin-bottom: 4px;
+}
+.sector-status-card.taken .sector-name {
+  text-decoration: line-through; color: var(--text-3);
+}
+.sector-status-card .sector-sub {
+  font-family: var(--mono); font-size: 10px; color: var(--text-4);
+  letter-spacing: 0.06em;
+}
+.sector-status-icon {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 8px;
+  border-radius: 3px; display: inline-block; margin-bottom: 8px;
 }
 
-.section-tag::before {
-  content: '';
-  width: 16px;
-  height: 1px;
-  background: var(--accent);
+/* AVAILABLE SECTORS */
+.avail-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-top: 32px;
+}
+.avail-card {
+  background: var(--bg); padding: 32px 24px; position: relative; transition: background 0.3s;
+}
+.avail-card:hover { background: var(--bg-2); }
+.avail-card::before {
+  content: 'EXCLUSIVE — AVAILABLE'; position: absolute; top: 12px; right: 12px;
+  font-family: var(--mono); font-size: 8px; font-weight: 700;
+  letter-spacing: 0.1em; color: var(--green); background: var(--green-glow);
+  border: 1px solid rgba(34,197,94,0.15); padding: 3px 8px; border-radius: 2px;
+}
+.avail-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.avail-card .avail-sub {
+  font-family: var(--mono); font-size: 10px; color: var(--text-3);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;
+}
+.avail-card p { font-size: 13px; color: #8a8f9c; line-height: 1.6; }
+.avail-card .avail-val {
+  font-family: var(--mono); font-size: 11px; color: var(--text-4);
+  margin-top: 12px; letter-spacing: 0.04em;
 }
 
-.section-title {
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  max-width: 600px;
+/* DASHBOARD PREVIEW */
+.dash-section { padding: 100px 0; }
+.dash-preview {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 48px;
+}
+.dash-bar {
+  background: var(--bg-3); padding: 12px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.dash-bar-left { display: flex; align-items: center; gap: 16px; }
+.dash-bar-tabs { display: flex; gap: 0; }
+.dash-tab {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-4);
+  padding: 6px 14px; border: 1px solid transparent; border-radius: 3px;
+  cursor: pointer; transition: all 0.2s;
+}
+.dash-tab.active { color: var(--green); background: var(--green-glow); border-color: rgba(34,197,94,0.15); }
+.dash-bar-right {
+  font-family: var(--mono); font-size: 10px; color: var(--text-4);
+  display: flex; align-items: center; gap: 8px;
+}
+.dash-body { padding: 32px; }
+.dash-query-box {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: 16px 20px; margin-bottom: 28px; display: flex; align-items: center; gap: 12px;
+}
+.dash-query-icon { font-family: var(--mono); font-size: 14px; color: var(--green); }
+.dash-query-text {
+  font-family: var(--mono); font-size: 13px; color: var(--text-2); flex: 1;
+}
+.dash-query-text em { color: var(--text); font-style: normal; }
+.dash-results {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+}
+.dash-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 20px;
+}
+.dash-card-label {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-4); margin-bottom: 10px;
+}
+.dash-card-val {
+  font-family: var(--mono); font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 4px;
+}
+.dash-card-note { font-family: var(--mono); font-size: 10px; color: var(--green-dim); }
+.dash-card-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+.dash-card-bar-fill { height: 100%; border-radius: 2px; }
+.dash-insight {
+  grid-column: 1 / -1; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; padding: 20px; margin-top: 0;
+}
+.dash-insight-label {
+  font-family: var(--mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.dash-insight p { font-size: 14px; color: #b0b5c0; line-height: 1.7; }
+.dash-insight .confidence {
+  font-family: var(--mono); font-size: 10px; color: var(--text-4); margin-top: 8px;
 }
 
-.section-desc {
-  font-size: 16px;
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin-top: 16px;
-  line-height: 1.7;
+/* HOW IT WORKS */
+.how-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px;
 }
-
-/* INTELLIGENCE PRODUCTS */
-.intel-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
+.how-step { position: relative; }
+.how-step-num {
+  font-family: var(--mono); font-size: 48px; font-weight: 700;
+  color: rgba(34,197,94,0.08); margin-bottom: 12px;
 }
-
-.intel-card {
-  background: var(--bg-secondary);
-  padding: 40px 32px;
-  transition: all 0.4s;
-  position: relative;
+.how-step h4 {
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px;
 }
-
-.intel-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.intel-card:hover {
-  background: var(--bg-tertiary);
-}
-
-.intel-card:hover::before {
-  opacity: 1;
-}
-
-.intel-icon {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--accent);
-  background: var(--accent-glow);
-  border: 1px solid rgba(42, 143, 92, 0.2);
-  padding: 6px 10px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-bottom: 20px;
-  letter-spacing: 0.1em;
-}
-
-.intel-card h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
-}
-
-.intel-card p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-.intel-meta {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.intel-meta-label {
-  color: var(--text-muted);
-}
-
-.intel-meta-value {
-  color: var(--accent);
-}
-
-/* PIPELINE SECTION */
-.pipeline {
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 100px 0;
-}
-
-.pipeline-flow {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0;
-  margin-top: 64px;
-  position: relative;
-}
-
-.pipeline-flow::before {
-  content: '';
-  position: absolute;
-  top: 40px;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), var(--accent), var(--accent), transparent);
-  opacity: 0.3;
-}
-
-.pipeline-step {
-  text-align: center;
-  padding: 0 16px;
-  position: relative;
-}
-
-.pipeline-node {
-  width: 80px;
-  height: 80px;
-  border: 2px solid var(--border);
-  border-radius: 50%;
-  margin: 0 auto 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-muted);
-  background: var(--bg-primary);
-  position: relative;
-  z-index: 2;
-  transition: all 0.4s;
-}
-
-.pipeline-step:hover .pipeline-node {
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 30px rgba(42, 143, 92, 0.15);
-}
-
-.pipeline-step h4 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  color: var(--text-primary);
-}
-
-.pipeline-step p {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-/* DATA SCHEMA SECTION */
-.schema-block {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-top: 48px;
-}
-
-.schema-header {
-  background: var(--bg-tertiary);
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-}
-
-.schema-header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.schema-badge {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: var(--accent-glow);
-  color: var(--accent);
-  padding: 4px 8px;
-  border-radius: 3px;
-  border: 1px solid rgba(42, 143, 92, 0.2);
-}
-
-.schema-title-text {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-
-.schema-status {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.schema-body {
-  padding: 0;
-}
-
-.schema-row {
-  display: grid;
-  grid-template-columns: 220px 140px 1fr 120px;
-  padding: 12px 24px;
-  border-bottom: 1px solid rgba(30, 34, 39, 0.5);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  transition: background 0.2s;
-}
-
-.schema-row:hover {
-  background: rgba(42, 143, 92, 0.03);
-}
-
-.schema-row:last-child { border-bottom: none; }
-
-.schema-row-header {
-  background: rgba(42, 143, 92, 0.05);
-  border-bottom: 1px solid var(--border);
-}
-
-.schema-row-header .schema-cell {
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 10px;
-}
-
-.schema-cell {
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-}
-
-.schema-cell:first-child {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.schema-cell .type {
-  color: var(--amber);
-}
-
-.schema-cell .freq {
-  color: var(--accent);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-}
-
-/* ARCHITECTURE */
-.arch-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  margin-top: 64px;
-}
-
-.arch-panel {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 40px;
-}
-
-.arch-panel h3 {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.arch-panel .subtitle {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-}
-
-.arch-list {
-  list-style: none;
-}
-
-.arch-list li {
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(30, 34, 39, 0.5);
-  font-size: 14px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.arch-list li:last-child { border-bottom: none; }
-
-.arch-list li::before {
-  content: '>';
-  font-family: var(--font-mono);
-  color: var(--accent);
-  font-size: 12px;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-/* USE CASES */
-.use-cases {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-top: 64px;
-}
-
-.use-case {
-  background: var(--bg-secondary);
-  padding: 48px 40px;
-  position: relative;
-}
-
-.use-case-num {
-  font-family: var(--font-mono);
-  font-size: 48px;
-  font-weight: 700;
-  color: rgba(42, 143, 92, 0.1);
-  position: absolute;
-  top: 20px;
-  right: 24px;
-}
-
-.use-case h4 {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-.use-case p {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-.use-case-query {
-  margin-top: 20px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 14px 16px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.use-case-query span {
-  color: var(--accent);
-}
+.how-step p { font-size: 14px; color: #8a8f9c; line-height: 1.6; }
 
 /* COMPLIANCE */
-.compliance-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 64px;
+.comp-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px;
 }
-
-.compliance-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 32px;
+.comp-card {
+  border: 1px solid var(--border); border-radius: 6px; padding: 28px 20px;
+  background: var(--bg-2);
 }
-
-.compliance-icon {
-  width: 48px;
-  height: 48px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 18px;
-  margin-bottom: 20px;
-  color: var(--accent);
+.comp-card h4 {
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; margin-bottom: 8px;
 }
-
-.compliance-card h4 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.compliance-card p {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
+.comp-card p { font-size: 13px; color: #8a8f9c; line-height: 1.6; }
 
 /* CTA */
-.cta-section {
-  padding: 120px 0;
-  text-align: center;
-}
-
-.cta-section h2 {
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-}
-
-.cta-section p {
-  font-size: 16px;
-  color: var(--text-secondary);
-  margin-bottom: 40px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-}
+.cta-section { padding: 140px 0; text-align: center; }
+.cta-section h2 { font-size: 42px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; color: #ffffff; }
+.cta-section p { font-size: 16px; color: #b0b5c0; max-width: 500px; margin: 0 auto 40px; line-height: 1.7; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; }
 
 /* FOOTER */
 footer {
-  border-top: 1px solid var(--border);
-  padding: 48px 0;
-  position: relative;
-  z-index: 10;
+  border-top: 1px solid var(--border); padding: 40px 0; position: relative; z-index: 10;
 }
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-left {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
-
-.footer-right {
-  display: flex;
-  gap: 24px;
-}
-
-.footer-right a {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: color 0.3s;
-}
-
-.footer-right a:hover {
-  color: var(--accent);
-}
-
-/* SEPARATOR */
-.sep {
-  height: 1px;
-  background: var(--border);
-}
-
-/* GLOW EFFECTS */
-.glow-orb {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(42, 143, 92, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-/* DATA STREAM DECORATION */
-.data-stream {
-  position: absolute;
-  right: 40px;
-  top: 200px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-muted);
-  opacity: 0.15;
-  line-height: 2;
-  text-align: right;
-  pointer-events: none;
-}
+.footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.footer-text { font-family: var(--mono); font-size: 11px; color: var(--text-4); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-family: var(--mono); font-size: 10px; color: var(--text-4); text-decoration: none; letter-spacing: 0.06em; transition: color 0.3s; }
+.footer-links a:hover { color: var(--green); }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero h1 { font-size: 38px; }
-  .intel-grid { grid-template-columns: 1fr; }
-  .pipeline-flow { grid-template-columns: repeat(3, 1fr); }
-  .pipeline-flow::before { display: none; }
-  .arch-grid { grid-template-columns: 1fr; }
-  .use-cases { grid-template-columns: 1fr; }
-  .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-  .metric { border-right: none; padding: 0; }
-  .compliance-grid { grid-template-columns: 1fr; }
-  .schema-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hero h1 { font-size: 40px; }
+  .counter-grid { grid-template-columns: repeat(3, 1fr); }
+  .counter-item:nth-child(4), .counter-item:nth-child(5) { display: none; }
+  .data-cats { grid-template-columns: repeat(2, 1fr); }
+  .verticals-grid { grid-template-columns: 1fr; }
+  .excl-grid { grid-template-columns: 1fr; }
+  .dash-results { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: repeat(2, 1fr); }
+  .comp-row { grid-template-columns: repeat(2, 1fr); }
+  .explain-grid { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 640px) {
-  .container { padding: 0 20px; }
-  .topbar-nav { display: none; }
-  .hero { padding: 120px 0 80px; }
+  .wrap { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 130px 0 60px; }
   .hero h1 { font-size: 30px; }
-  .metrics-grid { grid-template-columns: 1fr; gap: 24px; }
-  .pipeline-flow { grid-template-columns: 1fr; }
-  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .counter-grid { grid-template-columns: 1fr 1fr; }
+  .data-cats { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: 1fr; }
+  .comp-row { grid-template-columns: 1fr; }
+  .hero-btns { flex-direction: column; align-items: flex-start; }
 }
-
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-up {
-  opacity: 0;
-  animation: fadeUp 0.6s ease forwards;
-}
-
-.fade-up-d1 { animation-delay: 0.1s; }
-.fade-up-d2 { animation-delay: 0.2s; }
-.fade-up-d3 { animation-delay: 0.3s; }
-.fade-up-d4 { animation-delay: 0.4s; }
 </style>
 </head>
 <body>
 
-<div class="grid-bg"></div>
-<div class="noise"></div>
-<div class="scanline"></div>
+<div class="bg-noise"></div>
+<div class="bg-grid"></div>
 
-<!-- TOPBAR -->
-<nav class="topbar">
-  <div class="topbar-inner">
-    <a href="#" class="logo">
-      <div class="logo-mark">SI</div>
-      <div class="logo-text">Silverback Intelligence<span>Inc</span></div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <div class="nav-icon">SI</div>
+      <div class="nav-name">Silverback Intelligence<span>Inc</span></div>
     </a>
-    <div class="topbar-nav">
-      <a href="#intelligence">Intelligence</a>
-      <a href="#pipeline">Pipeline</a>
-      <a href="#schema">Schema</a>
-      <a href="#applications">Applications</a>
-      <a href="#compliance">Compliance</a>
-      <a href="#contact">Contact</a>
+    <div class="nav-links">
+      <a href="#how">How It Works</a>
+      <a href="#data">The Data</a>
+      <a href="#verticals">Sectors</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Access</a>
     </div>
-    <div class="topbar-status">
-      <span class="status-dot"></span>
-      Systems Operational
-    </div>
+    <div class="nav-status"><span class="nav-dot"></span> Platform Launch: April 2026</div>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="container">
+<div class="wrap">
   <section class="hero">
-    <div class="glow-orb" style="top: -100px; left: -200px;"></div>
-    <div class="hero-grid">
-      <div>
-        <div class="hero-eyebrow fade-up">Behavioural Intelligence Platform</div>
-        <h1 class="fade-up fade-up-d1">Predictive consumer intelligence at <em>population scale.</em></h1>
-        <p class="hero-sub fade-up fade-up-d2">Silverback Intelligence acquires, processes, and licenses longitudinal behavioural data from millions of consumer interactions. Our proprietary AI analytics engine transforms raw engagement signals into predictive intelligence products that compound in value over time.</p>
-        <div class="hero-actions fade-up fade-up-d3">
-          <a href="#contact" class="btn-primary">Request Data Access</a>
-          <a href="#intelligence" class="btn-ghost">View Intelligence Products</a>
-        </div>
-      </div>
-      <div class="hero-terminal fade-up fade-up-d4">
-        <div class="terminal-header">
-          <div class="terminal-dots">
-            <span></span><span></span><span></span>
-          </div>
-          <div class="terminal-title">silverback-cli v2.4.1</div>
-        </div>
-        <div class="terminal-body">
-          <div class="terminal-line">
-            <span class="t-prompt">$</span>
-            <span class="t-cmd">sb query --dataset uk_nicotine --model predictive</span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[auth]</span>
-            <span class="t-output">API key verified. Tier: Enterprise</span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[load]</span>
-            <span class="t-output">Dataset: <span class="t-value">UK_NIC_2026_Q1</span></span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[info]</span>
-            <span class="t-output">Active profiles: <span class="t-value">847,219</span></span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[info]</span>
-            <span class="t-output">Avg. datapoints/profile: <span class="t-value">312</span></span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[info]</span>
-            <span class="t-output">Longitudinal depth: <span class="t-value">14.2 months</span></span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[proc]</span>
-            <span class="t-output">Running churn propensity model...</span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[proc]</span>
-            <span class="t-output">Confidence interval: <span class="t-value">94.7%</span></span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-dim">[out]</span>
-            <span class="t-key">PREDICTION:</span>
-            <span class="t-output">12,847 users at churn risk (next 30d)</span>
-          </div>
-          <div class="terminal-line">
-            <span class="t-prompt">$</span>
-            <span class="terminal-cursor"></span>
-          </div>
-        </div>
-      </div>
+    <div class="hero-glow"></div>
+    <div class="hero-badge"><span class="dot"></span> Onboarding Founding Partners</div>
+    <h1>Real-time behavioural intelligence on <span class="accent">millions of UK consumers.</span> One data contract.</h1>
+    <p class="hero-desc">Silverback Intelligence is building the largest longitudinal dataset of verified consumer behaviour in the United Kingdom. 100,000 anonymised behavioural profiles from May 2026, scaling to 600,000 by end of Year 1 and 4.46 million within five years. Every profile updated weekly through AI-powered conversational engagement covering nicotine, caffeine, nutrition, alcohol, exercise, sleep, stress, and spending habits.</p>
+    <p class="hero-desc-2">Not survey data. Not purchase data. Not scraped social media. This is honest, unguarded, conversational truth from real people talking to a trusted AI coach. That is why it commands premium rates.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-fill">Request Data Access</a>
+      <a href="#verticals" class="btn-line">Explore Sector Intelligence</a>
     </div>
   </section>
 </div>
 
-<!-- METRICS -->
-<div class="metrics-bar">
-  <div class="container">
-    <div class="metrics-grid">
-      <div class="metric">
-        <div class="metric-label">Active Behavioural Profiles</div>
-        <div class="metric-value">4.46<span>M target</span></div>
-        <div class="metric-delta">5-year contracted pipeline</div>
+<!-- COUNTER BAR -->
+<div class="counter-bar">
+  <div class="wrap">
+    <div class="counter-grid">
+      <div class="counter-item">
+        <div class="counter-label">Behavioural Profiles</div>
+        <div class="counter-val">100K<span class="unit">May 2026</span></div>
+        <div class="counter-note">Scaling to 600K by end of Year 1</div>
       </div>
-      <div class="metric">
-        <div class="metric-label">Datapoints per Profile</div>
-        <div class="metric-value">312<span>avg</span></div>
-        <div class="metric-delta">Compounding weekly</div>
+      <div class="counter-item">
+        <div class="counter-label">Datapoints / Profile / Week</div>
+        <div class="counter-val">12-20<span class="unit">verified</span></div>
+        <div class="counter-note">Conversational extraction</div>
       </div>
-      <div class="metric">
-        <div class="metric-label">Prediction Accuracy</div>
-        <div class="metric-value">94.7<span>%</span></div>
-        <div class="metric-delta">Churn propensity model</div>
+      <div class="counter-item">
+        <div class="counter-label">Data Categories</div>
+        <div class="counter-val">8<span class="unit">verticals</span></div>
+        <div class="counter-note">From single interaction</div>
       </div>
-      <div class="metric">
-        <div class="metric-label">Intelligence Latency</div>
-        <div class="metric-value">&lt;48<span>hrs</span></div>
-        <div class="metric-delta">Raw signal to insight</div>
+      <div class="counter-item">
+        <div class="counter-label">Demographic Resolution</div>
+        <div class="counter-val">PCD<span class="unit">level</span></div>
+        <div class="counter-note">Postcode district granularity</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-label">Intelligence Latency</div>
+        <div class="counter-val">&lt;48<span class="unit">hrs</span></div>
+        <div class="counter-note">Raw signal to dashboard</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- INTELLIGENCE PRODUCTS -->
-<div class="container">
-  <section id="intelligence">
-    <div class="section-header">
-      <div class="section-tag">Intelligence Products</div>
-      <h2 class="section-title">Six categories of processed intelligence, updated in real time.</h2>
-      <p class="section-desc">Each intelligence stream compounds independently. Longitudinal data at 12 months is exponentially more predictive than cross-sectional snapshots. Our licensing fee structure reflects this value accretion.</p>
-    </div>
+<!-- HOW IT WORKS -->
+<div class="wrap">
+  <section id="how">
+    <div class="sec-tag">How It Works</div>
+    <h2 class="sec-h2">One conversation generates intelligence for your entire industry.</h2>
+    <p class="sec-desc">Silverback acquires raw behavioural data from independent AI-powered consumer engagement platforms. Hundreds of thousands of UK consumers complete weekly check-ins with a conversational AI coach, answering questions about their habits, preferences, triggers, and brand relationships. Every conversation is processed through our intelligence pipeline and delivered to your dashboard within 48 hours.</p>
 
-    <div class="intel-grid">
-      <div class="intel-card">
-        <div class="intel-icon">DEM</div>
-        <h3>Demographics &amp; Cohort Analysis</h3>
-        <p>Granular segmentation across age, geography, socioeconomic indicators, smoking duration, previous switching attempts, and motivation scoring. Enables precision targeting at the postcode district level.</p>
-        <div class="intel-meta">
-          <div><span class="intel-meta-label">Refresh</span></div>
-          <div><span class="intel-meta-value">Real-time</span></div>
-        </div>
+    <div class="explain-grid">
+      <div class="explain-text">
+        <h3>Your competitors are guessing. Your consumers are talking to us.</h3>
+        <p>Traditional market research gives you what people say they do. Purchase data gives you what they bought, but not why. Social listening gives you curated performance, not reality.</p>
+        <p>Silverback gives you <span class="highlight">honest, unguarded behavioural truth</span> from hundreds of thousands of verified, demographically profiled UK consumers who voluntarily share detailed information about their habits every single week.</p>
+        <p>When someone tells our AI coach <span class="highlight">"I had three Red Bulls this week because I was exhausted from working late, I usually drink Monster but they were out"</span>, that single sentence generates intelligence for energy drinks, caffeine, workplace stress, brand loyalty, competitor switching, and occasion mapping.</p>
+        <p>You are not buying a survey. You are licensing access to a <span class="highlight">living, breathing intelligence ecosystem</span> that gets smarter every week.</p>
       </div>
-      <div class="intel-card">
-        <div class="intel-icon">SAT</div>
-        <h3>Product Satisfaction Intelligence</h3>
-        <p>Real-time NPS and satisfaction scoring across device categories, flavour variants, hardware performance metrics, and competitive product comparisons. Replaces 6-month focus group cycles with 48-hour feedback loops.</p>
-        <div class="intel-meta">
-          <div><span class="intel-meta-label">Refresh</span></div>
-          <div><span class="intel-meta-value">48hrs</span></div>
+      <div class="explain-terminal">
+        <div class="explain-terminal-bar">
+          <div class="term-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+          <div class="term-title">silverback-pipeline // live ingestion</div>
         </div>
-      </div>
-      <div class="intel-card">
-        <div class="intel-icon">RET</div>
-        <h3>Retention &amp; Relapse Analytics</h3>
-        <p>Exact emotional, environmental, and social triggers correlated with product abandonment. Predictive relapse modelling enables proactive intervention before churn materialises in sales data.</p>
-        <div class="intel-meta">
-          <div><span class="intel-meta-label">Refresh</span></div>
-          <div><span class="intel-meta-value">Weekly</span></div>
-        </div>
-      </div>
-      <div class="intel-card">
-        <div class="intel-icon">CMP</div>
-        <h3>Competitive Intelligence</h3>
-        <p>First-party data on competitor consideration, trial, and switching motivations. Price sensitivity thresholds, product complaints, promotional response elasticity, and share-of-voice tracking across categories.</p>
-        <div class="intel-meta">
-          <div><span class="intel-meta-label">Refresh</span></div>
-          <div><span class="intel-meta-value">Weekly</span></div>
-        </div>
-      </div>
-      <div class="intel-card">
-        <div class="intel-icon">PRD</div>
-        <h3>Predictive Demand Modelling</h3>
-        <p>Longitudinal behavioural patterns enabling purchase prediction, seasonal demand modelling, cross-sell propensity scoring, and category migration forecasting. Confidence intervals tighten with each data cycle.</p>
-        <div class="intel-meta">
-          <div><span class="intel-meta-label">Refresh</span></div>
-          <div><span class="intel-meta-value">Monthly</span></div>
-        </div>
-      </div>
-      <div class="intel-card">
-        <div class="intel-icon">R&D</div>
-        <h3>Product Development Feedback</h3>
-        <p>Direct consumer signal on product concepts, flavour gaps, device improvement priorities, and unmet needs. Concept validation in days rather than quarters. Continuous feedback loop from engaged, verified consumers.</p>
-        <div class="intel-meta">
-          <div><span class="intel-meta-label">Refresh</span></div>
-          <div><span class="intel-meta-value">On-demand</span></div>
+        <div class="explain-terminal-body">
+          <div class="tl"><span class="to">[ingest]</span> <span class="tc">New conversation batch received</span></div>
+          <div class="tl"><span class="to">[ingest]</span> <span class="tc">Profiles in batch: <span class="tv">14,218</span></span></div>
+          <div class="tl"><span class="to">[anon]</span> <span class="tc">PII stripped. k-anonymity: <span class="tv">k=50</span></span></div>
+          <div class="tl"><span class="to">[nlp]</span> <span class="tc">Entity extraction: <span class="tv">237,412 datapoints</span></span></div>
+          <div class="tl"><span class="to">[class]</span> <span class="tk">nicotine</span> <span class="tc">42,891 signals</span></div>
+          <div class="tl"><span class="to">[class]</span> <span class="tb">caffeine</span> <span class="tc">28,104 signals</span></div>
+          <div class="tl"><span class="to">[class]</span> <span class="tk">alcohol</span> <span class="tc">19,447 signals</span></div>
+          <div class="tl"><span class="to">[class]</span> <span class="tb">nutrition</span> <span class="tc">34,221 signals</span></div>
+          <div class="tl"><span class="to">[class]</span> <span class="tk">stress/mental</span> <span class="tc">51,893 signals</span></div>
+          <div class="tl"><span class="to">[class]</span> <span class="tb">exercise</span> <span class="tc">15,772 signals</span></div>
+          <div class="tl"><span class="to">[enrich]</span> <span class="tc">Longitudinal match: <span class="tv">94.2% linked</span></span></div>
+          <div class="tl"><span class="tp">$</span> <span class="tc">Pipeline complete. Dashboard updated.</span> <span class="tcur"></span></div>
         </div>
       </div>
     </div>
   </section>
 </div>
 
-<!-- PIPELINE -->
-<section id="pipeline" class="pipeline">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-tag">Intelligence Pipeline</div>
-      <h2 class="section-title">From raw signal to enterprise-grade insight.</h2>
-      <p class="section-desc">Our five-stage pipeline processes millions of unstructured conversational data points into standardised, queryable intelligence products. Each stage adds value. Each layer is independently auditable.</p>
-    </div>
+<div class="rule"></div>
 
-    <div class="pipeline-flow">
-      <div class="pipeline-step">
-        <div class="pipeline-node">01</div>
-        <h4>Ingest</h4>
-        <p>Raw conversational data acquired from source platforms. 12 to 20 verified datapoints per user interaction.</p>
+<!-- DATA CATEGORIES -->
+<div class="wrap">
+  <section id="data">
+    <div class="sec-tag">The Data Asset</div>
+    <h2 class="sec-h2">Eight categories of behavioural intelligence from every conversation.</h2>
+    <p class="sec-desc">A single weekly check-in generates cross-category data simultaneously. Your intelligence contract covers the categories relevant to your business. One data source. Multiple verticals. Zero incremental acquisition cost.</p>
+
+    <div class="data-cats">
+      <div class="data-cat">
+        <div class="cat-icon green">NIC</div>
+        <h4>Nicotine &amp; Tobacco</h4>
+        <p>Smoking habits, product preferences, device satisfaction, switching triggers, brand loyalty, relapse patterns, flavour preferences.</p>
+        <div class="cat-points">~42k signals / batch</div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-node">02</div>
-        <h4>Anonymise</h4>
-        <p>PII stripped at source. k-anonymity and differential privacy applied. GDPR-compliant by architecture, not policy.</p>
+      <div class="data-cat">
+        <div class="cat-icon blue">CAF</div>
+        <h4>Caffeine &amp; Energy</h4>
+        <p>Coffee consumption frequency, energy drink brands, caffeine dependency patterns, time-of-day usage, emotional triggers, spend behaviour.</p>
+        <div class="cat-points">~28k signals / batch</div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-node">03</div>
-        <h4>Process</h4>
-        <p>NLP extraction, sentiment analysis, entity recognition, and behavioural pattern classification via proprietary models.</p>
+      <div class="data-cat">
+        <div class="cat-icon amber">ALC</div>
+        <h4>Alcohol &amp; Occasions</h4>
+        <p>Drinking frequency, social contexts, brand preferences, moderation intent, occasion mapping, pub vs home consumption, spending patterns.</p>
+        <div class="cat-points">~19k signals / batch</div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-node">04</div>
-        <h4>Enrich</h4>
-        <p>Cross-referencing against longitudinal user history. Temporal pattern detection. Cohort correlation. Anomaly flagging.</p>
+      <div class="data-cat">
+        <div class="cat-icon purple">NUT</div>
+        <h4>Nutrition &amp; Food</h4>
+        <p>Meal patterns, snacking behaviour, comfort eating triggers, cravings, weight management, brand preferences, dietary changes, convenience food adoption.</p>
+        <div class="cat-points">~34k signals / batch</div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-node">05</div>
-        <h4>License</h4>
-        <p>Structured intelligence delivered via real-time dashboard, weekly reports, API access, and natural language query engine.</p>
+      <div class="data-cat">
+        <div class="cat-icon cyan">FIT</div>
+        <h4>Exercise &amp; Fitness</h4>
+        <p>Activity frequency, sport preferences, gym membership, supplement usage, protein intake, fitness goals, barriers to exercise, wearable adoption.</p>
+        <div class="cat-points">~16k signals / batch</div>
+      </div>
+      <div class="data-cat">
+        <div class="cat-icon red">MHW</div>
+        <h4>Stress &amp; Mental Health</h4>
+        <p>Stress triggers, anxiety patterns, coping mechanisms, mood tracking, sleep quality, self-medication, emotional consumption patterns.</p>
+        <div class="cat-points">~52k signals / batch</div>
+      </div>
+      <div class="data-cat">
+        <div class="cat-icon green">SLP</div>
+        <h4>Sleep &amp; Recovery</h4>
+        <p>Sleep quality, bedtime routines, sleep aid usage, correlation with substance use, lifestyle factors, morning energy levels, product awareness.</p>
+        <div class="cat-points">~21k signals / batch</div>
+      </div>
+      <div class="data-cat">
+        <div class="cat-icon blue">FIN</div>
+        <h4>Spending &amp; Sensitivity</h4>
+        <p>Price sensitivity thresholds, spending habits, value perception, brand premium willingness, financial stress indicators, budget constraints.</p>
+        <div class="cat-points">~18k signals / batch</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="rule"></div>
+
+<!-- SECTOR VERTICALS -->
+<section id="verticals" class="dark-section">
+  <div class="wrap">
+    <div class="sec-tag">Sector Intelligence</div>
+    <h2 class="sec-h2">Your industry. Your questions. Our data does the heavy lifting.</h2>
+    <p class="sec-desc">Every dashboard is customised to your business requirements. You define the intelligence products. We configure the extraction, processing, and reporting pipeline to deliver exactly what you need. No generic reports. No irrelevant noise.</p>
+
+    <div class="verticals-grid">
+      <div class="vertical-card">
+        <div class="v-color" style="background: linear-gradient(90deg, var(--green), transparent);"></div>
+        <h4>Energy Drinks &amp; Caffeine</h4>
+        <div class="v-sub">FMCG / Beverage</div>
+        <p>Understand why hundreds of thousands of consumers choose your competitor's energy drink over yours. Emotional triggers, occasion mapping, brand switching behaviour, caffeine dependency patterns, and price elasticity, all from verified weekly conversations, not one-off surveys.</p>
+        <div class="v-example">
+          <span class="qp">&gt;</span> "Which demographic segments in Manchester consume 5+ energy drinks per week, and what are their top 3 brand switching triggers?"
+        </div>
+        <div class="v-tags">
+          <span class="v-tag">Brand Loyalty</span>
+          <span class="v-tag">Occasion Mapping</span>
+          <span class="v-tag">Price Sensitivity</span>
+          <span class="v-tag">Addiction Patterns</span>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="v-color" style="background: linear-gradient(90deg, var(--blue), transparent);"></div>
+        <h4>Pharmaceutical &amp; Consumer Health</h4>
+        <div class="v-sub">Pharma / OTC / Wellness</div>
+        <p>Real-world behavioural data on when and why consumers reach for OTC remedies. Stress-to-medication pathways. Self-medication patterns. Supplement adoption triggers. Health goal tracking. Replace six-month focus group cycles with 48-hour intelligence loops.</p>
+        <div class="v-example">
+          <span class="qp">&gt;</span> "What percentage of users aged 25-40 self-medicate for stress with OTC sleep aids, and what brands are they choosing?"
+        </div>
+        <div class="v-tags">
+          <span class="v-tag">Self-Medication</span>
+          <span class="v-tag">Health Triggers</span>
+          <span class="v-tag">Supplement Usage</span>
+          <span class="v-tag">R&amp;D Feedback</span>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="v-color" style="background: linear-gradient(90deg, var(--amber), transparent);"></div>
+        <h4>Alcohol &amp; Spirits</h4>
+        <div class="v-sub">Beverage / Hospitality</div>
+        <p>First-party behavioural data on alcohol consumption in context. Not what people bought, but why they drank it, where, with whom, how much, and how they felt about it afterward. Occasion intelligence that transforms category planning.</p>
+        <div class="v-example">
+          <span class="qp">&gt;</span> "Show alcohol consumption patterns correlated with football match days across Northern England postcodes"
+        </div>
+        <div class="v-tags">
+          <span class="v-tag">Occasion Intelligence</span>
+          <span class="v-tag">Social Context</span>
+          <span class="v-tag">Moderation Trends</span>
+          <span class="v-tag">Brand Preference</span>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="v-color" style="background: linear-gradient(90deg, var(--purple), transparent);"></div>
+        <h4>Supplements &amp; Wellness</h4>
+        <div class="v-sub">Health / DTC / Retail</div>
+        <p>Health-conscious consumers actively trying to improve their wellbeing. Energy levels, sleep quality, exercise habits, supplement usage, vitamin adoption, protein intake, and wellness goal tracking from verified profiles, not Instagram claims.</p>
+        <div class="v-example">
+          <span class="qp">&gt;</span> "What wellness supplements are users adopting in their first 90 days, and what health goals are driving the purchase?"
+        </div>
+        <div class="v-tags">
+          <span class="v-tag">Supplement Adoption</span>
+          <span class="v-tag">Health Goals</span>
+          <span class="v-tag">Energy Levels</span>
+          <span class="v-tag">Fitness Crossover</span>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="v-color" style="background: linear-gradient(90deg, var(--cyan), transparent);"></div>
+        <h4>Food &amp; FMCG</h4>
+        <div class="v-sub">CPG / Retail / QSR</div>
+        <p>Cravings, meal patterns, comfort eating triggers, snacking behaviour, and brand preferences captured in honest conversation, not observed purchase. Understand the emotional drivers behind food choices at postcode-level resolution.</p>
+        <div class="v-example">
+          <span class="qp">&gt;</span> "Which meal replacement brands are gaining consideration among males 30-45 in urban postcodes, and why?"
+        </div>
+        <div class="v-tags">
+          <span class="v-tag">Cravings</span>
+          <span class="v-tag">Meal Patterns</span>
+          <span class="v-tag">Brand Switching</span>
+          <span class="v-tag">Comfort Eating</span>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="v-color" style="background: linear-gradient(90deg, var(--red), transparent);"></div>
+        <h4>Insurance &amp; Financial Services</h4>
+        <div class="v-sub">Health Insurance / Rewards</div>
+        <p>Behavioural health data that feeds risk models and reward programmes. Lifestyle change trajectories, exercise adoption, substance reduction patterns, and health improvement metrics tracked longitudinally across verified consumer cohorts.</p>
+        <div class="v-example">
+          <span class="qp">&gt;</span> "What is the average improvement in self-reported health score across users who maintain 6+ months active engagement?"
+        </div>
+        <div class="v-tags">
+          <span class="v-tag">Risk Modelling</span>
+          <span class="v-tag">Lifestyle Trajectories</span>
+          <span class="v-tag">Health Metrics</span>
+          <span class="v-tag">Behavioural Rewards</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DATA SCHEMA -->
-<div class="container">
-  <section id="schema">
-    <div class="section-header">
-      <div class="section-tag">Data Schema</div>
-      <h2 class="section-title">Structured for enterprise integration.</h2>
-      <p class="section-desc">Our intelligence schema is designed for direct ingestion into existing BI infrastructure. JSON and flat-file export available for all endpoints.</p>
-    </div>
+<!-- DASHBOARD -->
+<div class="wrap">
+  <section id="dashboard" class="dash-section">
+    <div class="sec-tag">Your Dashboard</div>
+    <h2 class="sec-h2">A personalised intelligence console configured for your business.</h2>
+    <p class="sec-desc">Every client receives a bespoke dashboard tuned to their sector, their products, and their questions. Ask anything in plain English. Get AI-generated analysis with confidence scoring. Set custom alerts. Generate automated reports. The platform does the heavy lifting.</p>
 
-    <div class="schema-block">
-      <div class="schema-header">
-        <div class="schema-header-left">
-          <div class="schema-badge">Schema v3.1</div>
-          <div class="schema-title-text">behavioural_intelligence.user_cohort</div>
+    <div class="dash-preview">
+      <div class="dash-bar">
+        <div class="dash-bar-left">
+          <div class="dash-bar-tabs">
+            <div class="dash-tab active">AI Query</div>
+            <div class="dash-tab">Heatmap</div>
+            <div class="dash-tab">Trends</div>
+            <div class="dash-tab">Alerts</div>
+            <div class="dash-tab">Reports</div>
+          </div>
         </div>
-        <div class="schema-status">
-          <span class="status-dot"></span>
-          Production
+        <div class="dash-bar-right">
+          <span class="nav-dot"></span> Live Data
         </div>
       </div>
-      <div class="schema-body">
-        <div class="schema-row schema-row-header">
-          <div class="schema-cell">Field</div>
-          <div class="schema-cell">Type</div>
-          <div class="schema-cell">Description</div>
-          <div class="schema-cell">Frequency</div>
+      <div class="dash-body">
+        <div class="dash-query-box">
+          <span class="dash-query-icon">&gt;</span>
+          <div class="dash-query-text"><em>Why have energy drink mentions dropped 18% in Birmingham postcodes this month?</em></div>
         </div>
-        <div class="schema-row">
-          <div class="schema-cell">cohort_id</div>
-          <div class="schema-cell"><span class="type">uuid</span></div>
-          <div class="schema-cell">Anonymised cohort identifier</div>
-          <div class="schema-cell"><span class="freq">Immutable</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">geo_cluster</div>
-          <div class="schema-cell"><span class="type">enum</span></div>
-          <div class="schema-cell">Postcode district aggregation (min. k=50)</div>
-          <div class="schema-cell"><span class="freq">Weekly</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">satisfaction_index</div>
-          <div class="schema-cell"><span class="type">float[0,1]</span></div>
-          <div class="schema-cell">Weighted product satisfaction composite score</div>
-          <div class="schema-cell"><span class="freq">Real-time</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">churn_probability</div>
-          <div class="schema-cell"><span class="type">float[0,1]</span></div>
-          <div class="schema-cell">30-day rolling churn risk prediction</div>
-          <div class="schema-cell"><span class="freq">Daily</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">trigger_vector</div>
-          <div class="schema-cell"><span class="type">array&lt;str&gt;</span></div>
-          <div class="schema-cell">Classified relapse triggers (emotional, social, environmental)</div>
-          <div class="schema-cell"><span class="freq">Weekly</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">product_affinity</div>
-          <div class="schema-cell"><span class="type">json</span></div>
-          <div class="schema-cell">Category, brand, and variant preference scoring</div>
-          <div class="schema-cell"><span class="freq">Weekly</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">competitive_exposure</div>
-          <div class="schema-cell"><span class="type">json</span></div>
-          <div class="schema-cell">Competitor consideration, trial, and switching intent signals</div>
-          <div class="schema-cell"><span class="freq">Weekly</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">xsell_propensity</div>
-          <div class="schema-cell"><span class="type">float[0,1]</span></div>
-          <div class="schema-cell">Cross-category purchase probability scoring</div>
-          <div class="schema-cell"><span class="freq">Monthly</span></div>
-        </div>
-        <div class="schema-row">
-          <div class="schema-cell">ltv_estimate</div>
-          <div class="schema-cell"><span class="type">decimal</span></div>
-          <div class="schema-cell">Projected 36-month consumer lifetime value</div>
-          <div class="schema-cell"><span class="freq">Monthly</span></div>
+        <div class="dash-results">
+          <div class="dash-card">
+            <div class="dash-card-label">Mention Volume (30d)</div>
+            <div class="dash-card-val">14,281</div>
+            <div class="dash-card-note">&darr; 18.2% vs prior period</div>
+            <div class="dash-card-bar"><div class="dash-card-bar-fill" style="width: 62%; background: var(--amber);"></div></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-label">Primary Driver</div>
+            <div class="dash-card-val" style="font-size: 16px; line-height: 1.4;">Price Increase</div>
+            <div class="dash-card-note">78% correlation coefficient</div>
+            <div class="dash-card-bar"><div class="dash-card-bar-fill" style="width: 78%; background: var(--red);"></div></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-label">Competitor Gaining</div>
+            <div class="dash-card-val" style="font-size: 16px; line-height: 1.4;">Brand C</div>
+            <div class="dash-card-note">&uarr; 23% share of mentions</div>
+            <div class="dash-card-bar"><div class="dash-card-bar-fill" style="width: 23%; background: var(--blue);"></div></div>
+          </div>
+          <div class="dash-insight">
+            <div class="dash-insight-label"><span class="nav-dot"></span> AI Analysis</div>
+            <p>Birmingham postcodes B14, B15, and B29 show a concentrated drop in energy drink mentions following the January price increase from &pound;1.29 to &pound;1.49 at major retailers. Users in the 18-24 cohort are most affected, with 34% explicitly mentioning price as the switching trigger. Brand C is capturing displaced volume through its &pound;1.00 promotional pricing at Tesco Metro locations in these postcodes. Recommended response: targeted promotional activity in B14/B15/B29 with price-match positioning. Expected recovery: 60-70% of lost mentions within 4 weeks of intervention.</p>
+            <div class="confidence">Confidence: 91.4% | Sources: 2,847 conversations | Last updated: 2 hours ago</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </div>
 
-<div class="sep"></div>
+<div class="rule"></div>
 
-<!-- DELIVERY & ARCHITECTURE -->
-<div class="container">
+<!-- EXCLUSIVITY / PRICING -->
+<section id="pricing" class="dark-section">
+  <div class="wrap">
+    <div class="sec-tag">Access Model</div>
+    <h2 class="sec-h2">Sector exclusivity. First mover locks out every competitor.</h2>
+    <p class="sec-desc">Each sector has one exclusive licence holder. Once taken, no competitor in that category can access the intelligence. Four sectors are already committed to founding partners. Remaining high-value sectors are available now.</p>
+
+    <div class="sector-status-grid">
+      <div class="sector-status-card taken">
+        <div class="sector-status-icon" style="background: var(--red-glow); color: var(--red); border: 1px solid rgba(239,68,68,0.15);">NIC</div>
+        <div class="sector-name">Cigarettes</div>
+        <div class="sector-sub">5-year exclusive committed</div>
+      </div>
+      <div class="sector-status-card taken">
+        <div class="sector-status-icon" style="background: var(--red-glow); color: var(--red); border: 1px solid rgba(239,68,68,0.15);">HTP</div>
+        <div class="sector-name">Heated Tobacco</div>
+        <div class="sector-sub">5-year exclusive committed</div>
+      </div>
+      <div class="sector-status-card taken">
+        <div class="sector-status-icon" style="background: var(--red-glow); color: var(--red); border: 1px solid rgba(239,68,68,0.15);">VAP</div>
+        <div class="sector-name">Vapes</div>
+        <div class="sector-sub">5-year exclusive committed</div>
+      </div>
+      <div class="sector-status-card taken">
+        <div class="sector-status-icon" style="background: var(--red-glow); color: var(--red); border: 1px solid rgba(239,68,68,0.15);">NPC</div>
+        <div class="sector-name">Nicotine Pouches</div>
+        <div class="sector-sub">5-year exclusive committed</div>
+      </div>
+    </div>
+
+    <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #ffffff;">Available Sectors</h3>
+    <p style="font-size: 14px; color: #8a8f9c; margin-bottom: 0; max-width: 560px;">The following high-value sectors are open for exclusive partnership. Each licence locks out every competitor in the category for the duration of the agreement. First mover secures the slot.</p>
+
+    <div class="avail-grid">
+      <div class="avail-card">
+        <h4>Energy Drinks &amp; Caffeine</h4>
+        <div class="avail-sub">FMCG / Beverage</div>
+        <p>Consumption frequency, brand switching triggers, caffeine dependency patterns, occasion mapping, price elasticity, emotional drivers, competitive intelligence across all major brands.</p>
+        <div class="avail-val">~28k signals per batch</div>
+      </div>
+      <div class="avail-card">
+        <h4>Alcohol &amp; Spirits</h4>
+        <div class="avail-sub">Beverage / Hospitality</div>
+        <p>Drinking frequency, social context mapping, brand preferences, moderation intent, occasion intelligence, pub vs home consumption, spending patterns, and emotional triggers.</p>
+        <div class="avail-val">~19k signals per batch</div>
+      </div>
+      <div class="avail-card">
+        <h4>Pharmaceutical &amp; OTC</h4>
+        <div class="avail-sub">Pharma / Consumer Health</div>
+        <p>Self-medication patterns, OTC product preferences, supplement adoption, stress-to-treatment pathways, health goal tracking, prescription vs non-prescription choices.</p>
+        <div class="avail-val">~24k signals per batch</div>
+      </div>
+      <div class="avail-card">
+        <h4>Supplements &amp; Wellness</h4>
+        <div class="avail-sub">Health / DTC / Retail</div>
+        <p>Vitamin and supplement usage, protein intake, fitness recovery products, wellness goal tracking, energy level management, brand preferences, and adoption triggers.</p>
+        <div class="avail-val">~16k signals per batch</div>
+      </div>
+      <div class="avail-card">
+        <h4>Food &amp; FMCG</h4>
+        <div class="avail-sub">CPG / Retail / QSR</div>
+        <p>Meal patterns, snacking behaviour, comfort eating triggers, brand loyalty, dietary change tracking, convenience food adoption, cravings mapping, and weight management.</p>
+        <div class="avail-val">~34k signals per batch</div>
+      </div>
+      <div class="avail-card">
+        <h4>Insurance &amp; Financial Services</h4>
+        <div class="avail-sub">Health Insurance / Rewards</div>
+        <p>Behavioural health data for risk models and reward programmes. Lifestyle trajectories, substance reduction patterns, exercise adoption, and longitudinal health improvement metrics.</p>
+        <div class="avail-val">~18k signals per batch</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW THE PIPELINE WORKS -->
+<div class="wrap">
   <section>
-    <div class="section-header">
-      <div class="section-tag">Delivery Architecture</div>
-      <h2 class="section-title">Multiple access modalities for different operational needs.</h2>
-    </div>
+    <div class="sec-tag">Intelligence Pipeline</div>
+    <h2 class="sec-h2">From raw conversation to your dashboard in under 48 hours.</h2>
 
-    <div class="arch-grid">
-      <div class="arch-panel">
-        <h3>Real-Time Dashboard</h3>
-        <p class="subtitle">Interactive intelligence console for analysts and decision-makers.</p>
-        <ul class="arch-list">
-          <li>Natural language query engine. Ask questions in plain English, receive AI-generated analysis with confidence scoring and source attribution</li>
-          <li>Regional heatmaps with drill-down to postcode district level. Real-time anomaly highlighting</li>
-          <li>Competitive intelligence view with brand mention tracking, switching motivation analysis, and market response recommendations</li>
-          <li>Custom alert configuration for churn threshold breaches, competitive events, and sentiment shifts</li>
-        </ul>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">01</div>
+        <h4>Acquire</h4>
+        <p>Raw conversational data acquired from independent AI engagement platforms. Hundreds of thousands of verified weekly interactions. 12-20 datapoints per conversation across all categories simultaneously.</p>
       </div>
-      <div class="arch-panel">
-        <h3>Weekly Intelligence Report</h3>
-        <p class="subtitle">Structured briefing delivered to your team every Monday 06:00 UTC.</p>
-        <ul class="arch-list">
-          <li>Active user growth metrics with month-on-month and region-by-region breakdowns</li>
-          <li>Product conversion rates, TEREA variant performance, device satisfaction scoring</li>
-          <li>Competitive threat assessment: promotions detected, switching signals identified, response recommendations</li>
-          <li>Priority actions ranked by projected revenue impact with confidence intervals</li>
-        </ul>
+      <div class="how-step">
+        <div class="how-step-num">02</div>
+        <h4>Anonymise &amp; Classify</h4>
+        <p>PII stripped at source. k-anonymity and differential privacy applied. NLP extraction classifies signals into your sector's intelligence categories. Entity recognition identifies brands, products, and occasions.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">03</div>
+        <h4>Enrich &amp; Model</h4>
+        <p>Cross-referencing against longitudinal history. Cohort pattern detection. Predictive modelling for churn, switching, and demand. Anomaly detection flags emerging trends before they appear in sales data.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">04</div>
+        <h4>Deliver</h4>
+        <p>Processed intelligence served to your personalised dashboard. Weekly automated reports to your inbox. Custom alerts for threshold breaches. Natural language query engine for ad-hoc analysis. API access for BI integration.</p>
       </div>
     </div>
   </section>
 </div>
 
-<div class="sep"></div>
-
-<!-- USE CASES / APPLICATIONS -->
-<div class="container">
-  <section id="applications">
-    <div class="section-header">
-      <div class="section-tag">Applications</div>
-      <h2 class="section-title">Intelligence that drives operational decisions.</h2>
-      <p class="section-desc">Every query returns actionable intelligence with confidence scoring, temporal context, and recommended next steps. Not data. Decisions.</p>
-    </div>
-
-    <div class="use-cases">
-      <div class="use-case">
-        <div class="use-case-num">01</div>
-        <h4>Customer Acquisition</h4>
-        <p>Identify highest-conversion consumer segments by geography, demographics, and behavioural profile. Optimise acquisition spend against verified conversion data rather than modelled estimates.</p>
-        <div class="use-case-query"><span>$</span> sb query "Which demographic segments in the Midlands show highest 90-day IQOS conversion rates?"</div>
-      </div>
-      <div class="use-case">
-        <div class="use-case-num">02</div>
-        <h4>Retention Intervention</h4>
-        <p>Predict churn 30 days before it materialises in sales data. Trigger personalised retention actions based on the specific trigger profile of at-risk cohorts. Reduce preventable attrition by intervening upstream.</p>
-        <div class="use-case-query"><span>$</span> sb query "Flag all cohorts with churn_probability > 0.7 where trigger_vector includes 'price_sensitivity'"</div>
-      </div>
-      <div class="use-case">
-        <div class="use-case-num">03</div>
-        <h4>Competitive Response</h4>
-        <p>Real-time detection of competitor promotional activity through first-party consumer signals. Understand not just what competitors did, but why it worked and which of your customers were affected.</p>
-        <div class="use-case-query"><span>$</span> sb query "Summarise all competitive_exposure events in Manchester M14/M15/M20 in the last 14 days"</div>
-      </div>
-      <div class="use-case">
-        <div class="use-case-num">04</div>
-        <h4>Product Development</h4>
-        <p>Direct consumer signal on unmet needs, feature requests, and pain points. Validate product concepts against verified user preferences in days, not quarters. Prioritise R&D investment against real demand data.</p>
-        <div class="use-case-query"><span>$</span> sb query "What are the top 5 device improvement requests ranked by mention frequency and satisfaction impact?"</div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div class="sep"></div>
+<div class="rule"></div>
 
 <!-- COMPLIANCE -->
-<div class="container">
-  <section id="compliance">
-    <div class="section-header">
-      <div class="section-tag">Compliance &amp; Governance</div>
-      <h2 class="section-title">Compliant by architecture, not by policy.</h2>
-      <p class="section-desc">Our data processing pipeline is designed with privacy and regulatory compliance built into the infrastructure layer. Aggregated intelligence products are not subject to individual data deletion requests.</p>
-    </div>
+<div class="wrap">
+  <section>
+    <div class="sec-tag">Compliance &amp; Data Governance</div>
+    <h2 class="sec-h2">GDPR compliant by architecture, not by policy.</h2>
 
-    <div class="compliance-grid">
-      <div class="compliance-card">
-        <div class="compliance-icon">&shield;</div>
-        <h4>GDPR Compliant</h4>
-        <p>All intelligence products are derived from anonymised, aggregated data. PII is stripped at source before entering the Silverback processing pipeline. Individual data subjects cannot be re-identified from output intelligence.</p>
+    <div class="comp-row">
+      <div class="comp-card">
+        <h4>Anonymised at Source</h4>
+        <p>All personally identifiable information is stripped before entering the Silverback pipeline. Intelligence products contain no individual-level data. Subjects cannot be re-identified from output intelligence.</p>
       </div>
-      <div class="compliance-card">
-        <div class="compliance-icon">&crarr;</div>
+      <div class="comp-card">
+        <h4>Aggregated Intelligence</h4>
+        <p>You license processed, aggregated behavioural patterns, not personal data. k-anonymity enforcement ensures minimum cohort sizes. Individual GDPR deletion requests do not affect aggregated intelligence products.</p>
+      </div>
+      <div class="comp-card">
         <h4>Arm's Length Architecture</h4>
-        <p>Enterprise clients contract exclusively with Silverback Intelligence. No direct relationship with upstream data sources. Complete commercial and operational separation at every layer of the value chain.</p>
+        <p>Your contract is exclusively with Silverback Intelligence. No direct relationship with upstream data sources. Complete commercial and operational separation. Clean audit trail at every layer.</p>
       </div>
-      <div class="compliance-card">
-        <div class="compliance-icon">&check;</div>
-        <h4>Audit-Ready</h4>
-        <p>Full audit trail on data provenance, processing steps, and licensing terms. Monthly reconciliation reports with verified active user counts. Independent verification available on request.</p>
+      <div class="comp-card">
+        <h4>Consent by Design</h4>
+        <p>Multi-layer consent architecture from platform sign-up through enhanced data engagement. Users voluntarily opt in to broader lifestyle data sharing. Incentivised participation ensures data quality and ethical compliance.</p>
       </div>
     </div>
   </section>
 </div>
 
+<div class="rule-glow"></div>
+
 <!-- CTA -->
-<div class="container">
+<div class="wrap">
   <section id="contact" class="cta-section">
-    <div class="section-tag" style="justify-content: center;">Enterprise Access</div>
-    <h2>Intelligence access is by application only.</h2>
-    <p>Silverback operates on exclusive licensing terms. Contact our enterprise team to discuss data availability, vertical coverage, and pricing structure for your organisation.</p>
-    <div class="cta-actions">
-      <a href="mailto:enterprise@silverbackintel.com" class="btn-primary">Request Access</a>
-      <a href="#" class="btn-ghost">Download Technical Brief</a>
+    <div class="sec-tag" style="justify-content: center;">Enterprise Access</div>
+    <h2>Your competitor is reading this page too.</h2>
+    <p>Category exclusivity is first-come, first-served. One contract per sector locks out every competitor in your category. The intelligence compounds. The advantage widens. The window is open now.</p>
+    <div class="cta-btns">
+      <a href="mailto:enquiries@silverbackintel.com" class="btn-fill">Request Access</a>
+      <a href="#verticals" class="btn-line">View Available Sectors</a>
     </div>
   </section>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
+  <div class="wrap">
     <div class="footer-inner">
-      <div class="footer-left">&copy; 2026 Silverback Intelligence Inc. Nassau, Bahamas. All rights reserved.</div>
-      <div class="footer-right">
+      <div class="footer-text">&copy; 2026 Silverback Intelligence Inc. Nassau, Bahamas. All rights reserved.</div>
+      <div class="footer-links">
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
-        <a href="#">Compliance</a>
-        <a href="#">Status</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-</body>
-</html>
+        <a href="#">Data Governance</a>
