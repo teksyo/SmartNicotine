@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silverback Intelligence | Privacy, Terms &amp; Data Governance</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060709;
+  --bg-2: #0b0d10;
+  --bg-3: #101216;
+  --border: #1a1d25;
+  --border-2: #242830;
+  --text: #f0f1f4;
+  --text-2: #b0b5c0;
+  --text-3: #7a8090;
+  --text-4: #4a5060;
+  --green: #22c55e;
+  --green-dim: #166534;
+  --green-glow: rgba(34, 197, 94, 0.07);
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Space Grotesk', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--green); color: #000; }
+
+.bg-noise {
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1;
+}
+
+.bg-grid {
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(34, 197, 94, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.015) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none; z-index: 1;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 10; }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(6, 7, 9, 0.88);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between; height: 64px;
+}
+.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-icon {
+  width: 28px; height: 28px; border: 2px solid var(--green); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--green);
+}
+.nav-name {
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text);
+}
+.nav-name span { color: var(--text-3); font-weight: 400; margin-left: 6px; font-size: 11px; }
+.nav-back {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3);
+  text-decoration: none; transition: color 0.3s;
+}
+.nav-back:hover { color: var(--green); }
+
+/* CONTENT */
+.legal-page { padding: 140px 0 100px; }
+.legal-page h1 {
+  font-size: 36px; font-weight: 700; color: #ffffff;
+  margin-bottom: 8px; letter-spacing: -0.02em;
+}
+.legal-meta {
+  font-family: var(--mono); font-size: 11px; color: var(--text-4);
+  letter-spacing: 0.06em; margin-bottom: 56px;
+}
+.legal-section { margin-bottom: 48px; max-width: 760px; }
+.legal-section h2 {
+  font-size: 20px; font-weight: 700; color: #ffffff;
+  margin-bottom: 16px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.legal-section h2:first-child { border-top: none; padding-top: 0; }
+.legal-section h3 {
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--green);
+  margin-top: 24px; margin-bottom: 8px;
+}
+.legal-section p {
+  font-size: 15px; color: var(--text-2); line-height: 1.8; margin-bottom: 12px;
+}
+.legal-section ul {
+  list-style: none; margin-bottom: 16px; padding-left: 0;
+}
+.legal-section ul li {
+  font-size: 14px; color: var(--text-2); line-height: 1.7;
+  padding: 4px 0 4px 20px; position: relative;
+}
+.legal-section ul li::before {
+  content: '+'; position: absolute; left: 0;
+  font-family: var(--mono); color: var(--green); font-weight: 600;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border); padding: 40px 0; position: relative; z-index: 10;
+}
+.footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.footer-text { font-family: var(--mono); font-size: 11px; color: var(--text-4); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-family: var(--mono); font-size: 10px; color: var(--text-4); text-decoration: none; letter-spacing: 0.06em; transition: color 0.3s; }
+.footer-links a:hover { color: var(--green); }
+
+@media (max-width: 640px) {
+  .wrap { padding: 0 20px; }
+  .legal-page h1 { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-noise"></div>
+<div class="bg-grid"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="silverback-intelligence-multi-vertical-website.html" class="nav-brand">
+      <div class="nav-icon">SI</div>
+      <div class="nav-name">Silverback Intelligence<span>Inc</span></div>
+    </a>
+    <a href="silverback-intelligence-multi-vertical-website.html" class="nav-back">&larr; Back to Home</a>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="wrap">
+  <div class="legal-page">
+
+    <h1>Privacy, Terms &amp; Data Governance</h1>
+    <div class="legal-meta">Silverback Intelligence Inc &middot; Nassau, Bahamas &middot; Last updated: February 2026</div>
+
+    <!-- PRIVACY POLICY -->
+    <div class="legal-section" id="privacy">
+      <h2>Privacy Policy</h2>
+
+      <h3>Who We Are</h3>
+      <p>Silverback Intelligence Inc ("Silverback", "we", "our") is a specialist behavioural data brokerage headquartered in Nassau, Bahamas. We acquire anonymised consumer data from independent third-party platforms, process it through proprietary analytics, and license the resulting intelligence to enterprise clients.</p>
+
+      <h3>What Data We Process</h3>
+      <p>Silverback does not collect data directly from consumers. We purchase anonymised, structured behavioural datasets from independent AI-powered engagement platforms under commercial supply agreements. All personally identifiable information is stripped at source by the originating platform before any data enters the Silverback pipeline.</p>
+      <p>The data we process includes:</p>
+      <ul>
+        <li>Anonymised behavioural signals (product usage, brand preferences, satisfaction ratings)</li>
+        <li>Aggregated demographic segmentation (age bands, gender, postcode district)</li>
+        <li>Classified sentiment and trend data</li>
+        <li>Longitudinal behavioural patterns across anonymised cohorts</li>
+      </ul>
+      <p>We do not process names, email addresses, phone numbers, IP addresses, payment details, or any other personally identifiable information.</p>
+
+      <h3>Legal Basis for Processing</h3>
+      <p>All upstream data collection by our source platforms operates under explicit, informed user consent compliant with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018. Users of source platforms provide multi-layer consent covering the collection, anonymisation, and licensing of aggregated behavioural intelligence to enterprise clients.</p>
+
+      <h3>How We Use the Data</h3>
+      <p>Anonymised data is processed through our NLP and analytics pipeline to produce structured intelligence products for enterprise clients. These products include sector-specific dashboards, automated reports, trend analysis, and custom research commissions. All outputs are aggregated and cannot be used to identify any individual.</p>
+
+      <h3>Data Sharing</h3>
+      <p>Intelligence products are licensed exclusively to contracted enterprise clients under sector-specific agreements. We do not sell, share, or distribute raw data. We do not share data with government agencies, advertising platforms, social media companies, or any third party outside of our contracted client relationships.</p>
+
+      <h3>Data Retention</h3>
+      <p>Anonymised behavioural data is retained for the duration of the relevant client agreement to enable longitudinal analysis. Upon contract expiry or termination, client-specific intelligence products are archived and access is revoked. Aggregated, non-attributable trend data may be retained for internal research purposes.</p>
+
+      <h3>Your Rights</h3>
+      <p>Because Silverback processes only anonymised, aggregated data that cannot be linked to any identifiable individual, individual data subject rights (access, rectification, erasure) under UK GDPR do not apply to our processed datasets. If you are a user of one of our upstream source platforms and wish to exercise your data rights, please contact that platform directly. Upon withdrawal of consent at the source platform, that user's data is excluded from all future Silverback processing.</p>
+
+      <h3>Contact</h3>
+      <p>For privacy enquiries: enquiries@silverbackintelligence.com</p>
+    </div>
+
+    <!-- TERMS -->
+    <div class="legal-section" id="terms">
+      <h2>Terms of Use</h2>
+
+      <h3>Website Use</h3>
+      <p>This website is operated by Silverback Intelligence Inc. By accessing this site, you agree to these terms. The content on this site is provided for informational purposes and does not constitute an offer, invitation, or solicitation to enter into any agreement.</p>
+
+      <h3>Intellectual Property</h3>
+      <p>All content, design, code, and materials on this website are the intellectual property of Silverback Intelligence Inc. No part of this site may be reproduced, distributed, or transmitted without prior written consent.</p>
+
+      <h3>Confidentiality</h3>
+      <p>Information shared through this website, including sector availability, pricing models, and partnership structures, is confidential and intended solely for prospective enterprise clients evaluating a data licensing relationship with Silverback Intelligence. Redistribution of this information to third parties is prohibited.</p>
+
+      <h3>No Warranty</h3>
+      <p>This website and its contents are provided "as is" without warranties of any kind. Silverback Intelligence makes no representations regarding the accuracy, completeness, or timeliness of any information presented. Projected user numbers, data volumes, and intelligence capabilities are forward-looking estimates and are not guaranteed.</p>
+
+      <h3>Governing Law</h3>
+      <p>These terms are governed by the laws of the Commonwealth of the Bahamas. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the courts of the Commonwealth of the Bahamas.</p>
+    </div>
+
+    <!-- DATA GOVERNANCE -->
+    <div class="legal-section" id="governance">
+      <h2>Data Governance Framework</h2>
+
+      <h3>Architecture-Level Compliance</h3>
+      <p>Silverback Intelligence operates a compliance-by-design data architecture. Privacy and data protection are enforced at the infrastructure level, not by policy alone. The following principles are embedded into every stage of the intelligence pipeline.</p>
+
+      <h3>Anonymisation at Source</h3>
+      <p>All personally identifiable information is stripped by the originating data platform before any data enters the Silverback pipeline. Silverback never receives, stores, or processes PII. This separation is enforced at the application layer and validated by automated compliance checks on every incoming data batch.</p>
+
+      <h3>k-Anonymity Enforcement</h3>
+      <p>All intelligence products enforce minimum cohort sizes across every reporting dimension (demographic, regional, temporal). No output can be generated for cohorts below the minimum threshold. This ensures that no individual can be re-identified from any intelligence product, regardless of the specificity of the query.</p>
+
+      <h3>Consent Architecture</h3>
+      <p>Upstream data platforms operate multi-layer consent frameworks compliant with UK GDPR and the Data Protection Act 2018. User consent covers:</p>
+      <ul>
+        <li>Collection of behavioural data for commercial research purposes</li>
+        <li>Anonymisation and processing by third-party analytics providers</li>
+        <li>Licensing of aggregated intelligence to enterprise clients</li>
+      </ul>
+      <p>Users can withdraw consent at any time via the originating platform. Upon withdrawal, that user's data is excluded from all future Silverback processing within the next batch cycle.</p>
+
+      <h3>Arm's Length Structure</h3>
+      <p>Enterprise clients contract exclusively with Silverback Intelligence. There is no direct contractual, financial, or data relationship between enterprise clients and upstream data sources. Silverback operates as an independent data broker with its own commercial agreements, margin structure, and client relationships. This architecture ensures complete separation at every layer.</p>
+
+      <h3>Audit and Transparency</h3>
+      <p>Enterprise clients receive full audit rights to verify active user counts, data methodology, and anonymisation procedures. Monthly reconciliation reports are provided as standard. Every data transformation in the pipeline is logged and traceable.</p>
+
+      <h3>Regulatory Compliance</h3>
+      <p>The entire Silverback data architecture has been reviewed and validated by independent legal counsel for compliance with:</p>
+      <ul>
+        <li>UK General Data Protection Regulation (UK GDPR)</li>
+        <li>Data Protection Act 2018</li>
+        <li>Applicable sector-specific advertising and promotion regulations</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-text">&copy; 2026 Silverback Intelligence Inc. Nassau, Bahamas. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#governance">Data Governance</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
