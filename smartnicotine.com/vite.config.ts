@@ -19,6 +19,6 @@ export default defineConfig({
     }
   },
   preview: {
-    allowedHosts: ['smartnicotine-com.onrender.com']
+    allowedHosts: ['smartnicotine-com.onrender.com', 'smartnicotine.com']
   }
 })
